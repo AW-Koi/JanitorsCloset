@@ -113,6 +113,7 @@
     <graphicData>
       <texPath>Things/Apparel/Janitor_Coveralls</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
     </graphicData>
     <techLevel>Industrial</techLevel>
     <costStuffCount>70</costStuffCount>
