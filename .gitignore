@@ -1,0 +1,21 @@
+# Build output
+Source/**/bin/
+Source/**/obj/
+
+# Built DLLs (regenerated on build)
+1.6/Assemblies/*.dll
+1.6/Assemblies/*.pdb
+
+# IDE / Rider / Visual Studio
+*.user
+*.suo
+*.DotSettings.user
+.idea/
+.vs/
+
+# NuGet
+*.nupkg
+packages/
+
+# Tools
+.claude/

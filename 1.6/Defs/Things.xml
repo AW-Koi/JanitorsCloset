@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <!-- TODO: add ThingDefs, RecipeDefs, ResearchProjectDefs, etc. here.
+         Use __DEFPREFIX___ as the prefix on every defName, e.g. <defName>__DEFPREFIX___MyItem</defName>.
+         Split into multiple files (Recipe_Def.xml, Thing_Def.xml, etc.) once it grows. -->
+</Defs>

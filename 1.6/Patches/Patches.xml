@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <!-- TODO: add XML PatchOperations here, e.g.
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="SomeVanillaThing"]/comps</xpath>
+        <value>
+            <li Class="CompProperties_Forbiddable"/>
+        </value>
+    </Operation>
+    -->
+</Patch>

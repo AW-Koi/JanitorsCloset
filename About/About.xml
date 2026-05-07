@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>__MODNAME__</name>
+  <author>__AUTHOR__</author>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <packageId>__PACKAGEID__</packageId>
+  <description>TODO: write a description for __MODNAME__.</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+</ModMetaData>
