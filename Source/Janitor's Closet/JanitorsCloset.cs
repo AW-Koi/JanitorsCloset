@@ -2,18 +2,18 @@ using HarmonyLib;
 using UnityEngine;
 using Verse;
 
-namespace __ASSEMBLY__
+namespace JanitorsCloset
 {
-    public class __ASSEMBLY__ : Mod
+    public class JanitorsCloset : Mod
     {
-        public static __ASSEMBLY__Settings Settings;
+        public static JanitorsClosetSettings Settings;
 
-        public __ASSEMBLY__(ModContentPack content) : base(content)
+        public JanitorsCloset(ModContentPack content) : base(content)
         {
-            Settings = GetSettings<__ASSEMBLY__Settings>();
+            Settings = GetSettings<JanitorsClosetSettings>();
         }
 
-        public override string SettingsCategory() => "__MODNAME__";
+        public override string SettingsCategory() => "Janitor's Closet";
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -26,7 +26,7 @@ namespace __ASSEMBLY__
         }
     }
 
-    public class __ASSEMBLY__Settings : ModSettings
+    public class JanitorsClosetSettings : ModSettings
     {
         // TODO: add settings fields, e.g.:
         // public bool SomeFlag = true;
@@ -40,12 +40,12 @@ namespace __ASSEMBLY__
     }
 
     [StaticConstructorOnStartup]
-    public static class __ASSEMBLY__Init
+    public static class JanitorsClosetInit
     {
-        static __ASSEMBLY__Init()
+        static JanitorsClosetInit()
         {
-            new Harmony("__PACKAGEID__").PatchAll();
-            Log.Message("[__MODNAME__] Harmony patches applied.");
+            new Harmony("terraincognita.janitorscloset").PatchAll();
+            Log.Message("[Janitor's Closet] Harmony patches applied.");
         }
     }
 }

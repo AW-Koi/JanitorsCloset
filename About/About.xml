@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>__MODNAME__</name>
-  <author>__AUTHOR__</author>
+  <name>Janitor's Closet</name>
+  <author>Terra Incognita</author>
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
-  <packageId>__PACKAGEID__</packageId>
-  <description>TODO: write a description for __MODNAME__.</description>
+  <packageId>terraincognita.janitorscloset</packageId>
+  <description>TODO: write a description for Janitor's Closet.</description>
   <modDependencies>
     <li>
       <packageId>brrainz.harmony</packageId>
