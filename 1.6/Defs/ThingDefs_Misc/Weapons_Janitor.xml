@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- The Mop — a janitor's primary tool, but works in a pinch as a blunt instrument. -->
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>JANITOR_Mop</defName>
+    <label>mop</label>
+    <description>A long wooden handle with a fistful of absorbent fibres at one end. Indispensable for cleaning floors, and surprisingly serviceable for bonking raiders. Swing the dirty end at the problem.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/Mop</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <uiIconScale>1.1</uiIconScale>
+    <techLevel>Industrial</techLevel>
+    <weaponClasses>
+      <li>MeleeBlunt</li>
+    </weaponClasses>
+    <costStuffCount>30</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+    </stuffCategories>
+    <costList>
+      <Cloth>15</Cloth>
+    </costList>
+    <statBases>
+      <WorkToMake>1500</WorkToMake>
+      <Mass>1.5</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.20</CleaningSpeed>
+    </equippedStatOffsets>
+    <equippedAngleOffset>-65</equippedAngleOffset>
+    <recipeMaker>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <displayPriority>250</displayPriority>
+    </recipeMaker>
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>5</power>
+        <cooldownTime>1.8</cooldownTime>
+      </li>
+      <li>
+        <label>head</label>
+        <labelUsedInLogging>false</labelUsedInLogging>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>7</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+</Defs>
