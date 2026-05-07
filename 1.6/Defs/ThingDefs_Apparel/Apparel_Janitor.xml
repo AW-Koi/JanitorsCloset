@@ -3,7 +3,7 @@
 
   <!-- Galoshes — rubber boots that stop a janitor slipping in their own filth. -->
   <ThingDef ParentName="ApparelMakeableBase">
-    <defName>JANITOR_Galoshes</defName>
+    <defName>Janitor_Galoshes</defName>
     <label>galoshes</label>
     <description>Knee-high rubber boots. Waterproof, easy to hose off, and grippy on wet floors. Standard issue for anyone whose job involves standing in puddles of unspecified origin.</description>
     <graphicData>
@@ -55,7 +55,7 @@
 
   <!-- Rubber Gloves — keeps the worst of the muck off a janitor's hands. -->
   <ThingDef ParentName="ApparelMakeableBase">
-    <defName>JANITOR_RubberGloves</defName>
+    <defName>Janitor_RubberGloves</defName>
     <label>rubber gloves</label>
     <description>Thick rubber gloves with a textured grip. Useful for handling solvents, scrubbing surfaces, and not thinking too hard about whatever you just touched.</description>
     <graphicData>
@@ -107,7 +107,7 @@
 
   <!-- Janitor's Coveralls — sturdy work uniform with deep pockets. -->
   <ThingDef ParentName="ApparelMakeableBase">
-    <defName>JANITOR_Coveralls</defName>
+    <defName>Janitor_Coveralls</defName>
     <label>janitor's coveralls</label>
     <description>A one-piece work uniform in standard janitor blue. The fabric resists stains and the deep pockets carry a surprising amount of cleaning supplies.</description>
     <graphicData>

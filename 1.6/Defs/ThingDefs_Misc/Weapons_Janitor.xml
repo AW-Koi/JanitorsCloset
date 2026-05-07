@@ -3,7 +3,7 @@
 
   <!-- The Mop — a janitor's primary tool, but works in a pinch as a blunt instrument. -->
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
-    <defName>JANITOR_Mop</defName>
+    <defName>Janitor_Mop</defName>
     <label>mop</label>
     <description>A long wooden handle with a fistful of absorbent fibres at one end. Indispensable for cleaning floors, and surprisingly serviceable for bonking raiders. Swing the dirty end at the problem.</description>
     <graphicData>
