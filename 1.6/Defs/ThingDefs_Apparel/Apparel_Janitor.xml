@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Galoshes — rubber boots that stop a janitor slipping in their own filth. -->
+  <ThingDef ParentName="ApparelMakeableBase">
+    <defName>JANITOR_Galoshes</defName>
+    <label>galoshes</label>
+    <description>Knee-high rubber boots. Waterproof, easy to hose off, and grippy on wet floors. Standard issue for anyone whose job involves standing in puddles of unspecified origin.</description>
+    <graphicData>
+      <texPath>Things/Apparel/Galoshes</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <costStuffCount>30</costStuffCount>
+    <stuffCategories>
+      <li>Fabric</li>
+      <li>Leathery</li>
+    </stuffCategories>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToMake>2400</WorkToMake>
+      <Mass>0.6</Mass>
+      <StuffEffectMultiplierArmor>0.15</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.15</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.05</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.10</CleaningSpeed>
+    </equippedStatOffsets>
+    <thingCategories>
+      <li>ApparelMisc</li>
+    </thingCategories>
+    <apparel>
+      <bodyPartGroups>
+        <li>Feet</li>
+      </bodyPartGroups>
+      <layers>
+        <li>OnSkin</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+      </defaultOutfitTags>
+    </apparel>
+    <recipeMaker>
+      <displayPriority>210</displayPriority>
+    </recipeMaker>
+    <tradeTags>
+      <li>BasicClothing</li>
+    </tradeTags>
+  </ThingDef>
+
+  <!-- Rubber Gloves — keeps the worst of the muck off a janitor's hands. -->
+  <ThingDef ParentName="ApparelMakeableBase">
+    <defName>JANITOR_RubberGloves</defName>
+    <label>rubber gloves</label>
+    <description>Thick rubber gloves with a textured grip. Useful for handling solvents, scrubbing surfaces, and not thinking too hard about whatever you just touched.</description>
+    <graphicData>
+      <texPath>Things/Apparel/RubberGloves</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <costStuffCount>20</costStuffCount>
+    <stuffCategories>
+      <li>Fabric</li>
+      <li>Leathery</li>
+    </stuffCategories>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToMake>1800</WorkToMake>
+      <Mass>0.2</Mass>
+      <StuffEffectMultiplierArmor>0.1</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.1</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.05</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.0</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.10</CleaningSpeed>
+    </equippedStatOffsets>
+    <thingCategories>
+      <li>ApparelMisc</li>
+    </thingCategories>
+    <apparel>
+      <bodyPartGroups>
+        <li>Hands</li>
+      </bodyPartGroups>
+      <layers>
+        <li>OnSkin</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+      </defaultOutfitTags>
+    </apparel>
+    <recipeMaker>
+      <displayPriority>211</displayPriority>
+    </recipeMaker>
+    <tradeTags>
+      <li>BasicClothing</li>
+    </tradeTags>
+  </ThingDef>
+
+  <!-- Janitor's Coveralls — sturdy work uniform with deep pockets. -->
+  <ThingDef ParentName="ApparelMakeableBase">
+    <defName>JANITOR_Coveralls</defName>
+    <label>janitor's coveralls</label>
+    <description>A one-piece work uniform in standard janitor blue. The fabric resists stains and the deep pockets carry a surprising amount of cleaning supplies.</description>
+    <graphicData>
+      <texPath>Things/Apparel/Coveralls</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <costStuffCount>70</costStuffCount>
+    <stuffCategories>
+      <li>Fabric</li>
+      <li>Leathery</li>
+    </stuffCategories>
+    <statBases>
+      <MaxHitPoints>110</MaxHitPoints>
+      <WorkToMake>3600</WorkToMake>
+      <Mass>0.8</Mass>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.4</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.4</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>2.0</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.10</CleaningSpeed>
+    </equippedStatOffsets>
+    <thingCategories>
+      <li>ApparelMisc</li>
+    </thingCategories>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Arms</li>
+        <li>Legs</li>
+      </bodyPartGroups>
+      <!-- Placeholder worn graphic reuses vanilla TshirtBasic body. Real art lands in v0.2. -->
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/TshirtBasic/TshirtBasic</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+      </defaultOutfitTags>
+    </apparel>
+    <recipeMaker>
+      <displayPriority>212</displayPriority>
+    </recipeMaker>
+    <tradeTags>
+      <li>BasicClothing</li>
+    </tradeTags>
+  </ThingDef>
+
+</Defs>
