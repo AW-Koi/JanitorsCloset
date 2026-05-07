@@ -68,6 +68,29 @@ The C# project is at `Source/Janitor's Closet/JanitorsCloset.csproj`. It outputs
 dotnet build "Source/Janitor's Closet/JanitorsCloset.csproj"
 ```
 
+## Dev workflow — directory junction
+
+Source lives outside the RimWorld install (here at `D:\Modding\RimWorld\JanitorsCloset\`). To make RimWorld load it, create a **directory junction** from the install's `Mods\` folder back to the source folder. Junctions are reparse points — RimWorld walks into `Mods\JanitorsCloset` and transparently reads from the source path. No copy, no sync, no upload step.
+
+```
+mklink /J "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset" "D:\Modding\RimWorld\JanitorsCloset"
+```
+
+Notes:
+- Run from `cmd` (or `cmd /c "..."` from PowerShell). `mklink` is a `cmd.exe` builtin.
+- `/J` (junction) doesn't need admin rights and works for same-volume directories. `/D` (true symbolic link) requires admin or Windows Developer Mode and is unnecessary here.
+- Adjust both paths if your RimWorld install or source folder differs.
+- Edits via either path edit the same physical files. Restart RimWorld to reload changes (XML def changes always need a full restart; C# changes always need a rebuild + restart).
+- To remove: `rmdir "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset"` — this only deletes the junction, not the source folder.
+- Workshop publishing is a separate step done via the in-game mod settings later. Junctioned mods do not need to be on Workshop to be loadable.
+
+## Iteration loop
+
+1. Edit XML defs or C# source under `D:\Modding\RimWorld\JanitorsCloset\`.
+2. If C# changed: `dotnet build` (DLL drops into `1.6\Assemblies\` and is visible in `Mods\` via the junction).
+3. Restart RimWorld.
+4. Use dev mode (`Options → Development mode`) to spawn items, inspect stats, and force-equip apparel for fast verification — see the in-game testing notes in the v0.1 section above.
+
 ## Credits
 
 - Author: Terra Incognita
