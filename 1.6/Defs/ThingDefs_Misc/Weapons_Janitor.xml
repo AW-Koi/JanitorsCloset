@@ -7,7 +7,7 @@
     <label>mop</label>
     <description>A long wooden handle with a fistful of absorbent fibres at one end. Indispensable for cleaning floors, and surprisingly serviceable for bonking raiders. Swing the dirty end at the problem.</description>
     <graphicData>
-      <texPath>Things/Item/Equipment/Mop</texPath>
+      <texPath>Things/Item/Equipment/Janitor_Mop</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>

@@ -7,7 +7,7 @@
     <label>galoshes</label>
     <description>Knee-high rubber boots. Waterproof, easy to hose off, and grippy on wet floors. Standard issue for anyone whose job involves standing in puddles of unspecified origin.</description>
     <graphicData>
-      <texPath>Things/Apparel/Galoshes</texPath>
+      <texPath>Things/Apparel/Janitor_Galoshes</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <techLevel>Industrial</techLevel>
@@ -59,7 +59,7 @@
     <label>rubber gloves</label>
     <description>Thick rubber gloves with a textured grip. Useful for handling solvents, scrubbing surfaces, and not thinking too hard about whatever you just touched.</description>
     <graphicData>
-      <texPath>Things/Apparel/RubberGloves</texPath>
+      <texPath>Things/Apparel/Janitor_RubberGloves</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <techLevel>Industrial</techLevel>
@@ -111,7 +111,7 @@
     <label>janitor's coveralls</label>
     <description>A one-piece work uniform in standard janitor blue. The fabric resists stains and the deep pockets carry a surprising amount of cleaning supplies.</description>
     <graphicData>
-      <texPath>Things/Apparel/Coveralls</texPath>
+      <texPath>Things/Apparel/Janitor_Coveralls</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <techLevel>Industrial</techLevel>
