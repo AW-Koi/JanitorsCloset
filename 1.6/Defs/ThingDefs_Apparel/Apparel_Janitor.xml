@@ -143,6 +143,7 @@
         <li>Legs</li>
       </bodyPartGroups>
       <wornGraphicPath>Things/Apparel/Janitor_Coveralls</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <layers>
         <li>Middle</li>
       </layers>
