@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Janitor_MopMark — the "damp floor" trace left when a mop-equipped janitor cleans a tile.
+    Inherits BaseFilth, so we get vanilla puddle rendering (Things/Filth/PoolSoft), the
+    fluid cleaning sound, MapMesh-flat tile-aligned drawing, and the timed disappearance
+    machinery for free.
+
+    Design intent:
+      * Distinct defName from Filth_Water — lets future systems (slip mechanics, wet-floor-
+        sign WorkGiver) target *only* mop marks without false-matching rain spatter.
+      * Visibly short-lived — fades on its own as a "the janitor was just here" cue, not a
+        chore for the next cleaner.
+      * Not meant to be cleaned by other pawns. v0.2 ships a Harmony prefix on
+        WorkGiver_CleanFilth that excludes this def from cleaning-job scans. The very
+        short lifetime here is defence-in-depth, NOT the actual enforcement.
+      * Nothing spawns Janitor_MopMark in v0.1 — the def is wired up in v0.2 alongside
+        the cleaning-job hook and wet-floor-sign WorkGiver. Defining it now keeps that
+        change purely additive on the C# side.
+  -->
+  <ThingDef ParentName="BaseFilth">
+    <defName>Janitor_MopMark</defName>
+    <label>damp floor</label>
+    <description>A patch of floor still damp from a recent mopping. It will dry on its own shortly.</description>
+    <statBases>
+      <Beauty>0</Beauty>
+      <Cleanliness>0</Cleanliness>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Filth/PoolSoft</texPath>
+      <color>(120, 146, 185, 140)</color>
+      <drawSize>2</drawSize>
+    </graphicData>
+    <filth>
+      <disappearsInDays>0.02~0.03</disappearsInDays>
+      <cleaningWorkToReduceThickness>30</cleaningWorkToReduceThickness>
+      <canFilthAttach>false</canFilthAttach>
+      <allowsFire>false</allowsFire>
+      <cleaningSound>Interact_CleanFilth_Fluid</cleaningSound>
+    </filth>
+  </ThingDef>
+
+</Defs>
