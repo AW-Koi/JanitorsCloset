@@ -142,8 +142,7 @@
         <li>Arms</li>
         <li>Legs</li>
       </bodyPartGroups>
-      <!-- Placeholder worn graphic reuses vanilla TshirtBasic body. Real art lands in v0.2. -->
-      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/TshirtBasic/TshirtBasic</wornGraphicPath>
+      <wornGraphicPath>Things/Apparel/Janitor_Coveralls</wornGraphicPath>
       <layers>
         <li>Middle</li>
       </layers>
