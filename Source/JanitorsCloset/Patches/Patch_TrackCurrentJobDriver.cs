@@ -1,5 +1,6 @@
 using System;
 using HarmonyLib;
+using RimWorld;
 using Verse.AI;
 
 namespace JanitorsCloset.Patches
@@ -13,7 +14,8 @@ namespace JanitorsCloset.Patches
         public static void Prefix(JobDriver __instance, out JobDriver __state)
         {
             __state = Current;
-            Current = __instance;
+            if (__instance is JobDriver_CleanFilth)
+                Current = __instance;
         }
 
         public static void Postfix(JobDriver __state)
