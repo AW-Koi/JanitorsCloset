@@ -26,7 +26,7 @@
       <EquipDelay>1.5</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.10</CleaningSpeed>
+      <CleaningSpeed>0.15</CleaningSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>
@@ -78,7 +78,7 @@
       <EquipDelay>1.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.10</CleaningSpeed>
+      <CleaningSpeed>0.15</CleaningSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>
@@ -131,7 +131,7 @@
       <EquipDelay>2.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.2</CleaningSpeed>
+      <CleaningSpeed>0.25</CleaningSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>
