@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
@@ -12,32 +12,38 @@ namespace JanitorsCloset.Patches
     {
         public static IEnumerable<MethodBase> TargetMethods()
         {
-            yield return AccessTools.Method(typeof(EffecterDef), "Spawn",
-                new[] { typeof(Thing), typeof(Map), typeof(float) });
-            yield return AccessTools.Method(typeof(EffecterDef), "SpawnMaintained",
-                new[] { typeof(Thing), typeof(Map), typeof(float) });
+            return typeof(EffecterDef).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(m => (m.Name == "Spawn" || m.Name == "SpawnMaintained" || m.Name == "SpawnAttached")
+                            && m.ReturnType == typeof(Effecter))
+                .Cast<MethodBase>();
         }
 
-        public static void Postfix(EffecterDef __instance, Thing target, Map map, Effecter __result)
+        public static void Postfix(EffecterDef __instance, Effecter __result)
         {
             if (__result == null) return;
             if (__instance?.defName != "Clean") return;
-            if (target == null || map == null) return;
+            if (!IsAnyMopWielderCleaning()) return;
 
-            if (!IsBeingCleanedByMopHolder(target, map)) return;
-
-            var children = Traverse.Create(__result).Field("children").GetValue<IList>();
-            children?.Clear();
+            __result.children?.Clear();
         }
 
-        private static bool IsBeingCleanedByMopHolder(Thing target, Map map)
+        private static bool IsAnyMopWielderCleaning()
         {
-            foreach (var pawn in map.mapPawns.AllPawnsSpawned)
+            var maps = Find.Maps;
+            if (maps == null) return false;
+
+            for (int i = 0; i < maps.Count; i++)
             {
-                if (pawn.CurJobDef != JobDefOf.Clean) continue;
-                if (pawn.CurJob?.targetA.Thing != target) continue;
-                if (pawn.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) continue;
-                return true;
+                var pawns = maps[i].mapPawns?.AllPawnsSpawned;
+                if (pawns == null) continue;
+
+                for (int j = 0; j < pawns.Count; j++)
+                {
+                    var pawn = pawns[j];
+                    if (pawn.CurJobDef != JobDefOf.Clean) continue;
+                    if (pawn.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) continue;
+                    return true;
+                }
             }
             return false;
         }
