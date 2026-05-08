@@ -10,6 +10,7 @@
       <texPath>Things/Item/Equipment/Janitor_Mop</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.25, 0.35)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
     <techLevel>Industrial</techLevel>
@@ -19,6 +20,7 @@
     <costStuffCount>30</costStuffCount>
     <stuffCategories>
       <li>Woody</li>
+      <li>Metallic</li>
     </stuffCategories>
     <costList>
       <Cloth>15</Cloth>
@@ -30,7 +32,7 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.20</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>-65</equippedAngleOffset>
+    <equippedAngleOffset>185</equippedAngleOffset>
     <recipeMaker>
       <recipeUsers>
         <li>CraftingSpot</li>
