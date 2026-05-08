@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using RimWorld;
 using Verse;
 
 namespace JanitorsCloset.Patches
@@ -22,30 +21,11 @@ namespace JanitorsCloset.Patches
         {
             if (__result == null) return;
             if (__instance?.defName != "Clean") return;
-            if (!IsAnyMopWielderCleaning()) return;
+
+            var driver = Patch_TrackCurrentJobDriver.Current;
+            if (driver?.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) return;
 
             __result.children?.Clear();
-        }
-
-        private static bool IsAnyMopWielderCleaning()
-        {
-            var maps = Find.Maps;
-            if (maps == null) return false;
-
-            for (int i = 0; i < maps.Count; i++)
-            {
-                var pawns = maps[i].mapPawns?.AllPawnsSpawned;
-                if (pawns == null) continue;
-
-                for (int j = 0; j < pawns.Count; j++)
-                {
-                    var pawn = pawns[j];
-                    if (pawn.CurJobDef != JobDefOf.Clean) continue;
-                    if (pawn.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) continue;
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
