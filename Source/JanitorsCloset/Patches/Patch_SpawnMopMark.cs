@@ -35,7 +35,8 @@ namespace JanitorsCloset.Patches
             if (!__instance.Destroyed) return;
             if (__state.Map == null) return;
 
-            // Don't recurse on our own marks (the WorkGiver patch should already prevent this path).
+            // Defensive recursion guard — Patch_SkipCleaningMopMark should already prevent
+            // mop marks from being cleaned, so this branch shouldn't fire in normal play.
             if (__state.OriginalDef == JanitorDefOf.Janitor_MopMark) return;
 
             // Filth can be removed by rain/age/fire too — only spawn marks for cleaning work
@@ -43,6 +44,15 @@ namespace JanitorsCloset.Patches
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
             if (driver.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) return;
+
+            // One mop mark per tile per cleaning pass — if the cell already has a mark
+            // (because the cell had multiple filths and we just cleaned a second one),
+            // don't spawn a redundant stacked mark.
+            var things = __state.Cell.GetThingList(__state.Map);
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (things[i].def == JanitorDefOf.Janitor_MopMark) return;
+            }
 
             FilthMaker.TryMakeFilth(__state.Cell, __state.Map, JanitorDefOf.Janitor_MopMark);
         }
