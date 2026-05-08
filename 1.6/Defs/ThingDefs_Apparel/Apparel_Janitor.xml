@@ -131,7 +131,7 @@
       <EquipDelay>2.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.10</CleaningSpeed>
+      <CleaningSpeed>0.2</CleaningSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>

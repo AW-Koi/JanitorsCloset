@@ -30,7 +30,7 @@
       <Mass>1.5</Mass>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.20</CleaningSpeed>
+      <CleaningSpeed>0.3</CleaningSpeed>
     </equippedStatOffsets>
     <equippedAngleOffset>185</equippedAngleOffset>
     <recipeMaker>
