@@ -109,7 +109,7 @@
   <ThingDef ParentName="ApparelMakeableBase">
     <defName>Janitor_Coveralls</defName>
     <label>janitor's coveralls</label>
-    <description>A one-piece work uniform in standard janitor blue. The fabric resists stains and the deep pockets carry a surprising amount of cleaning supplies.</description>
+    <description>A one-piece work uniform suitable for janitorial duties. The fabric resists stains and the deep pockets carry a surprising amount of cleaning supplies.</description>
     <graphicData>
       <texPath>Things/Apparel/Janitor_Coveralls</texPath>
       <graphicClass>Graphic_Single</graphicClass>
