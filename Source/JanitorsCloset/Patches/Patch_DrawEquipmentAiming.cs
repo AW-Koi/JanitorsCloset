@@ -10,9 +10,12 @@ namespace JanitorsCloset.Patches
     [HarmonyPatch]
     public static class Patch_DrawEquipmentAiming
     {
-        private const float PhaseRate     = 0.42f;
-        private const float WobbleDegrees = 18f;
-        private const float SlideTiles    = 0.12f;
+        private const float BasePhaseRate  = 0.1f;
+        private const float SpeedModRate   = 0.1f;  // how often stroke speed itself varies
+        private const float SpeedModDepth  = 4f;   // how much it varies (radians of phase wobble)
+        private const float WobbleDegrees  = 18f;
+        private const float SlideTiles     = 0.2f;
+        private const float MopReachFactor = 1.5f;   // fraction of the pawn->target vector to push drawLoc by
 
         public static MethodBase TargetMethod()
         {
@@ -36,7 +39,22 @@ namespace JanitorsCloset.Patches
             if (pawn.CurJobDef != JobDefOf.Clean) return;
             if (pawn.pather != null && pawn.pather.Moving) return;
 
-            float t = Find.TickManager.TicksGame * PhaseRate;
+            // Push drawLoc toward the cell being cleaned so the mop reaches the actual filth,
+            // not the pawn's feet. Target can be any of the 9 cells around the pawn (or the cell
+            // they're standing on, in which case the offset is zero and the mop stays centered).
+            var job = pawn.CurJob;
+            if (job != null && job.targetA.IsValid)
+            {
+                Vector3 toTarget = job.targetA.CenterVector3 - pawn.Position.ToVector3Shifted();
+                drawLoc.x += toTarget.x * MopReachFactor;
+                drawLoc.z += toTarget.z * MopReachFactor;
+            }
+
+            // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The
+            // instantaneous speed (derivative) varies on a slow sine, so strokes feel organic
+            // — push, ease, pull, ease — instead of constant metronomic sweep.
+            int ticks = Find.TickManager.TicksGame;
+            float t = ticks * BasePhaseRate + SpeedModDepth * Mathf.Sin(ticks * SpeedModRate);
             float wobble = Mathf.Sin(t) * WobbleDegrees;
             float slide  = Mathf.Cos(t) * SlideTiles;
 
