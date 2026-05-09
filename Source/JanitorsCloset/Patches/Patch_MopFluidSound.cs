@@ -5,7 +5,6 @@ using HarmonyLib;
 using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
-using Verse.AI;
 using Verse.Sound;
 
 namespace JanitorsCloset.Patches

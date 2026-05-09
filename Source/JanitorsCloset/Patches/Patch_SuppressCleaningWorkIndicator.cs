@@ -14,8 +14,7 @@ namespace JanitorsCloset.Patches
         {
             return typeof(EffecterDef).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(m => (m.Name == "Spawn" || m.Name == "SpawnMaintained" || m.Name == "SpawnAttached")
-                            && m.ReturnType == typeof(Effecter))
-                .Cast<MethodBase>();
+                            && m.ReturnType == typeof(Effecter));
         }
 
         public static void Postfix(EffecterDef __instance, Effecter __result)

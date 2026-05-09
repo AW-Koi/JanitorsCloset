@@ -31,6 +31,7 @@ namespace JanitorsCloset
         // TODO: add settings fields, e.g.:
         // public bool SomeFlag = true;
 
+        // ReSharper disable once RedundantOverriddenMember
         public override void ExposeData()
         {
             base.ExposeData();
@@ -44,7 +45,7 @@ namespace JanitorsCloset
     {
         static JanitorsClosetInit()
         {
-            new Harmony("terraincognita.janitorscloset").PatchAll();
+            new Harmony("TerraIncognita.JanitorsCloset").PatchAll();
             Log.Message("[Janitor's Closet] Harmony patches applied.");
         }
     }
