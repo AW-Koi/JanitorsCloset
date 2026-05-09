@@ -9,20 +9,19 @@
     <graphicData>
       <texPath>Things/Apparel/Janitor_Galoshes</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(1, 0.7412, 0, 1)</color>
+      <colorTwo>(1, 1, 1, 1)</colorTwo>
     </graphicData>
     <techLevel>Industrial</techLevel>
-    <costStuffCount>30</costStuffCount>
-    <stuffCategories>
-      <li>Fabric</li>
-      <li>Leathery</li>
-    </stuffCategories>
+    <costList>
+      <Chemfuel>50</Chemfuel>
+      <Cloth>20</Cloth>
+    </costList>
     <statBases>
       <MaxHitPoints>80</MaxHitPoints>
       <WorkToMake>2400</WorkToMake>
       <Mass>0.6</Mass>
-      <StuffEffectMultiplierArmor>0.15</StuffEffectMultiplierArmor>
-      <StuffEffectMultiplierInsulation_Cold>0.15</StuffEffectMultiplierInsulation_Cold>
-      <StuffEffectMultiplierInsulation_Heat>0.05</StuffEffectMultiplierInsulation_Heat>
       <EquipDelay>1.5</EquipDelay>
     </statBases>
     <equippedStatOffsets>
@@ -31,6 +30,9 @@
     <thingCategories>
       <li>ApparelMisc</li>
     </thingCategories>
+    <comps>
+      <li Class="CompProperties_Colorable" />
+    </comps>
     <apparel>
       <bodyPartGroups>
         <li>Feet</li>
@@ -62,20 +64,19 @@
     <graphicData>
       <texPath>Things/Apparel/Janitor_RubberGloves</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(1, 0.7412, 0, 1)</color>
+      <colorTwo>(1, 1, 1, 1)</colorTwo>
     </graphicData>
     <techLevel>Industrial</techLevel>
-    <costStuffCount>20</costStuffCount>
-    <stuffCategories>
-      <li>Fabric</li>
-      <li>Leathery</li>
-    </stuffCategories>
+    <costList>
+      <Chemfuel>25</Chemfuel>
+      <Cloth>10</Cloth>
+    </costList>
     <statBases>
       <MaxHitPoints>60</MaxHitPoints>
       <WorkToMake>1800</WorkToMake>
       <Mass>0.2</Mass>
-      <StuffEffectMultiplierArmor>0.1</StuffEffectMultiplierArmor>
-      <StuffEffectMultiplierInsulation_Cold>0.1</StuffEffectMultiplierInsulation_Cold>
-      <StuffEffectMultiplierInsulation_Heat>0.05</StuffEffectMultiplierInsulation_Heat>
       <EquipDelay>1.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
@@ -84,6 +85,9 @@
     <thingCategories>
       <li>ApparelMisc</li>
     </thingCategories>
+    <comps>
+      <li Class="CompProperties_Colorable" />
+    </comps>
     <apparel>
       <bodyPartGroups>
         <li>Hands</li>
