@@ -26,6 +26,8 @@
     </statBases>
     <equippedStatOffsets>
       <CleaningSpeed>0.15</CleaningSpeed>
+      <FilthRate>-0.50</FilthRate>
+      <ToxicEnvironmentResistance>0.20</ToxicEnvironmentResistance>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>
