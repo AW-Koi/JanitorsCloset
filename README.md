@@ -81,4 +81,3 @@ Notes:
 ## Credits
 
 - Author: Terra Incognita
-- License: TBD
