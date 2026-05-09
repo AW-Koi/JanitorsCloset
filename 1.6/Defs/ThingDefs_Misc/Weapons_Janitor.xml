@@ -32,7 +32,7 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.3</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>185</equippedAngleOffset>
+    <equippedAngleOffset>170</equippedAngleOffset>
     <recipeMaker>
       <recipeUsers>
         <li>CraftingSpot</li>

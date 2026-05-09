@@ -14,12 +14,14 @@ namespace JanitorsCloset.Patches
     [UsedImplicitly]
     public static class Patch_DrawEquipmentAiming
     {
-        private const float BasePhaseRate  = 0.05f;
-        private const float SpeedModRate   = 0.15f;  // how often stroke speed itself varies
-        private const float SpeedModDepth  = 2f;   // how much it varies (radians of phase wobble)
-        private const float WobbleDegrees  = 18f;
-        private const float SlideTiles     = 0.2f;
-        private const float MopReachFactor = 0.5f;   // fraction of the pawn->target vector to push drawLoc by
+        private const float BasePhaseRate  = 0.025f;
+        private const float SpeedModRate   = 0.025f;         // how often stroke speed itself varies
+        private const float SpeedModDepth  = 3f;            // how much it varies (radians of phase wobble)
+        private const float WobbleDegrees  = 20f;
+        private const float SlideTiles     = 0.125f;
+        private const float MopReachFactor = 0.3f;         // fraction of the pawn->target vector to push drawLoc by
+        private const float MoppingRotationOffset = 30f;    // offset to rotate the mop while in use
+        private const float MoppingVerticalOffset = 0.3f;   // offset to shift the mop vertically while in use
 
         public static MethodBase TargetMethod()
         {
@@ -50,9 +52,8 @@ namespace JanitorsCloset.Patches
             if (job != null && job.targetA.IsValid)
             {
                 Vector3 toTarget = job.targetA.CenterVector3 - pawn.Position.ToVector3Shifted();
-                const float vertOffset = 0.5f;
                 drawLoc.x += toTarget.x * MopReachFactor;
-                drawLoc.z += toTarget.z * MopReachFactor + vertOffset;
+                drawLoc.z += toTarget.z * MopReachFactor;
             }
 
             // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The
@@ -65,8 +66,8 @@ namespace JanitorsCloset.Patches
 
             float postWobbleRad = (aimAngle + wobble) * Mathf.Deg2Rad;
             drawLoc.x += Mathf.Cos(postWobbleRad) * slide;
-            drawLoc.z += Mathf.Sin(postWobbleRad) * slide;
-            aimAngle  += wobble;
+            drawLoc.z += Mathf.Sin(postWobbleRad) * slide + MoppingVerticalOffset;
+            aimAngle  += wobble + MoppingRotationOffset;
         }
     }
 }
