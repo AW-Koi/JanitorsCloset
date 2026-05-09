@@ -30,9 +30,6 @@
     <thingCategories>
       <li>ApparelMisc</li>
     </thingCategories>
-    <comps>
-      <li Class="CompProperties_Colorable" />
-    </comps>
     <apparel>
       <bodyPartGroups>
         <li>Feet</li>
@@ -85,9 +82,6 @@
     <thingCategories>
       <li>ApparelMisc</li>
     </thingCategories>
-    <comps>
-      <li Class="CompProperties_Colorable" />
-    </comps>
     <apparel>
       <bodyPartGroups>
         <li>Hands</li>
