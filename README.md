@@ -15,6 +15,14 @@ Janitor's Closet is a RimWorld mod that turns the colony janitor from a chore in
 3. **Janitor-specific autonomous cleaning behaviors** — detect large messes, place wet floor signs other pawns path around, etc. The janitor *does janitor things* on their own; the player isn't placing signs by hand.
 4. **Janitor-specific buildables** — enable the construction of a home base for janitors with the supplies and storage they need to do their work.
 
+# TO-DOs
+- [x] Mop
+- [x] Mopping behaviour + wet floors
+- [x] Janitor's Coveralls
+- [ ] Janitor's Galoshes
+- [ ] Janitor's Rubber gloves
+- [ ] Janitor's Cap
+
 ## Compatibility
 
 - **RimWorld 1.6** only (current target).
