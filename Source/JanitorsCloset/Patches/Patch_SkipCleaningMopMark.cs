@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using HarmonyLib;
+using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
 

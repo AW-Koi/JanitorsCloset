@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
 using Verse.AI;

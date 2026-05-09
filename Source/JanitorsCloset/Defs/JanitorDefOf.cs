@@ -1,7 +1,7 @@
 using RimWorld;
 using Verse;
 
-namespace JanitorsCloset
+namespace JanitorsCloset.Defs
 {
     [DefOf]
     public static class JanitorDefOf
