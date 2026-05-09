@@ -1,21 +1,25 @@
 using System;
 using System.Reflection;
 using HarmonyLib;
+using JanitorsCloset.Defs;
+using JetBrains.Annotations;
 using RimWorld;
 using UnityEngine;
 using Verse;
+// ReSharper disable InconsistentNaming
 
 namespace JanitorsCloset.Patches
 {
     [HarmonyPatch]
+    [UsedImplicitly]
     public static class Patch_DrawEquipmentAiming
     {
-        private const float BasePhaseRate  = 0.1f;
-        private const float SpeedModRate   = 0.1f;  // how often stroke speed itself varies
-        private const float SpeedModDepth  = 4f;   // how much it varies (radians of phase wobble)
+        private const float BasePhaseRate  = 0.05f;
+        private const float SpeedModRate   = 0.15f;  // how often stroke speed itself varies
+        private const float SpeedModDepth  = 2f;   // how much it varies (radians of phase wobble)
         private const float WobbleDegrees  = 18f;
         private const float SlideTiles     = 0.2f;
-        private const float MopReachFactor = 1.5f;   // fraction of the pawn->target vector to push drawLoc by
+        private const float MopReachFactor = 0.5f;   // fraction of the pawn->target vector to push drawLoc by
 
         public static MethodBase TargetMethod()
         {
@@ -46,8 +50,9 @@ namespace JanitorsCloset.Patches
             if (job != null && job.targetA.IsValid)
             {
                 Vector3 toTarget = job.targetA.CenterVector3 - pawn.Position.ToVector3Shifted();
+                const float vertOffset = 0.5f;
                 drawLoc.x += toTarget.x * MopReachFactor;
-                drawLoc.z += toTarget.z * MopReachFactor;
+                drawLoc.z += toTarget.z * MopReachFactor + vertOffset;
             }
 
             // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The
