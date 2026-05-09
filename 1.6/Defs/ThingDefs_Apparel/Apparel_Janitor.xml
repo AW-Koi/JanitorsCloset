@@ -46,6 +46,7 @@
       </defaultOutfitTags>
     </apparel>
     <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
       <displayPriority>210</displayPriority>
     </recipeMaker>
     <tradeTags>
@@ -98,6 +99,7 @@
       </defaultOutfitTags>
     </apparel>
     <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
       <displayPriority>211</displayPriority>
     </recipeMaker>
     <tradeTags>
@@ -155,6 +157,7 @@
       </defaultOutfitTags>
     </apparel>
     <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
       <displayPriority>212</displayPriority>
     </recipeMaker>
     <tradeTags>
