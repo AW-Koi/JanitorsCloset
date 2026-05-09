@@ -6,7 +6,7 @@
     <AssemblyName>JanitorsCloset</AssemblyName>
     <RootNamespace>JanitorsCloset</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>..\..\1.6\Assemblies</OutputPath>
+    <OutputPath>..\..\mod\1.6\Assemblies</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

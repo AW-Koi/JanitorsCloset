@@ -34,20 +34,37 @@ Janitor's Closet is a RimWorld mod that turns the colony janitor from a chore in
 - **RimWorld 1.6** only (current target).
 - Harmony is a hard dependency (declared in `About.xml`).
 
-## Building
+## Repo layout
 
-The C# project is at `Source/Janitor's Closet/JanitorsCloset.csproj`. It outputs the DLL into `1.6/Assemblies/`. References point to `Assembly-CSharp.dll` and Unity assemblies under your local RimWorld install — adjust the `HintPath` values in the csproj if your install isn't at the default Steam path.
+The repo root is **not** the mod folder. Runtime mod content lives under `mod/`, and only that subdirectory should ever be uploaded to Steam Workshop:
 
 ```
-dotnet build "Source/Janitor's Closet/JanitorsCloset.csproj"
+JanitorsCloset/                    <- repo root (.git, Source, README, .sln)
+├── Source/                        <- C# project + art binaries (not shipped)
+└── mod/                           <- the actual mod (point Steam/RimWorld here)
+    ├── About/
+    ├── Languages/
+    ├── Textures/
+    ├── 1.6/
+    └── LoadFolders.xml
+```
+
+This keeps `.git/` (~55 MB of history) and `Source/Janitor*/Art/` (~38 MB of `.ai`/`.psd` design files) out of the Workshop upload.
+
+## Building
+
+The C# project is at `Source/JanitorsCloset/JanitorsCloset.csproj`. It outputs the DLL into `mod/1.6/Assemblies/`. References point to `Assembly-CSharp.dll` and Unity assemblies under your local RimWorld install — adjust the `HintPath` values in the csproj if your install isn't at the default Steam path.
+
+```
+dotnet build "Source/JanitorsCloset/JanitorsCloset.csproj"
 ```
 
 ## Dev workflow
 
-Source lives outside the RimWorld install (here at `D:\Modding\RimWorld\JanitorsCloset\`). To make RimWorld load it, create a **directory junction** from the install's `Mods\` folder back to the source folder. Junctions are reparse points — RimWorld walks into `Mods\JanitorsCloset` and transparently reads from the source path. No copy, no sync, no upload step.
+The repo lives outside the RimWorld install (here at `D:\Modding\RimWorld\JanitorsCloset\`). To make RimWorld load it, create a **directory junction** from the install's `Mods\` folder to the `mod\` subdirectory. Junctions are reparse points — RimWorld walks into `Mods\JanitorsCloset` and transparently reads from the source path. No copy, no sync, no upload step.
 
 ```
-mklink /J "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset" "D:\Modding\RimWorld\JanitorsCloset"
+mklink /J "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset" "D:\Modding\RimWorld\JanitorsCloset\mod"
 ```
 
 Notes:
