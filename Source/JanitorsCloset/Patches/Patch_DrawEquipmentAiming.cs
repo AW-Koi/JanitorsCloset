@@ -15,13 +15,14 @@ namespace JanitorsCloset.Patches
     public static class Patch_DrawEquipmentAiming
     {
         private const float BasePhaseRate  = 0.025f;
-        private const float SpeedModRate   = 0.025f;         // how often stroke speed itself varies
-        private const float SpeedModDepth  = 3f;            // how much it varies (radians of phase wobble)
+        private const float SpeedModRate   = 0.025f;                // how often stroke speed itself varies
+        private const float SpeedModDepth  = 3f;                    // how much it varies (radians of phase wobble)
         private const float WobbleDegrees  = 20f;
         private const float SlideTiles     = 0.125f;
-        private const float MopReachFactor = 0.3f;         // fraction of the pawn->target vector to push drawLoc by
-        private const float MoppingRotationOffset = 30f;    // offset to rotate the mop while in use
-        private const float MoppingVerticalOffset = 0.3f;   // offset to shift the mop vertically while in use
+        private const float MopReachFactor = 0.3f;                  // fraction of the pawn->target vector to push drawLoc by
+        private const float MoppingRotationOffset = 30f;            // offset to rotate the mop while in use
+        private const float MoppingVerticalOffset = 0.3f;           // offset to shift the mop vertically while in use
+        private const float GoldenRatioFraction = 0.6180339887f;    // fractional part of phi, used to spread per-pawn phase offsets
 
         public static MethodBase TargetMethod()
         {
@@ -59,8 +60,10 @@ namespace JanitorsCloset.Patches
             // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The
             // instantaneous speed (derivative) varies on a slow sine, so strokes feel organic
             // — push, ease, pull, ease — instead of constant metronomic sweep.
+            // Per-pawn phase offset desyncs multiple janitors mopping at once.
             int ticks = Find.TickManager.TicksGame;
-            float t = ticks * BasePhaseRate + SpeedModDepth * Mathf.Sin(ticks * SpeedModRate);
+            float pawnPhase = (pawn.thingIDNumber * GoldenRatioFraction) % 1f * Mathf.PI * 2f;
+            float t = ticks * BasePhaseRate + SpeedModDepth * Mathf.Sin(ticks * SpeedModRate) + pawnPhase;
             float wobble = Mathf.Sin(t) * WobbleDegrees;
             float slide  = Mathf.Cos(t) * SlideTiles;
 
