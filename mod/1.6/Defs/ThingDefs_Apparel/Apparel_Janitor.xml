@@ -37,7 +37,7 @@
         <li>Feet</li>
       </bodyPartGroups>
       <layers>
-        <li>OnSkin</li>
+        <li>Middle</li>
       </layers>
       <tags>
         <li>IndustrialBasic</li>
@@ -149,7 +149,7 @@
       <wornGraphicPath>Things/Apparel/Janitor_Coveralls</wornGraphicPath>
       <useWornGraphicMask>true</useWornGraphicMask>
       <layers>
-        <li>Middle</li>
+        <li>OnSkin</li>
       </layers>
       <tags>
         <li>IndustrialBasic</li>
