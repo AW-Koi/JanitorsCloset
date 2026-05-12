@@ -9,7 +9,7 @@
     <graphicData>
       <texPath>Things/Item/Equipment/Janitor_StrawBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
+      <shaderType>Cutout</shaderType>
       <drawSize>(1.25, 0.35)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
@@ -242,7 +242,7 @@
     <graphicData>
       <texPath>Things/Item/Equipment/Janitor_Glittervacuum</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
+      <shaderType>Cutout</shaderType>
       <drawSize>(1.25, 0.45)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
