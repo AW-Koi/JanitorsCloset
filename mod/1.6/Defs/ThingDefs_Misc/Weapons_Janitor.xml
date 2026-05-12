@@ -82,7 +82,7 @@
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
     <defName>Janitor_PushBroom</defName>
     <label>push broom</label>
-    <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved — sweeps a corridor's worth of grit in one pass. Doesn't do anything useful to a blood pool.</description>
+    <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved. Sweeps a corridor's worth of grit in one pass. Not very effective for cleaning liquid filth, unless you want to push it around.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/Janitor_PushBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -298,10 +298,16 @@
         <label>field discharge</label>
         <labelUsedInLogging>false</labelUsedInLogging>
         <capacities>
-          <li>Burn</li>
+          <li>Blunt</li>
         </capacities>
-        <power>5</power>
+        <power>1</power>
         <cooldownTime>2.0</cooldownTime>
+        <extraMeleeDamages>
+          <li>
+            <def>Burn</def>
+            <amount>5</amount>
+          </li>
+        </extraMeleeDamages>
       </li>
     </tools>
   </ThingDef>

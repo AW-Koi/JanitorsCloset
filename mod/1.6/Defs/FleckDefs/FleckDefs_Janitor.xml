@@ -24,7 +24,6 @@
     <solidTime>0.1</solidTime>
     <fadeOutTime>0.5</fadeOutTime>
     <growthRate>0.4</growthRate>
-    <rotationRate>120</rotationRate>
   </FleckDef>
 
 </Defs>

@@ -66,6 +66,7 @@ namespace JanitorsCloset.Patches
                 data.velocityAngle = Rand.Range(0f, 360f);
                 data.velocitySpeed = Rand.Range(0.4f, 0.8f);
                 data.rotation = Rand.Range(0f, 360f);
+                data.rotationRate = Rand.Range(-180f, 180f);
                 map.flecks.CreateFleck(data);
             }
         }
