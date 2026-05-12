@@ -1,4 +1,5 @@
 using HarmonyLib;
+using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
@@ -44,6 +45,11 @@ namespace JanitorsCloset.Patches
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
             if (driver.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) return;
+
+            // Soft floors (carpet, wool, leathery) absorb the mop's water rather than
+            // pooling it, so we skip the visible damp patch
+            var terrain = __state.Map.terrainGrid.TerrainAt(__state.Cell);
+            if (SoftFloorResolver.IsSoftFloor(terrain)) return;
 
             // One mop mark per tile per cleaning pass — if the cell already has a mark
             // (because the cell had multiple filths and we just cleaned a second one),
