@@ -6,16 +6,11 @@
     pawn is cleaning. Selected as customCleaningSound on the Glittervacuum's
     CleaningToolExtension; Patch_CleaningToolSound swaps the vanilla Interact_CleanFilth_*
     sustainer for this when the pawn picks up a cleaning job.
-
-    Position rules mirror vanilla Interact_CleanFilth_Fluid: map-positioned (follows the
-    pawn / cell), modest volume, attenuated to nearby tiles only. <loopAudio>true</loopAudio>
-    is the part that keeps the clip cycling continuously while the sustainer is alive.
   -->
   <SoundDef>
     <defName>Janitor_Glittervacuum_Cleaning</defName>
     <context>MapOnly</context>
     <sustain>True</sustain>
-    <maxVoices>4</maxVoices>
     <subSounds>
       <li>
         <onCamera>false</onCamera>
@@ -31,11 +26,10 @@
           <min>10</min>
           <max>40</max>
         </distRange>
-        <repeatMode>Random</repeatMode>
+        <repeatMode>Any</repeatMode>
         <grains>
           <li Class="AudioGrain_Clip">
             <clipPath>JanitorsCloset/Glittervacuum_Cleaning</clipPath>
-            <loopAudio>True</loopAudio>
           </li>
         </grains>
       </li>
