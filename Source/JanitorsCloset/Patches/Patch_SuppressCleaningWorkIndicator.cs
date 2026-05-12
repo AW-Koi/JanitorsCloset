@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using JanitorsCloset.Defs;
+using JanitorsCloset.Cleaning;
 using Verse;
 
 namespace JanitorsCloset.Patches
 {
+    // Vanilla spawns a small dustpan-and-brush effecter at the cell when any pawn cleans
+    // filth. That's redundant — and visually wrong — when our pawn is already swinging a
+    // real tool. Clear the effecter's children when the active cleaner is wielding any
+    // tool with a CleaningToolExtension.
     [HarmonyPatch]
     public static class Patch_SuppressCleaningWorkIndicator
     {
@@ -23,7 +27,9 @@ namespace JanitorsCloset.Patches
             if (__instance?.defName != "Clean") return;
 
             var driver = Patch_TrackCurrentJobDriver.Current;
-            if (driver?.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) return;
+            var primary = driver?.pawn?.equipment?.Primary;
+            if (primary == null) return;
+            if (primary.def.GetModExtension<CleaningToolExtension>() == null) return;
 
             __result.children?.Clear();
         }
