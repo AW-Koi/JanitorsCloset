@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
     <JanitorsCloset.CleaningTool.WrongFilthCategory>Tool not suited to this filth</JanitorsCloset.CleaningTool.WrongFilthCategory>
-    <JanitorsCloset.CleaningTool.DryQualifier>(dry filth)</JanitorsCloset.CleaningTool.DryQualifier>
-    <JanitorsCloset.CleaningTool.WetQualifier>(wet filth)</JanitorsCloset.CleaningTool.WetQualifier>
+    <JanitorsCloset.CleaningTool.SpecialtyLabel>Cleaning specialty</JanitorsCloset.CleaningTool.SpecialtyLabel>
+    <JanitorsCloset.CleaningTool.SpecialtyDry>Dry filth only</JanitorsCloset.CleaningTool.SpecialtyDry>
+    <JanitorsCloset.CleaningTool.SpecialtyWet>Wet filth only</JanitorsCloset.CleaningTool.SpecialtyWet>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationDry>The cleaning speed bonus from this tool only applies to dry filth (dirt, dust, sand, ash). Wet filth (blood, vomit, water) cleans at vanilla speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationDry>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationWet>The cleaning speed bonus from this tool only applies to wet filth (blood, vomit, water, slime). Dry filth (dirt, dust, sand) cleans at vanilla speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationWet>
 </LanguageData>
