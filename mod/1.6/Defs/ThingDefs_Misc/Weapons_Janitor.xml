@@ -10,7 +10,7 @@
       <texPath>Things/Item/Equipment/Janitor_StrawBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>Cutout</shaderType>
-      <drawSize>(1.0, 0.5)</drawSize>
+      <drawSize>(1.25, 0.625)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
     <techLevel>Neolithic</techLevel>
@@ -28,14 +28,14 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.15</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>170</equippedAngleOffset>
+    <equippedAngleOffset>350</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
         <categories>
           <li>Dry</li>
         </categories>
         <animProfile>
-          <basePhaseRate>0.030</basePhaseRate>
+          <basePhaseRate>0.075</basePhaseRate>
           <speedModRate>0.025</speedModRate>
           <speedModDepth>3</speedModDepth>
           <wobbleDegrees>18</wobbleDegrees>
@@ -84,7 +84,7 @@
       <texPath>Things/Item/Equipment/Janitor_PushBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
-      <drawSize>(1.35, 0.4)</drawSize>
+      <drawSize>(1.2, 0.6)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
     <techLevel>Industrial</techLevel>
@@ -106,14 +106,14 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.25</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>170</equippedAngleOffset>
+    <equippedAngleOffset>350</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
         <categories>
           <li>Dry</li>
         </categories>
         <animProfile>
-          <basePhaseRate>0.018</basePhaseRate>
+          <basePhaseRate>0.045</basePhaseRate>
           <speedModRate>0.020</speedModRate>
           <speedModDepth>2.5</speedModDepth>
           <wobbleDegrees>8</wobbleDegrees>
@@ -259,7 +259,7 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.5</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>170</equippedAngleOffset>
+    <equippedAngleOffset>350</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
         <categories>
