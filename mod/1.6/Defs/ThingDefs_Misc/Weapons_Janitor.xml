@@ -266,7 +266,7 @@
           <li>Dry</li>
           <li>Wet</li>
         </categories>
-        <customCleaningSound>GeothermalGenerator_Ambience</customCleaningSound>
+        <customCleaningSound>Janitor_Glittervacuum_Cleaning</customCleaningSound>
         <animProfile>
           <basePhaseRate>0.035</basePhaseRate>
           <speedModRate>0.015</speedModRate>
