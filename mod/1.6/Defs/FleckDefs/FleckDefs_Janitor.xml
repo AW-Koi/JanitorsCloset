@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Janitor_GlittervacuumPulse — the slow cyan "field is working" glow that sits under
+    the Glittervacuum's wand head while a pawn is cleaning. Spawned by
+    Patch_GlittervacuumCleaningGlow on a slow cadence so the fade-in/fade-out curves
+    blend into a continuous breathing pulse instead of a strobing flash.
+
+    Reuses vanilla `Things/Mote/LightningGlow` texture so we don't ship art — the
+    MoteGlow shader plus the cyan tint reads as a glitterworld field projector, not a
+    lightning flash. Tune the fade times to change the breathing speed.
+  -->
+  <FleckDef>
+    <defName>Janitor_GlittervacuumPulse</defName>
+    <fleckSystemClass>Verse.FleckSystemStatic</fleckSystemClass>
+    <altitudeLayer>MoteLow</altitudeLayer>
+    <graphicData>
+      <texPath>Things/Mote/LightningGlow</texPath>
+      <shaderType>MoteGlow</shaderType>
+      <color>(0.45, 0.85, 1.0, 1.0)</color>
+    </graphicData>
+    <fadeInTime>0.7</fadeInTime>
+    <solidTime>0.4</solidTime>
+    <fadeOutTime>1.0</fadeOutTime>
+    <scale>0.85</scale>
+  </FleckDef>
+
+</Defs>

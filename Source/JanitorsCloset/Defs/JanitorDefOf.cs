@@ -10,6 +10,9 @@ namespace JanitorsCloset.Defs
         public static ThingDef Janitor_MopMark;
         public static ThingDef Janitor_Glittervacuum;
 
+        // Custom flecks for the Glittervacuum's during-cleaning glow.
+        public static FleckDef Janitor_GlittervacuumPulse;
+
         // Vanilla SoundDefs referenced for the per-tool cleaning-sound swap.
         public static SoundDef Interact_CleanFilth_Fluid;
         public static SoundDef Interact_CleanFilth_Dirt;
