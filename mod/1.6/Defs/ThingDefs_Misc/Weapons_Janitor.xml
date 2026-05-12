@@ -259,7 +259,7 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.5</CleaningSpeed>
     </equippedStatOffsets>
-    <equippedAngleOffset>350</equippedAngleOffset>
+    <equippedAngleOffset>0</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
         <categories>
@@ -273,7 +273,7 @@
           <speedModDepth>1.0</speedModDepth>
           <wobbleDegrees>12</wobbleDegrees>
           <slideTiles>0.08</slideTiles>
-          <reachFactor>0.55</reachFactor>
+          <reachFactor>0.25</reachFactor>
           <rotationOffset>0</rotationOffset>
           <verticalOffset>0</verticalOffset>
           <aimAtTarget>true</aimAtTarget>
