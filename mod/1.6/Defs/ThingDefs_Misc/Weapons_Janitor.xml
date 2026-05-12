@@ -37,6 +37,16 @@
         <categories>
           <li>Dry</li>
         </categories>
+        <animProfile>
+          <basePhaseRate>0.030</basePhaseRate>
+          <speedModRate>0.025</speedModRate>
+          <speedModDepth>3</speedModDepth>
+          <wobbleDegrees>18</wobbleDegrees>
+          <slideTiles>0.10</slideTiles>
+          <reachFactor>0.25</reachFactor>
+          <rotationOffset>25</rotationOffset>
+          <verticalOffset>0.25</verticalOffset>
+        </animProfile>
       </li>
     </modExtensions>
     <recipeMaker>
@@ -62,6 +72,85 @@
           <li>Blunt</li>
         </capacities>
         <power>4</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <!-- The Push Broom — industrial-tier dry-filth specialist. Wider sweep than a straw broom,
+       cleaner stroke, no water involved. The dry-floor counterpart to the mop. -->
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>Janitor_PushBroom</defName>
+    <label>push broom</label>
+    <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved — sweeps a corridor's worth of grit in one pass. Doesn't do anything useful to a blood pool.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/Janitor_PushBroom</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.35, 0.4)</drawSize>
+    </graphicData>
+    <uiIconScale>1.1</uiIconScale>
+    <techLevel>Industrial</techLevel>
+    <weaponClasses>
+      <li>MeleeBlunt</li>
+    </weaponClasses>
+    <costStuffCount>25</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costList>
+      <Cloth>10</Cloth>
+    </costList>
+    <statBases>
+      <WorkToMake>1200</WorkToMake>
+      <Mass>1.4</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.25</CleaningSpeed>
+    </equippedStatOffsets>
+    <equippedAngleOffset>170</equippedAngleOffset>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
+        <categories>
+          <li>Dry</li>
+        </categories>
+        <animProfile>
+          <basePhaseRate>0.018</basePhaseRate>
+          <speedModRate>0.020</speedModRate>
+          <speedModDepth>2.5</speedModDepth>
+          <wobbleDegrees>8</wobbleDegrees>
+          <slideTiles>0.22</slideTiles>
+          <reachFactor>0.35</reachFactor>
+          <rotationOffset>10</rotationOffset>
+          <verticalOffset>0.15</verticalOffset>
+        </animProfile>
+      </li>
+    </modExtensions>
+    <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <displayPriority>245</displayPriority>
+    </recipeMaker>
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>5</power>
+        <cooldownTime>1.8</cooldownTime>
+      </li>
+      <li>
+        <label>brush block</label>
+        <labelUsedInLogging>false</labelUsedInLogging>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>6</power>
         <cooldownTime>2.0</cooldownTime>
       </li>
     </tools>
@@ -104,6 +193,16 @@
         <categories>
           <li>Wet</li>
         </categories>
+        <animProfile>
+          <basePhaseRate>0.025</basePhaseRate>
+          <speedModRate>0.025</speedModRate>
+          <speedModDepth>3</speedModDepth>
+          <wobbleDegrees>20</wobbleDegrees>
+          <slideTiles>0.125</slideTiles>
+          <reachFactor>0.3</reachFactor>
+          <rotationOffset>30</rotationOffset>
+          <verticalOffset>0.3</verticalOffset>
+        </animProfile>
       </li>
     </modExtensions>
     <recipeMaker>

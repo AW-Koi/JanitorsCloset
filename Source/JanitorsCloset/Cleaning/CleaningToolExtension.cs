@@ -10,6 +10,10 @@ namespace JanitorsCloset.Cleaning
     {
         public List<CleaningCategory> categories;
 
+        // Optional motion config for the tool while its bearer is cleaning. Null means
+        // no custom animation — the weapon stays in the default carry pose.
+        public CleaningAnimProfile animProfile;
+
         public bool Matches(CleaningCategory category)
         {
             return categories != null && categories.Contains(category);
