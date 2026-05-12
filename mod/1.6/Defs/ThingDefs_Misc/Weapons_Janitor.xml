@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <!-- The Straw Broom — neolithic tier, dry filth only. Cheap, light, and useless against anything wet. -->
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>Janitor_StrawBroom</defName>
+    <label>straw broom</label>
+    <description>A bundle of dried straw lashed to a wooden handle. Pushes dust and grit around with admirable enthusiasm. Hopeless against anything wet; the straw just smears the mess around.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/Janitor_StrawBroom</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.25, 0.35)</drawSize>
+    </graphicData>
+    <uiIconScale>1.1</uiIconScale>
+    <techLevel>Neolithic</techLevel>
+    <weaponClasses>
+      <li>MeleeBlunt</li>
+    </weaponClasses>
+    <costStuffCount>20</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+    </stuffCategories>
+    <costList>
+      <Hay>5</Hay>
+    </costList>
+    <statBases>
+      <WorkToMake>800</WorkToMake>
+      <Mass>1.2</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.15</CleaningSpeed>
+    </equippedStatOffsets>
+    <equippedAngleOffset>170</equippedAngleOffset>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
+        <categories>
+          <li>Dry</li>
+        </categories>
+      </li>
+    </modExtensions>
+    <recipeMaker>
+      <researchPrerequisite>Housekeeping</researchPrerequisite>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+      <displayPriority>240</displayPriority>
+    </recipeMaker>
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>4</power>
+        <cooldownTime>1.8</cooldownTime>
+      </li>
+      <li>
+        <label>bristles</label>
+        <labelUsedInLogging>false</labelUsedInLogging>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>4</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
   <!-- The Mop — a janitor's primary tool, but works in a pinch as a blunt instrument. -->
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
     <defName>Janitor_Mop</defName>
@@ -33,6 +99,13 @@
       <CleaningSpeed>0.3</CleaningSpeed>
     </equippedStatOffsets>
     <equippedAngleOffset>170</equippedAngleOffset>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
+        <categories>
+          <li>Wet</li>
+        </categories>
+      </li>
+    </modExtensions>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
       <recipeUsers>
@@ -57,6 +130,78 @@
           <li>Blunt</li>
         </capacities>
         <power>7</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <!-- The Glittervacuum — spacer-tier universal cleaner. Decouples filth from local reality. -->
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>Janitor_Glittervacuum</defName>
+    <label>glittervacuum</label>
+    <description>Despite the name, it doesn't suck. A glitterworld field projector that quietly unmakes filth where it sits. 'Vacuum' stuck because 'reality-uncoupler' wouldn't fit on the label.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/Janitor_Glittervacuum</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.25, 0.45)</drawSize>
+    </graphicData>
+    <uiIconScale>1.1</uiIconScale>
+    <techLevel>Spacer</techLevel>
+    <weaponClasses>
+      <li>MeleeBlunt</li>
+    </weaponClasses>
+    <costStuffCount>20</costStuffCount>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costList>
+      <Plasteel>20</Plasteel>
+      <ComponentSpacer>1</ComponentSpacer>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <WorkToMake>16000</WorkToMake>
+      <Mass>1.0</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.5</CleaningSpeed>
+    </equippedStatOffsets>
+    <equippedAngleOffset>170</equippedAngleOffset>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
+        <categories>
+          <li>Dry</li>
+          <li>Wet</li>
+        </categories>
+      </li>
+    </modExtensions>
+    <recipeMaker>
+      <researchPrerequisite>AtomicSanitation</researchPrerequisite>
+      <recipeUsers>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <displayPriority>260</displayPriority>
+    </recipeMaker>
+    <tools>
+      <li>
+        <label>emitter</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>6</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+      <li>
+        <label>chassis</label>
+        <labelUsedInLogging>false</labelUsedInLogging>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>8</power>
         <cooldownTime>2.0</cooldownTime>
       </li>
     </tools>

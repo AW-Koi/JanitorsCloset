@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
-    <!-- TODO: add translation keys here, e.g.
-    <Janitor_SomeKey>Some translated text</Janitor_SomeKey>
-    -->
+    <JanitorsCloset.CleaningTool.WrongFilthCategory>Tool not suited to this filth</JanitorsCloset.CleaningTool.WrongFilthCategory>
+    <JanitorsCloset.CleaningTool.DryQualifier>(dry filth)</JanitorsCloset.CleaningTool.DryQualifier>
+    <JanitorsCloset.CleaningTool.WetQualifier>(wet filth)</JanitorsCloset.CleaningTool.WetQualifier>
 </LanguageData>

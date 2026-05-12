@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-    <!-- TODO: add XML PatchOperations here, e.g.
-    <Operation Class="PatchOperationAdd">
-        <xpath>Defs/ThingDef[defName="SomeVanillaThing"]/comps</xpath>
-        <value>
-            <li Class="CompProperties_Forbiddable"/>
-        </value>
-    </Operation>
-    -->
+
+  <!--
+    Register the cleaning-tool StatPart on vanilla CleaningSpeed. The StatPart subtracts a
+    tool's equipped CleaningSpeed offset back out when the filth currently being cleaned
+    doesn't fall into one of the tool's declared categories — a bonus-only specialty system,
+    never punitive vs. vanilla baseline.
+
+    Wet/dry classification of each FilthDef is inferred at runtime from its cleaningSound
+    (vanilla flags wet filth with Interact_CleanFilth_Fluid and dry with the Dirt variant),
+    so we don't need to enumerate every vanilla/DLC/modded filth here. If a specific filth's
+    sound is misleading, attach a JanitorsCloset.Cleaning.FilthCategoryExtension to its def
+    as an override.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="CleaningSpeed"]</xpath>
+    <value>
+      <parts>
+        <li Class="JanitorsCloset.Cleaning.StatPart_CleaningToolMatch"/>
+      </parts>
+    </value>
+  </Operation>
+
 </Patch>

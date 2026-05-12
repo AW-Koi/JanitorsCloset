@@ -2,6 +2,21 @@
 <Defs>
 
   <!--
+    Housekeeping — neolithic tier. Gates the straw broom and any other pre-industrial
+    cleaning gear. Cheap and unprerequisited so primitive starts can sweep from day one.
+  -->
+  <ResearchProjectDef>
+    <defName>Housekeeping</defName>
+    <label>housekeeping</label>
+    <description>The humble art of keeping a dwelling fit to live in. Bundles of straw bound to sticks, dustpans hewn from bark, and the realisation that grit on the floor eventually finds the inside of a wound.</description>
+    <baseCost>200</baseCost>
+    <techLevel>Neolithic</techLevel>
+    <researchViewX>0.50</researchViewX>
+    <researchViewY>1.20</researchViewY>
+    <tab>Main</tab>
+  </ResearchProjectDef>
+
+  <!--
     Sanitation — umbrella research for the mod's work wear and cleaning gear.
     Prereqs ComplexClothing so it sits in the same neighbourhood as other industrial
     work uniforms. Future janitorial content (signage, advanced gear, supply carts)
@@ -10,13 +25,34 @@
   <ResearchProjectDef>
     <defName>Sanitation</defName>
     <label>sanitation</label>
-    <description>Practices and gear for keeping a settlement clean. Boots that grip wet floors, gloves that handle solvents, and coveralls with pockets deep enough to lose a wrench in.</description>
+    <description>Modern practices and gear for keeping a settlement clean. Boots that grip wet floors, gloves that handle solvents, and coveralls with pockets deep enough to lose a wrench in.</description>
     <baseCost>500</baseCost>
     <techLevel>Industrial</techLevel>
     <prerequisites>
       <li>ComplexClothing</li>
     </prerequisites>
     <researchViewX>4.00</researchViewX>
+    <researchViewY>1.20</researchViewY>
+    <tab>Main</tab>
+  </ResearchProjectDef>
+
+  <!--
+    Atomic Sanitation — spacer tier. Gates the Glittervacuum. The in-fiction conceit
+    is a portable field projector that severs the binding between filth particles and
+    local spacetime; the marketing department, predictably, called it a vacuum.
+  -->
+  <ResearchProjectDef>
+    <defName>AtomicSanitation</defName>
+    <label>atomic sanitation</label>
+    <description>Glitterworld field theory applied to the unglamorous problem of grime. A handheld emitter severs the local binding between matter and the spacetime it presently occupies; the matter, deprived of a reason to stay, simply doesn't. Janitors call it 'the vacuum' because nobody pays them to use longer words.</description>
+    <baseCost>3500</baseCost>
+    <techLevel>Spacer</techLevel>
+    <prerequisites>
+      <li>Sanitation</li>
+      <li>Fabrication</li>
+    </prerequisites>
+    <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+    <researchViewX>9.00</researchViewX>
     <researchViewY>1.20</researchViewY>
     <tab>Main</tab>
   </ResearchProjectDef>
