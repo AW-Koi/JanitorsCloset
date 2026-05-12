@@ -52,19 +52,27 @@ namespace JanitorsCloset.Patches
             if (toolDef == null) return;
 
             var ext = toolDef.GetModExtension<CleaningToolExtension>();
-            if (ext?.categories == null || ext.categories.Count != 1) return;
+            if (ext == null) return;
 
-            SoundDef target;
-            switch (ext.categories[0])
+            SoundDef target = null;
+
+            // Explicit override always wins — used by the Glittervacuum and any future tool
+            // whose sonic identity isn't captured by the dry/wet axis.
+            if (ext.customCleaningSound != null)
             {
-                case CleaningCategory.Wet:
-                    target = JanitorDefOf.Interact_CleanFilth_Fluid;
-                    break;
-                case CleaningCategory.Dry:
-                    target = JanitorDefOf.Interact_CleanFilth_Dirt;
-                    break;
-                default:
-                    return;
+                target = ext.customCleaningSound;
+            }
+            else if (ext.categories != null && ext.categories.Count == 1)
+            {
+                switch (ext.categories[0])
+                {
+                    case CleaningCategory.Wet:
+                        target = JanitorDefOf.Interact_CleanFilth_Fluid;
+                        break;
+                    case CleaningCategory.Dry:
+                        target = JanitorDefOf.Interact_CleanFilth_Dirt;
+                        break;
+                }
             }
 
             if (target == null || __0 == target) return;
