@@ -271,11 +271,12 @@
           <basePhaseRate>0.035</basePhaseRate>
           <speedModRate>0.015</speedModRate>
           <speedModDepth>1.0</speedModDepth>
-          <wobbleDegrees>25</wobbleDegrees>
-          <slideTiles>0.04</slideTiles>
-          <reachFactor>0.30</reachFactor>
-          <rotationOffset>40</rotationOffset>
-          <verticalOffset>0.1</verticalOffset>
+          <wobbleDegrees>12</wobbleDegrees>
+          <slideTiles>0.08</slideTiles>
+          <reachFactor>0.55</reachFactor>
+          <rotationOffset>0</rotationOffset>
+          <verticalOffset>0</verticalOffset>
+          <aimAtTarget>true</aimAtTarget>
         </animProfile>
       </li>
     </modExtensions>

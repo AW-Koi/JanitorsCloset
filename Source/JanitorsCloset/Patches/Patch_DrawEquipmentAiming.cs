@@ -49,11 +49,25 @@ namespace JanitorsCloset.Patches
             // not the pawn's feet. Target can be any of the 9 cells around the pawn (or the cell
             // they're standing on, in which case the offset is zero and the tool stays centered).
             var job = pawn.CurJob;
+            Vector3 toTarget = Vector3.zero;
+            bool hasDirectionalTarget = false;
             if (job != null && job.targetA.IsValid)
             {
-                Vector3 toTarget = job.targetA.CenterVector3 - pawn.Position.ToVector3Shifted();
+                toTarget = job.targetA.CenterVector3 - pawn.Position.ToVector3Shifted();
                 drawLoc.x += toTarget.x * profile.reachFactor;
                 drawLoc.z += toTarget.z * profile.reachFactor;
+                // Cleaning the cell underfoot leaves toTarget effectively zero — no direction
+                // to aim at, so wand-style tools fall back to the default carry angle.
+                hasDirectionalTarget = toTarget.x * toTarget.x + toTarget.z * toTarget.z > 0.0001f;
+            }
+
+            // Wand-style override: replace the default facing-derived carry angle with the
+            // pawn→filth direction so the tool actually points at the cell it's cleaning.
+            // equippedAngleOffset (on the ThingDef) is applied inside DrawEquipmentAiming on top.
+            if (profile.aimAtTarget && hasDirectionalTarget)
+            {
+                aimAngle = Mathf.Atan2(toTarget.z, toTarget.x) * Mathf.Rad2Deg;
+                if (aimAngle < 0f) aimAngle += 360f;
             }
 
             // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The

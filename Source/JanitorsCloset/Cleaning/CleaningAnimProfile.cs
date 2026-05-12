@@ -19,5 +19,11 @@ namespace JanitorsCloset.Cleaning
         public float reachFactor = 0.3f;
         public float rotationOffset = 30f;
         public float verticalOffset = 0.3f;
+
+        // When true, the tool's aim direction is overridden to point from the pawn toward
+        // the cell being cleaned — for wand-style tools (Glittervacuum) that should be
+        // pointed AT the filth rather than swept perpendicular to it like a broom/mop.
+        // equippedAngleOffset on the def still applies on top.
+        public bool aimAtTarget = false;
     }
 }
