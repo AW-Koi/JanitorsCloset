@@ -41,10 +41,12 @@ namespace JanitorsCloset.Patches
             if ((ticks + phase) % PulseIntervalTicks != 0) return;
 
             // Spawn at the filth cell — that's where the wand head reaches to once the
-            // aimAtTarget profile shifts the draw point. Slight scale jitter so the
-            // breathing isn't perfectly uniform.
+            // aimAtTarget profile shifts the draw point. Scale ~5 so the LightningGlow
+            // texture's soft falloff covers roughly a 5x5 area, reading as ambient
+            // lighting around the wand rather than a tight pinpoint mote. Slight jitter
+            // so the breathing isn't perfectly uniform.
             Vector3 center = job.targetA.CenterVector3;
-            FleckMaker.Static(center, pawn.Map, JanitorDefOf.Janitor_GlittervacuumPulse, Rand.Range(0.85f, 1.05f));
+            FleckMaker.Static(center, pawn.Map, JanitorDefOf.Janitor_GlittervacuumPulse, Rand.Range(4.8f, 5.4f));
         }
     }
 }
