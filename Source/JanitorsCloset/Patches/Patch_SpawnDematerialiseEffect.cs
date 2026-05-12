@@ -7,12 +7,12 @@ using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
-    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile, fire a bright
-    // field-snap glow plus a cool-tinted thick dust puff at the cell — reads as "reality
-    // uncoupled, matter dispersed" rather than fire/welding/smoke. Mirrors Patch_SpawnMopMark
-    // in hook and gating (same Filth.ThinFilth postfix, same Patch_TrackCurrentJobDriver
-    // .Current check), but uses vanilla FleckMaker helpers so we don't have to ship custom
-    // particle textures. Swap in a custom FleckDef later if the visual deserves its own look.
+    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile, drift a few
+    // cyan-tinted thick puffs upward at the cell — the un-coupled matter floating away.
+    // Deliberately subtle: no glow flash, no sparks, just the puffs. The "during cleaning"
+    // pulse glow (Patch_GlittervacuumCleaningGlow) already ends naturally when the job
+    // does, which provides the energy half of the visual. Mirrors Patch_SpawnMopMark in
+    // hook and gating (Filth.ThinFilth postfix + Patch_TrackCurrentJobDriver.Current check).
     [HarmonyPatch(typeof(Filth), nameof(Filth.ThinFilth))]
     public static class Patch_SpawnDematerialiseEffect
     {
@@ -46,27 +46,23 @@ namespace JanitorsCloset.Patches
             SpawnBurst(__state.Cell, __state.Map);
         }
 
-        // Glitterworld field-collapse palette: pale cyan-white, slight transparency. Stays
-        // clearly synthetic/luminous against any floor and avoids the orange/grey read of
-        // smoke or sparks.
-        private static readonly Color GlitterTint = new Color(0.7f, 0.95f, 1.0f, 0.85f);
+        // Glitterworld field-collapse palette: pale cyan-white, low alpha so the puffs
+        // dissolve rather than smother. Same colour family as Janitor_GlittervacuumPulse
+        // so the during/end visuals read as the same effect winding down.
+        private static readonly Color GlitterTint = new Color(0.7f, 0.95f, 1.0f, 0.55f);
 
         private static void SpawnBurst(IntVec3 cell, Map map)
         {
             var center = cell.ToVector3Shifted();
 
-            // The snap — one bright pulse, larger than the per-tick during-cleaning pulses
-            // so the moment of dematerialisation reads as a discrete event.
-            FleckMaker.ThrowLightningGlow(center, map, 1.7f);
-
-            // A couple of tinted thick puffs at small offsets: the un-coupled matter
-            // dispersing. Thick keeps them visible briefly; the cyan-white tint reads as
-            // field energy rather than combustion.
+            // 2-3 small tinted puffs drifting up at slight offsets: the un-coupled matter
+            // floating away. Sizes are deliberately small so the moment reads as "it
+            // dissolved" rather than "something exploded."
             int puffCount = Rand.RangeInclusive(2, 3);
             for (int i = 0; i < puffCount; i++)
             {
-                var offset = new Vector3(Rand.Range(-0.18f, 0.18f), 0f, Rand.Range(-0.18f, 0.18f));
-                FleckMaker.ThrowDustPuffThick(center + offset, map, Rand.Range(0.7f, 1.0f), GlitterTint);
+                var offset = new Vector3(Rand.Range(-0.15f, 0.15f), 0f, Rand.Range(-0.15f, 0.15f));
+                FleckMaker.ThrowDustPuffThick(center + offset, map, Rand.Range(0.45f, 0.7f), GlitterTint);
             }
         }
     }
