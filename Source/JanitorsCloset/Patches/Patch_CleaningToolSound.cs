@@ -10,20 +10,22 @@ using Verse.Sound;
 
 namespace JanitorsCloset.Patches
 {
-    // Cleaning sounds are picked by vanilla from the filth being cleaned
-    // (Filth_Dirt -> Interact_CleanFilth_Dirt = dry brushy noise; Filth_Vomit -> Fluid).
-    // A single-category tool should always sound like its medium: a mop should be wet
-    // even when scrubbing dust, a push broom should be dry even when sweeping blood.
-    // Multi-category tools (Glittervacuum: Dry + Wet) leave the vanilla sound alone since
-    // they don't have a single sonic identity.
+    // Forces a tool-specific sustainer for the cleaning sound. Single-category tools get
+    // their dry/wet vanilla sustainer; tools with a customCleaningSound on their extension
+    // override that entirely. Multi-category tools without a custom sound fall through to
+    // the vanilla per-filth selection.
     //
-    // Hook: the Sustainer constructor. Cleaning sounds have <sustain>True</sustain>, so
-    // vanilla starts them as Sustainers when the cleaning toil begins. Catching every
-    // Sustainer with a cleaning SoundDef as first arg is the simplest spot — we don't have
-    // to find the exact toil setup code path or worry about iterator/lambda patching.
+    // Diagnostics are gated to the first N hits per branch — confirm the swap is firing
+    // and observe which target SoundDef we chose for the Glittervacuum.
     [HarmonyPatch]
     public static class Patch_CleaningToolSound
     {
+        private const int DiagnosticBudget = 20;
+        private static int diagNoTool;
+        private static int diagNoExtension;
+        private static int diagSwapped;
+        private static int diagNoSwap;
+
         public static MethodBase TargetMethod()
         {
             var ctor = typeof(Sustainer)
@@ -42,22 +44,27 @@ namespace JanitorsCloset.Patches
         public static void Prefix(ref SoundDef __0)
         {
             if (__0 == null) return;
-
-            // Only touch cleaning sustainers so a tool-equipped pawn triggering some unrelated
-            // sustained sound (footstep loops, ambient effects, etc.) isn't accidentally swapped.
             if (!__0.defName.StartsWith("Interact_CleanFilth_")) return;
 
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
             var toolDef = driver?.pawn?.equipment?.Primary?.def;
-            if (toolDef == null) return;
+            if (toolDef == null)
+            {
+                Diag(ref diagNoTool, "[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
+                return;
+            }
 
             var ext = toolDef.GetModExtension<CleaningToolExtension>();
-            if (ext == null) return;
+            if (ext == null)
+            {
+                Diag(ref diagNoExtension,
+                    "[JC sound] tool='{0}' has no CleaningToolExtension; incoming='{1}'",
+                    toolDef.defName, __0.defName);
+                return;
+            }
 
             SoundDef target = null;
 
-            // Explicit override always wins — used by the Glittervacuum and any future tool
-            // whose sonic identity isn't captured by the dry/wet axis.
             if (ext.customCleaningSound != null)
             {
                 target = ext.customCleaningSound;
@@ -75,8 +82,37 @@ namespace JanitorsCloset.Patches
                 }
             }
 
-            if (target == null || __0 == target) return;
+            if (target == null)
+            {
+                Diag(ref diagNoSwap,
+                    "[JC sound] tool='{0}' no target sound (custom={1}, categories={2}); leaving incoming='{3}'",
+                    toolDef.defName,
+                    ext.customCleaningSound?.defName ?? "<null>",
+                    ext.categories?.Count ?? -1,
+                    __0.defName);
+                return;
+            }
+            if (__0 == target)
+            {
+                Diag(ref diagNoSwap,
+                    "[JC sound] tool='{0}' incoming already matches target='{1}', no swap",
+                    toolDef.defName, target.defName);
+                return;
+            }
+
+            Diag(ref diagSwapped,
+                "[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
+                toolDef.defName, __0.defName, target.defName);
             __0 = target;
+        }
+
+        private static void Diag(ref int counter, string fmt, params object[] args)
+        {
+            if (counter >= DiagnosticBudget) return;
+            counter++;
+            Log.Message(string.Format(fmt, args));
+            if (counter == DiagnosticBudget)
+                Log.Message("[JC sound] diagnostic budget exhausted for this branch — future hits silent.");
         }
     }
 }

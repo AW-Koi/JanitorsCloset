@@ -266,7 +266,7 @@
           <li>Dry</li>
           <li>Wet</li>
         </categories>
-        <customCleaningSound>Vitals_Monitor</customCleaningSound>
+        <customCleaningSound>GeothermalGenerator_Ambience</customCleaningSound>
         <animProfile>
           <basePhaseRate>0.035</basePhaseRate>
           <speedModRate>0.015</speedModRate>
