@@ -64,10 +64,11 @@ namespace JanitorsCloset.Patches
             // Wand-style override: replace the default facing-derived carry angle with the
             // pawn→filth direction so the tool actually points at the cell it's cleaning.
             // equippedAngleOffset (on the ThingDef) is applied inside DrawEquipmentAiming on top.
+            // RimWorld's aimAngle is compass-style: 0°=N, 90°=E, 180°=S, 270°=W — i.e.
+            // Atan2(x, z), NOT the standard math Atan2(z, x).
             if (profile.aimAtTarget && hasDirectionalTarget)
             {
-                aimAngle = Mathf.Atan2(toTarget.z, toTarget.x) * Mathf.Rad2Deg;
-                if (aimAngle < 0f) aimAngle += 360f;
+                aimAngle = toTarget.AngleFlat();
             }
 
             // Phase-modulated wobble: the stroke angle is sin(baseT + depth*sin(modT)). The
