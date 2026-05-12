@@ -14,9 +14,6 @@ namespace JanitorsCloset.Defs
         public static SoundDef Interact_CleanFilth_Fluid;
         public static SoundDef Interact_CleanFilth_Dirt;
 
-        // Custom fleck spawned per particle in the Glittervacuum's dematerialise burst.
-        public static FleckDef Janitor_DematerialiseShimmer;
-
         static JanitorDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(JanitorDefOf));

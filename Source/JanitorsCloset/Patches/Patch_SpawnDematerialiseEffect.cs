@@ -7,14 +7,12 @@ using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
-    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile, throw a small burst
-    // of shimmer particles outward from the cell. Mirrors Patch_SpawnMopMark in hook and
-    // gating — same Filth.ThinFilth postfix, same Patch_TrackCurrentJobDriver.Current check —
-    // but spawns transient flecks instead of a persistent damp-floor filth.
-    //
-    // The particle count, scatter, and velocity are randomised per-spawn so repeated cleans
-    // don't look mechanically identical. The fleck itself controls fade timing and rotation
-    // in Defs/FleckDefs/FleckDefs_Janitor.xml — tune the look there, not here.
+    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile, spawn a small burst
+    // of vanilla microsparks and a thin puff of smoke at the cell. Mirrors Patch_SpawnMopMark
+    // in hook and gating — same Filth.ThinFilth postfix, same Patch_TrackCurrentJobDriver
+    // .Current check — but uses vanilla FleckMaker helpers instead of a custom FleckDef so we
+    // don't have to ship our own particle textures. Swap in a custom FleckDef later when art
+    // is ready and the dematerialise visual deserves its own look.
     [HarmonyPatch(typeof(Filth), nameof(Filth.ThinFilth))]
     public static class Patch_SpawnDematerialiseEffect
     {
@@ -39,9 +37,6 @@ namespace JanitorsCloset.Patches
         {
             if (!__instance.Destroyed) return;
             if (__state.Map == null) return;
-
-            // Don't double-effect on damp-floor marks (they shouldn't normally be cleaned by
-            // the Glittervacuum either, but defence in depth never hurts).
             if (__state.OriginalDef == JanitorDefOf.Janitor_MopMark) return;
 
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
@@ -54,21 +49,18 @@ namespace JanitorsCloset.Patches
         private static void SpawnBurst(IntVec3 cell, Map map)
         {
             var center = cell.ToVector3Shifted();
-            int particleCount = Rand.RangeInclusive(3, 5);
-            for (int i = 0; i < particleCount; i++)
+
+            // Microsparks at random offsets — reads as "matter coming apart at the seams."
+            int sparkCount = Rand.RangeInclusive(3, 5);
+            for (int i = 0; i < sparkCount; i++)
             {
                 var offset = new Vector3(Rand.Range(-0.25f, 0.25f), 0f, Rand.Range(-0.25f, 0.25f));
-                var data = FleckMaker.GetDataStatic(
-                    center + offset,
-                    map,
-                    JanitorDefOf.Janitor_DematerialiseShimmer,
-                    Rand.Range(0.7f, 1.1f));
-                data.velocityAngle = Rand.Range(0f, 360f);
-                data.velocitySpeed = Rand.Range(0.4f, 0.8f);
-                data.rotation = Rand.Range(0f, 360f);
-                data.rotationRate = Rand.Range(-180f, 180f);
-                map.flecks.CreateFleck(data);
+                FleckMaker.ThrowMicroSparks(center + offset, map);
             }
+
+            // A small puff of smoke under the sparks for a "the thing was here" trace that
+            // dissipates with them.
+            FleckMaker.ThrowSmoke(center, map, 0.6f);
         }
     }
 }
