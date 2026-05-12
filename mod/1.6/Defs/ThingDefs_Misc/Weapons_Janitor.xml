@@ -257,7 +257,7 @@
       <Mass>1.0</Mass>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.5</CleaningSpeed>
+      <CleaningSpeed>1</CleaningSpeed>
     </equippedStatOffsets>
     <equippedAngleOffset>0</equippedAngleOffset>
     <modExtensions>
