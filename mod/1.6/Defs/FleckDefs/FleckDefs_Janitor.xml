@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Janitor_DematerialiseShimmer — single shimmer particle for the Glittervacuum's
+    filth-dematerialisation effect. The C# patch spawns 3–5 of these per cleaned tile
+    with randomised outward velocity and rotation, so they read as "filth atoms
+    scattering and fading" rather than a static glow.
+
+    Borrows the vanilla psycast shimmer texture for the glitterworld-tech vibe; if
+    the texture ever moves, swap texPath and re-tint via <color>.
+  -->
+  <FleckDef>
+    <defName>Janitor_DematerialiseShimmer</defName>
+    <fleckSystemClass>FleckSystemThrown</fleckSystemClass>
+    <graphicData>
+      <texPath>Things/Mote/PsycastPsychicEffect</texPath>
+      <graphicClass>Graphic_Mote</graphicClass>
+      <shaderType>MoteGlow</shaderType>
+      <color>(150, 220, 255, 230)</color>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <fadeInTime>0.05</fadeInTime>
+    <solidTime>0.1</solidTime>
+    <fadeOutTime>0.5</fadeOutTime>
+    <growthRate>0.4</growthRate>
+    <rotationRate>120</rotationRate>
+  </FleckDef>
+
+</Defs>
