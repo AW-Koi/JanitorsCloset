@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using JanitorsCloset.Defs;
 using RimWorld;
@@ -7,14 +8,18 @@ using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
-    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile, drift a few
-    // cyan-tinted thick puffs upward at the cell — the un-coupled matter floating away.
-    // Deliberately subtle: no glow flash, no sparks, just the puffs. The "during cleaning"
-    // pulse glow (Patch_GlittervacuumCleaningGlow) already ends naturally when the job
-    // does, which provides the energy half of the visual. Mirrors Patch_SpawnMopMark in
-    // hook and gating (Filth.ThinFilth postfix + Patch_TrackCurrentJobDriver.Current check).
+    // When a Glittervacuum-equipped pawn finishes cleaning a filth tile:
+    //   1. Drift a few cyan-tinted thick puffs upward at the cell — the un-coupled matter
+    //      floating away. No glow flash, no sparks; the during-cleaning pulse glow
+    //      (Patch_GlittervacuumCleaningGlow) already supplies the energy half.
+    //   2. Dematerialise any *other* filth still on the same cell. Flavor: the field
+    //      uncouples the whole tile, not just the one piece of dirt the toil was tracking.
+    //      A single ThinFilth-to-destroy thus clears a whole co-located stack for free.
+    //
+    // Mirrors Patch_SpawnMopMark in hook and gating (Filth.ThinFilth postfix +
+    // Patch_TrackCurrentJobDriver.Current check).
     [HarmonyPatch(typeof(Filth), nameof(Filth.ThinFilth))]
-    public static class Patch_SpawnDematerialiseEffect
+    public static class Patch_GlittervacuumDematerialise
     {
         public class State
         {
@@ -44,6 +49,31 @@ namespace JanitorsCloset.Patches
             if (driver.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Glittervacuum) return;
 
             SpawnBurst(__state.Cell, __state.Map);
+            DematerialiseRemainingFilthInCell(__state.Cell, __state.Map);
+        }
+
+        // Destroy any filth still present on the cell. The originally-cleaned filth is
+        // already destroyed (and out of the thingGrid) by the time we get here, so this
+        // never re-touches it. MopMarks are deliberately skipped — they're a wet-floor
+        // trace from a different tool and decay on their own.
+        private static void DematerialiseRemainingFilthInCell(IntVec3 cell, Map map)
+        {
+            var things = map.thingGrid.ThingsListAtFast(cell);
+            // Snapshot first because Destroy mutates the grid list under us.
+            List<Filth> targets = null;
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (things[i] is Filth f && !f.Destroyed && f.def != JanitorDefOf.Janitor_MopMark)
+                {
+                    if (targets == null) targets = new List<Filth>();
+                    targets.Add(f);
+                }
+            }
+            if (targets == null) return;
+            for (int i = 0; i < targets.Count; i++)
+            {
+                targets[i].Destroy();
+            }
         }
 
         // Glitterworld field-collapse palette: pale cyan-white, low alpha so the puffs
