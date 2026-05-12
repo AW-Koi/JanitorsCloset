@@ -14,7 +14,7 @@
     <defName>Janitor_DematerialiseShimmer</defName>
     <fleckSystemClass>FleckSystemThrown</fleckSystemClass>
     <graphicData>
-      <texPath>Things/Mote/PsycastPsychicEffect</texPath>
+      <texPath>Things/Mote/Sparkle</texPath>
       <graphicClass>Graphic_Fleck</graphicClass>
       <shaderType>MoteGlow</shaderType>
       <color>(150, 220, 255, 230)</color>
