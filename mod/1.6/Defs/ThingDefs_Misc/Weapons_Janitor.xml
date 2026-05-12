@@ -196,12 +196,12 @@
         <cooldownTime>1.6</cooldownTime>
       </li>
       <li>
-        <label>chassis</label>
+        <label>field discharge</label>
         <labelUsedInLogging>false</labelUsedInLogging>
         <capacities>
-          <li>Blunt</li>
+          <li>Burn</li>
         </capacities>
-        <power>8</power>
+        <power>5</power>
         <cooldownTime>2.0</cooldownTime>
       </li>
     </tools>
