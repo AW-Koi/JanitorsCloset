@@ -14,6 +14,11 @@ namespace JanitorsCloset.Cleaning
         // no custom animation — the weapon stays in the default carry pose.
         public CleaningAnimProfile animProfile;
 
+        // Optional SoundDef override for the cleaning sustainer. When set, Patch_CleaningToolSound
+        // forces this sound regardless of filth — useful for tools that don't fit the dry/wet
+        // sonic dichotomy (e.g. the Glittervacuum, which is a humming field device).
+        public SoundDef customCleaningSound;
+
         public bool Matches(CleaningCategory category)
         {
             return categories != null && categories.Contains(category);
