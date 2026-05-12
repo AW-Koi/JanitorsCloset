@@ -10,18 +10,15 @@
       <texPath>Things/Item/Equipment/Janitor_StrawBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>Cutout</shaderType>
-      <drawSize>(1.25, 0.35)</drawSize>
+      <drawSize>(1.0, 0.5)</drawSize>
     </graphicData>
     <uiIconScale>1.1</uiIconScale>
     <techLevel>Neolithic</techLevel>
     <weaponClasses>
       <li>MeleeBlunt</li>
     </weaponClasses>
-    <costStuffCount>20</costStuffCount>
-    <stuffCategories>
-      <li>Woody</li>
-    </stuffCategories>
     <costList>
+      <WoodLog>20</WoodLog>
       <Hay>5</Hay>
     </costList>
     <statBases>
@@ -250,12 +247,8 @@
     <weaponClasses>
       <li>MeleeBlunt</li>
     </weaponClasses>
-    <costStuffCount>20</costStuffCount>
-    <stuffCategories>
-      <li>Metallic</li>
-    </stuffCategories>
     <costList>
-      <Plasteel>20</Plasteel>
+      <Plasteel>40</Plasteel>
       <ComponentSpacer>1</ComponentSpacer>
       <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
@@ -273,6 +266,16 @@
           <li>Dry</li>
           <li>Wet</li>
         </categories>
+        <animProfile>
+          <basePhaseRate>0.022</basePhaseRate>
+          <speedModRate>0.015</speedModRate>
+          <speedModDepth>1.5</speedModDepth>
+          <wobbleDegrees>6</wobbleDegrees>
+          <slideTiles>0.04</slideTiles>
+          <reachFactor>0.18</reachFactor>
+          <rotationOffset>0</rotationOffset>
+          <verticalOffset>0.08</verticalOffset>
+        </animProfile>
       </li>
     </modExtensions>
     <recipeMaker>
