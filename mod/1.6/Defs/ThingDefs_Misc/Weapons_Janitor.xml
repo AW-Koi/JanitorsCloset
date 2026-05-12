@@ -82,7 +82,7 @@
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
     <defName>Janitor_PushBroom</defName>
     <label>push broom</label>
-    <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved. Sweeps a corridor's worth of grit in one pass. Not very effective for cleaning liquid filth, unless you want to push it around.</description>
+    <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved. Sweeps a corridor's worth of grit in one pass. Not very effective for cleaning liquids, unless you want to push them around.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/Janitor_PushBroom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
