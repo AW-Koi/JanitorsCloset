@@ -11,8 +11,8 @@ namespace JanitorsCloset.Patches
     // Janitor_GlittervacuumPulse fleck under the wand head. The fleck's own fade-in /
     // solid / fade-out curve does the breathing; the spawn cadence just keeps a fresh
     // one starting before the previous fades out so the glow reads as continuous rather
-    // than blinking. Companion to Patch_SpawnDematerialiseEffect, which fires the
-    // floating-away puffs when the filth is finally destroyed.
+    // than blinking. Companion to Patch_GlittervacuumDematerialise, which fires the
+    // floating-away puffs and clears any co-located filth when the cell finishes.
     [HarmonyPatch]
     public static class Patch_GlittervacuumCleaningGlow
     {
