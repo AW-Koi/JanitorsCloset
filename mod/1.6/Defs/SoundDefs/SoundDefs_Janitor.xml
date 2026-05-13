@@ -27,6 +27,9 @@
           <min>10</min>
           <max>40</max>
         </distRange>
+        <sustainAttack>0.15</sustainAttack>
+        <sustainRelease>0.25</sustainRelease>
+        <sustainLoop>true</sustainLoop>
         <repeatMode>Any</repeatMode>
         <grains>
           <li Class="AudioGrain_Clip">
