@@ -34,7 +34,10 @@ namespace JanitorsCloset.Patches
         public static void Prefix(JobDriver __instance, out JobDriver __state)
         {
             __state = Current;
-            if (__instance is JobDriver_CleanFilth)
+            // JobDriver_ClearPollution drives terrain pollution cleanup (Biotech). We track
+            // it for the GeneralLaborSpeed StatPart that grants the Toxic-tool bonus only
+            // during pollution work.
+            if (__instance is JobDriver_CleanFilth || __instance is JobDriver_ClearPollution)
                 Current = __instance;
         }
 

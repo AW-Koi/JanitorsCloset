@@ -51,6 +51,10 @@ namespace JanitorsCloset.Cleaning
                         valueKey = "JanitorsCloset.CleaningTool.SpecialtyWet";
                         explanationKey = "JanitorsCloset.CleaningTool.SpecialtyExplanationWet";
                         break;
+                    case CleaningCategory.Toxic:
+                        valueKey = "JanitorsCloset.CleaningTool.SpecialtyToxic";
+                        explanationKey = "JanitorsCloset.CleaningTool.SpecialtyExplanationToxic";
+                        break;
                 }
                 if (valueKey != null)
                 {

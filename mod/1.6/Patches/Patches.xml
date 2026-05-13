@@ -22,4 +22,20 @@
     </value>
   </Operation>
 
+  <!--
+    Register the pollution-tool StatPart on GeneralLaborSpeed. JobDriver_ClearPollution
+    (Biotech's "clear pollution" work) scales per-tick progress by GeneralLaborSpeed * delta,
+    so that's the stat we have to ride to make a tool meaningfully faster at pollution work.
+    The StatPart only adds during an active pollution job for the pawn — every other use of
+    GeneralLaborSpeed (cooking, smithing, hauling speed factors that read it) is untouched.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="GeneralLaborSpeed"]</xpath>
+    <value>
+      <parts>
+        <li Class="JanitorsCloset.Cleaning.StatPart_PollutionToolBonus"/>
+      </parts>
+    </value>
+  </Operation>
+
 </Patch>
