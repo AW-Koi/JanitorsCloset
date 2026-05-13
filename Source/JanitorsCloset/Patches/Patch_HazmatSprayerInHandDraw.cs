@@ -7,7 +7,7 @@ using Verse;
 
 namespace JanitorsCloset.Patches
 {
-    // When a pawn is holding the Hazmat Sprayer, draw the wand-only sprite at a slightly
+    // When a pawn is holding the HAZMAT Sprayer, draw the wand-only sprite at a slightly
     // smaller scale instead of the def's combo (backpack + wand) texture. The combo art is
     // intentionally the def's texPath so it shows on the ground and in the drafted-weapon
     // gizmo — but rendering the combo in-hand would visually double up the backpack against

@@ -8,7 +8,7 @@
     <JanitorsCloset.CleaningTool.SpecialtyExplanationWet>The cleaning speed bonus from this tool only applies to wet filth. Dry filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationWet>
     <JanitorsCloset.CleaningTool.SpecialtyToxic>Polluted terrain only</JanitorsCloset.CleaningTool.SpecialtyToxic>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>The cleaning speed bonus from this tool only applies while clearing polluted terrain. Ordinary filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>
-    <JanitorsCloset.CleaningTool.ToxicBonus>Hazmat cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
+    <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Whole-tile clean</JanitorsCloset.CleaningTool.SpecialtyStackClear>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises the entire filth stack on the target tile in a single pass, not just the topmost piece.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
 </LanguageData>

@@ -10,7 +10,7 @@
        is no pollution to clean, so the def would have nothing to do. -->
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
     <defName>Janitor_HazmatSprayer</defName>
-    <label>hazmat sprayer</label>
+    <label>HAZMAT sprayer</label>
     <description>A backpack-fed wand that sprays a stream of decontamination foam used to clean up pollution. Issued to crews who clean up after the kind of accident that's best kept secret.</description>
     <graphicData>
       <!-- texPath = the combo (backpack + wand) sprite. Used for ground draws and the
