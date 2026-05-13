@@ -11,6 +11,10 @@
     <defName>Janitor_Glittervacuum_Cleaning</defName>
     <context>MapOnly</context>
     <sustain>True</sustain>
+    <!-- Sustainer-level fadeout. SampleSustainer.Volume uses this to ramp AudioSource
+         volume to 0 over the window after Sustainer.End() is called; without it,
+         End() invokes Cleanup() synchronously and the loop hard-cuts mid-sample. -->
+    <sustainFadeoutTime>1</sustainFadeoutTime>
     <priorityMode>PrioritizeNearest</priorityMode>
     <subSounds>
       <li>
@@ -28,7 +32,6 @@
           <max>40</max>
         </distRange>
         <sustainAttack>0.3</sustainAttack>
-        <sustainRelease>1</sustainRelease>
         <sustainLoop>true</sustainLoop>
         <grains>
           <li Class="AudioGrain_Clip">
