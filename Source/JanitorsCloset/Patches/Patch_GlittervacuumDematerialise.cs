@@ -5,7 +5,6 @@ using JanitorsCloset.Defs;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
