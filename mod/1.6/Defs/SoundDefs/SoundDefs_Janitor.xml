@@ -14,18 +14,18 @@
     <!-- Sustainer-level fadeout. SampleSustainer.Volume uses this to ramp AudioSource
          volume to 0 over the window after Sustainer.End() is called; without it,
          End() invokes Cleanup() synchronously and the loop hard-cuts mid-sample. -->
-    <sustainFadeoutTime>1</sustainFadeoutTime>
+    <sustainFadeoutTime>0.3</sustainFadeoutTime>
     <priorityMode>PrioritizeNearest</priorityMode>
     <subSounds>
       <li>
         <onCamera>false</onCamera>
         <volumeRange>
-          <min>50</min>
-          <max>60</max>
+          <min>40</min>
+          <max>50</max>
         </volumeRange>
         <pitchRange>
-          <min>1</min>
-          <max>1</max>
+          <min>0.8</min>
+          <max>1.2</max>
         </pitchRange>
         <distRange>
           <min>10</min>
