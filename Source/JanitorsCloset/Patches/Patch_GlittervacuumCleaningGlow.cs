@@ -16,10 +16,11 @@ namespace JanitorsCloset.Patches
     [HarmonyPatch]
     public static class Patch_GlittervacuumCleaningGlow
     {
-        // Pulse fleck total lifespan is ~2.1s (0.7 fade-in + 0.4 solid + 1.0 fade-out).
-        // Spawning every 75 ticks (~1.25s) overlaps adjacent pulses so the glow is
-        // continuous and slowly breathes rather than strobing.
-        private const int PulseIntervalTicks = 75;
+        // Pulse fleck total lifespan is ~0.95s (0.25 fade-in + 0.3 solid + 0.4 fade-out).
+        // Spawning every 45 ticks (~0.75s) overlaps adjacent pulses by ~0.2s so the glow
+        // stays continuous without strobing while still appearing promptly when cleaning
+        // starts and clearing quickly when a tile finishes.
+        private const int PulseIntervalTicks = 45;
 
         [HarmonyPatch(typeof(JobDriver), "DriverTickInterval")]
         [HarmonyPostfix]
