@@ -68,7 +68,7 @@
       </li>
     </modExtensions>
     <recipeMaker>
-      <researchPrerequisite>Sanitation</researchPrerequisite>
+      <researchPrerequisite>ToxicCleanup</researchPrerequisite>
       <recipeUsers>
         <li>TableMachining</li>
       </recipeUsers>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Toxic Cleanup — Biotech-only mid-industrial research. The Hazmat Sprayer is
+    the only thing it gates, and the sprayer itself only exists with Biotech, so
+    this def lives under 1.6/Biotech/ alongside it.
+
+    If Vanilla Armour Expanded is installed, Patches/Patch_HazmatSprayer_VAE.xml
+    re-routes the sprayer onto VAE's VAE_HazardProtection research and removes
+    this project, so hazmat gear sits under VAE's shared umbrella instead of
+    competing with it.
+  -->
+  <ResearchProjectDef>
+    <defName>ToxicCleanup</defName>
+    <label>toxic cleanup</label>
+    <description>Procedures and gear for cleaning up the spills management insists never happened. Binding foams, runoff dams, and a wand heavy enough that you only want to spray once.</description>
+    <baseCost>500</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>Sanitation</li>
+    </prerequisites>
+    <researchViewX>5.50</researchViewX>
+    <researchViewY>2.20</researchViewY>
+    <tab>Main</tab>
+  </ResearchProjectDef>
+
+</Defs>

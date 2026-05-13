@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!--
+    If Vanilla Armour Expanded (vanillaexpanded.varme) is loaded, route the
+    Hazmat Sprayer through VAE's VAE_HazardProtection research instead of our
+    standalone ToxicCleanup project, and delete ToxicCleanup so the tech tree
+    isn't cluttered with an orphan that gates nothing.
+
+    Conditional is keyed on the existence of the VAE def itself rather than
+    on the mod's display name — robust against the mod being renamed or
+    repackaged, and avoids hard-coding a string the user can't influence.
+
+    This file lives under 1.6/Biotech/ so it only loads when Biotech is also
+    active. Without Biotech the sprayer doesn't exist and there is nothing
+    to patch.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ResearchProjectDef[defName="VAE_HazardProtection"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Janitor_HazmatSprayer"]/recipeMaker/researchPrerequisite</xpath>
+          <value>
+            <researchPrerequisite>VAE_HazardProtection</researchPrerequisite>
+          </value>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ResearchProjectDef[defName="ToxicCleanup"]</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>
