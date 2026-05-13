@@ -17,6 +17,9 @@ namespace JanitorsCloset.Defs
         public static SoundDef Interact_CleanFilth_Fluid;
         public static SoundDef Interact_CleanFilth_Dirt;
 
+        // Mod SoundDef for the Glittervacuum cleaning sustainer.
+        public static SoundDef Janitor_Glittervacuum_Cleaning;
+
         static JanitorDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(JanitorDefOf));
