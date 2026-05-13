@@ -16,7 +16,7 @@
       <li>
         <onCamera>false</onCamera>
         <volumeRange>
-          <min>40</min>
+          <min>50</min>
           <max>60</max>
         </volumeRange>
         <pitchRange>
