@@ -46,7 +46,7 @@
     <defName>AtomicSanitation</defName>
     <label>atomic sanitation</label>
     <description>Glitterworld field theory applied to the unglamorous problem of grime. A handheld emitter severs the local binding between matter and the spacetime it presently occupies; the matter, deprived of a reason to stay, simply doesn't. Janitors call it 'the vacuum' because nobody pays them to use longer words.</description>
-    <baseCost>3500</baseCost>
+    <baseCost>2000</baseCost>
     <techLevel>Spacer</techLevel>
     <prerequisites>
       <li>Sanitation</li>
