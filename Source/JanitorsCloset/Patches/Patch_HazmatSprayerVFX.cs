@@ -27,6 +27,11 @@ namespace JanitorsCloset.Patches
         [HarmonyPostfix]
         public static void Postfix(JobDriver __instance)
         {
+            // No Biotech → no sprayer def loaded; the equipped-weapon comparison below
+            // would otherwise pass for any weapon (anyDef != null) and we'd try to spawn
+            // a null FleckDef.
+            if (JanitorDefOf.Janitor_HazmatSprayer == null) return;
+
             // Fire on both pollution-clearing and filth-cleaning. Even on a category
             // mismatch (the bonus is suppressed by StatPart_CleaningToolMatch), the
             // player equipped a sprayer — the wand should visibly do something. Speed

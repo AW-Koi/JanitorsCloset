@@ -26,40 +26,10 @@
     <fadeOutTime>0.4</fadeOutTime>
   </FleckDef>
 
-  <!--
-    Janitor_HazmatChemSpray — airborne foam puff sprayed at the wand tip while a Hazmat
-    Sprayer-equipped pawn is cleaning. Inherits FleckBase_RandomGraphic_Thrown so each
-    spawn picks one of the three vanilla foam textures (purpose-built white foam art used
-    by Core's own FoamSpray fleck for fire-foam pops). TransparentPostLight is the same
-    shader vanilla uses on those textures — alpha-blended, lit by world lighting, and
-    crucially NOT additive, so the puff stays readable at zoomed-out scales without
-    washing into the background.
-  -->
-  <FleckDef>
-    <defName>Janitor_HazmatChemSpray</defName>
-    <fleckSystemClass>Verse.FleckSystemThrown</fleckSystemClass>
-    <altitudeLayer>MoteOverhead</altitudeLayer>
-    <graphicData>
-      <!-- Things/Mote/Smoke is the cleanest white/grayscale puff texture vanilla ships
-           — it's what AcidCloud and friends use as a base, then tint to whatever colour
-           the effect wants. Tinting it pure white with the additive MoteGlow shader
-           gives a fully-desaturated white puff. (DustPuff has brown saturation baked
-           into its alpha, so additive blending of (1,1,1)×DustPuff still adds brown to
-           the screen — that's why earlier iterations came out tan.) -->
-      <texPath>Things/Mote/Smoke</texPath>
-      <shaderType>MoteGlow</shaderType>
-      <graphicClass>Graphic_Fleck</graphicClass>
-      <color>(1.0, 1.0, 1.0, 1.0)</color>
-    </graphicData>
-    <fadeInTime>0.04</fadeInTime>
-    <solidTime>0.18</solidTime>
-    <fadeOutTime>0.40</fadeOutTime>
-    <growthRate>0.6</growthRate>
-  </FleckDef>
-
-  <!-- Note: the lingering "this tile was sprayed" marker is now a real FilthDef
-       (Janitor_HazmatFoam, defined in ThingDefs_Misc/Filth_Janitor.xml) rather than a
-       fleck — filth survives zoom-out and persists across save/load, both of which
-       fleck-based markers failed at. See Patch_SpawnHazmatFoam for the spawn rules. -->
+  <!-- Janitor_HazmatChemSpray (the sprayer's wand-tip puff fleck) lives in
+       1.6/Biotech/Defs/FleckDefs/FleckDefs_HazmatSprayer.xml — Biotech-gated alongside
+       the sprayer. The durable "tile was sprayed" marker is a FilthDef (Janitor_HazmatFoam,
+       under 1.6/Biotech/Defs/ThingDefs_Misc/Filth_HazmatFoam.xml); see Patch_SpawnHazmatFoam
+       for the spawn rules. -->
 
 </Defs>

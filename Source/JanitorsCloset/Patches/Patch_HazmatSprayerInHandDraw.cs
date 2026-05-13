@@ -39,6 +39,9 @@ namespace JanitorsCloset.Patches
         [HarmonyPriority(Priority.Low)]
         public static bool Prefix(Thing eq, Vector3 drawLoc, float aimAngle)
         {
+            // No Biotech → no sprayer def. The eq?.def check below would otherwise pass
+            // for non-sprayer items (anyDef != null), suppressing vanilla's own draw.
+            if (JanitorDefOf.Janitor_HazmatSprayer == null) return true;
             if (eq?.def != JanitorDefOf.Janitor_HazmatSprayer) return true;
 
             var graphic = ResolveWandGraphic();

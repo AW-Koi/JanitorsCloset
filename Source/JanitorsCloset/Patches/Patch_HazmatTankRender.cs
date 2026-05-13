@@ -40,6 +40,9 @@ namespace JanitorsCloset.Patches
 
         public static void Postfix(Pawn pawn, Vector3 drawPos, Rot4 facing, PawnRenderFlags flags)
         {
+            // No Biotech → no sprayer def; without this guard the equipment-def
+            // comparison below would treat any equipped weapon as a sprayer.
+            if (JanitorDefOf.Janitor_HazmatSprayer == null) return;
             if (pawn?.equipment?.Primary == null) return;
             if (pawn.equipment.Primary.def != JanitorDefOf.Janitor_HazmatSprayer) return;
             if (pawn.Dead || pawn.Downed) return;

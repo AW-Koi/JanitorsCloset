@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Janitor_HazmatChemSpray — airborne foam puff sprayed at the wand tip while a Hazmat
+    Sprayer-equipped pawn is cleaning. Inherits FleckBase_RandomGraphic_Thrown so each
+    spawn picks one of the three vanilla foam textures (purpose-built white foam art used
+    by Core's own FoamSpray fleck for fire-foam pops). TransparentPostLight is the same
+    shader vanilla uses on those textures — alpha-blended, lit by world lighting, and
+    crucially NOT additive, so the puff stays readable at zoomed-out scales without
+    washing into the background.
+
+    Biotech-gated alongside the sprayer ThingDef — no sprayer, no puff.
+  -->
+  <FleckDef>
+    <defName>Janitor_HazmatChemSpray</defName>
+    <fleckSystemClass>Verse.FleckSystemThrown</fleckSystemClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <graphicData>
+      <!-- Things/Mote/Smoke is the cleanest white/grayscale puff texture vanilla ships
+           — it's what AcidCloud and friends use as a base, then tint to whatever colour
+           the effect wants. Tinting it pure white with the additive MoteGlow shader
+           gives a fully-desaturated white puff. (DustPuff has brown saturation baked
+           into its alpha, so additive blending of (1,1,1)×DustPuff still adds brown to
+           the screen — that's why earlier iterations came out tan.) -->
+      <texPath>Things/Mote/Smoke</texPath>
+      <shaderType>MoteGlow</shaderType>
+      <graphicClass>Graphic_Fleck</graphicClass>
+      <color>(1.0, 1.0, 1.0, 1.0)</color>
+    </graphicData>
+    <fadeInTime>0.04</fadeInTime>
+    <solidTime>0.18</solidTime>
+    <fadeOutTime>0.40</fadeOutTime>
+    <growthRate>0.6</growthRate>
+  </FleckDef>
+
+</Defs>

@@ -3,5 +3,9 @@
     <v1.6>
         <li>/</li>
         <li>1.6</li>
+        <!-- Biotech-only content (Hazmat Sprayer and its supporting defs).
+             Loads only when the Biotech DLC is active. Without Biotech there's no
+             pollution to clear, so the sprayer would have nothing to do. -->
+        <li IfModActive="Ludeon.RimWorld.Biotech">1.6/Biotech</li>
     </v1.6>
 </LoadFolders>

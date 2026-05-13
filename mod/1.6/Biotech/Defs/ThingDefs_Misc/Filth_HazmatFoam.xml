@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    Janitor_HazmatFoam — the white decontaminant foam deposited by the Hazmat Sprayer.
+    Visible at every zoom level because it's a real Filth thing rendered through the
+    terrain layer, not a transient mote that LOD-culls when small on screen. This is what
+    actually sells "the janitor is working here" from across the map.
+
+    Mechanically a marker, not a chore:
+      * Excluded from the cleaning work queue by Patch_SkipCleaningMopMark (same skip
+        list as the mop's damp-floor mark).
+      * Negligible cleanliness/beauty penalty so it doesn't tank a room's stats just
+        because a cleanup pass passed through.
+      * Reuses vanilla Things/Filth/FireFoam art with a low-alpha tint so we don't
+        ship texture assets; the texture is already a clean "foamy spread on floor."
+      * Decays in hours, not days — long enough to read at distance while the work
+          happens, short enough that the colony isn't permanently foam-marked.
+
+    Lives under 1.6/Biotech/ alongside the Hazmat Sprayer ThingDef — the foam only exists
+    because the sprayer spawns it, so without Biotech (i.e. without the sprayer) the def
+    would be dead weight.
+  -->
+  <ThingDef ParentName="BaseFilth">
+    <defName>Janitor_HazmatFoam</defName>
+    <label>decontaminant foam</label>
+    <description>A patch of pale neutraliser foam sprayed across the floor. Breaks down a few hours after application.</description>
+    <statBases>
+      <Beauty>-1</Beauty>
+      <Cleanliness>0</Cleanliness>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Filth/FireFoam</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <!-- Low-alpha white so the foam reads as a soft deposit, not a thick fire-foam
+           splat. The FireFoam texture is already near-white; the alpha is what gates
+           opacity. -->
+      <color>(1, 1, 1, 0.55)</color>
+      <drawSize>1.75</drawSize>
+    </graphicData>
+    <filth>
+      <!-- Couple of in-game hours. Long enough to mark a whole work session, short
+           enough that the foam isn't a permanent floor decoration. -->
+      <disappearsInDays>0.08~0.12</disappearsInDays>
+      <ignoreFilthMultiplierStat>true</ignoreFilthMultiplierStat>
+      <canFilthAttach>false</canFilthAttach>
+      <allowsFire>false</allowsFire>
+      <rainWashes>true</rainWashes>
+      <!-- High work-to-clean number because cleaning never actually runs on this def —
+           the skip patch keeps it out of the queue. The number is just defensive in
+           case some other mod queues it directly. -->
+      <cleaningWorkToReduceThickness>9999</cleaningWorkToReduceThickness>
+    </filth>
+  </ThingDef>
+
+</Defs>

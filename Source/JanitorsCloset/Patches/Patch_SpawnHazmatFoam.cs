@@ -27,6 +27,10 @@ namespace JanitorsCloset.Patches
 
         public static void Postfix(JobDriver __instance)
         {
+            // No Biotech → no sprayer def → nothing to do. Without this guard,
+            // (someDef != null) would pass for any equipped weapon and we'd try to
+            // spawn a null FilthDef.
+            if (JanitorDefOf.Janitor_HazmatSprayer == null) return;
             if (!(__instance is JobDriver_ClearPollution) && !(__instance is JobDriver_CleanFilth)) return;
 
             var pawn = __instance.pawn;

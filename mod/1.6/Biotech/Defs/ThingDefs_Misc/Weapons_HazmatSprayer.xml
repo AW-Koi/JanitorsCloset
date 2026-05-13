@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- The Hazmat Sprayer — industrial-tier specialist for polluted terrain (Biotech).
+       Decontamination foam through a backpack-fed wand. Doesn't help with everyday filth —
+       its bonus only counts toward the "clear pollution" job. A wasteland tool.
+
+       Lives under 1.6/Biotech/ and is only loaded when the Biotech DLC is active (gated
+       via LoadFolders.xml IfModActive="Ludeon.RimWorld.Biotech"). Without Biotech there
+       is no pollution to clean, so the def would have nothing to do. -->
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>Janitor_HazmatSprayer</defName>
+    <label>hazmat sprayer</label>
+    <description>A backpack-fed wand that sprays a stream of decontamination foam used to clean up pollution. Issued to crews who clean up after the kind of accident that's best kept secret.</description>
+    <graphicData>
+      <!-- texPath = the combo (backpack + wand) sprite. Used for ground draws and the
+           drafted-weapon gizmo aspect. The in-hand draw is intercepted by
+           Patch_HazmatSprayerInHandDraw, which swaps to the wand-only sprite at a smaller
+           scale so the held weapon doesn't carry a redundant backpack while the separate
+           tank renderer (Patch_HazmatTankRender) is also drawing one on the pawn's back.
+           drawSize is 1:1 to match the combo art — using the wand's 1.25 × 0.55 ratio
+           here would squash the gizmo icon horizontally. -->
+      <texPath>Things/Item/Equipment/Janitor_HazmatSprayer_Combo</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.0, 1.0)</drawSize>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <weaponClasses>
+      <li>MeleeBlunt</li>
+    </weaponClasses>
+    <costStuffCount>30</costStuffCount>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costList>
+      <ComponentIndustrial>2</ComponentIndustrial>
+      <Cloth>10</Cloth>
+    </costList>
+    <statBases>
+      <WorkToMake>4500</WorkToMake>
+      <Mass>3.0</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <CleaningSpeed>0.75</CleaningSpeed>
+    </equippedStatOffsets>
+    <equippedAngleOffset>350</equippedAngleOffset>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
+        <categories>
+          <li>Toxic</li>
+        </categories>
+        <customCleaningSound>Janitor_HazmatSprayer_Cleaning</customCleaningSound>
+        <animProfile>
+          <basePhaseRate>0.030</basePhaseRate>
+          <speedModRate>0.020</speedModRate>
+          <speedModDepth>1.5</speedModDepth>
+          <wobbleDegrees>5</wobbleDegrees>
+          <slideTiles>0.03</slideTiles>
+          <!-- reachFactor low so the wand stays held close to the body rather than
+               extending out toward the target tile — a backpack-fed wand isn't a long
+               poking implement like a mop. -->
+          <reachFactor>0.12</reachFactor>
+          <rotationOffset>0</rotationOffset>
+          <verticalOffset>0.05</verticalOffset>
+          <aimAtTarget>true</aimAtTarget>
+        </animProfile>
+      </li>
+    </modExtensions>
+    <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <displayPriority>255</displayPriority>
+    </recipeMaker>
+    <tools>
+      <li>
+        <label>wand</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>5</power>
+        <cooldownTime>1.8</cooldownTime>
+      </li>
+      <li>
+        <label>tank</label>
+        <labelUsedInLogging>false</labelUsedInLogging>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2.4</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+</Defs>
