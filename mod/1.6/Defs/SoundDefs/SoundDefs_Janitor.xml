@@ -27,8 +27,8 @@
           <min>10</min>
           <max>40</max>
         </distRange>
-        <sustainAttack>0.25</sustainAttack>
-        <sustainRelease>0.5</sustainRelease>
+        <sustainAttack>1</sustainAttack>
+        <sustainRelease>1</sustainRelease>
         <sustainLoop>true</sustainLoop>
         <repeatMode>Any</repeatMode>
         <grains>
