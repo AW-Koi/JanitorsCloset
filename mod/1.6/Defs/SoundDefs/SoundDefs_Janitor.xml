@@ -27,10 +27,9 @@
           <min>10</min>
           <max>40</max>
         </distRange>
-        <sustainAttack>1</sustainAttack>
+        <sustainAttack>0.3</sustainAttack>
         <sustainRelease>1</sustainRelease>
         <sustainLoop>true</sustainLoop>
-        <repeatMode>Any</repeatMode>
         <grains>
           <li Class="AudioGrain_Clip">
             <clipPath>JanitorsCloset/Glittervacuum_Cleaning</clipPath>
