@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HarmonyLib;
+using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 using RimWorld;
 using UnityEngine;
@@ -46,7 +47,10 @@ namespace JanitorsCloset.Patches
 
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
-            if (driver.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Glittervacuum) return;
+            var weaponDef = driver.pawn?.equipment?.Primary?.def;
+            if (weaponDef == null) return;
+            var ext = weaponDef.GetModExtension<CleaningToolExtension>();
+            if (ext == null || !ext.clearsFilthStack) return;
 
             SpawnBurst(__state.Cell, __state.Map);
             DematerialiseRemainingFilthInCell(__state.Cell, __state.Map);

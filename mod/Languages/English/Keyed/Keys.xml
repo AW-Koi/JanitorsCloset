@@ -6,4 +6,6 @@
     <JanitorsCloset.CleaningTool.SpecialtyWet>Wet filth only</JanitorsCloset.CleaningTool.SpecialtyWet>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationDry>The cleaning speed bonus from this tool only applies to dry filth (dirt, dust, sand, ash). Wet filth (blood, vomit, water) cleans at vanilla speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationDry>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationWet>The cleaning speed bonus from this tool only applies to wet filth (blood, vomit, water, slime). Dry filth (dirt, dust, sand) cleans at vanilla speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationWet>
+    <JanitorsCloset.CleaningTool.SpecialtyStackClear>Whole-tile clean</JanitorsCloset.CleaningTool.SpecialtyStackClear>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises the entire filth stack on the target tile in a single pass, not just the topmost piece.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
 </LanguageData>

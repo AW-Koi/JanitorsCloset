@@ -235,7 +235,7 @@
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
     <defName>Janitor_Glittervacuum</defName>
     <label>glittervacuum</label>
-    <description>Despite the name, it doesn't suck. A glitterworld field projector that quietly unmakes filth where it sits. 'Vacuum' stuck because 'reality-uncoupler' wouldn't fit on the label.</description>
+    <description>Despite the name, it doesn't suck. A glitterworld field projector that quietly unmakes filth where it sits. One pass dematerialises every layer of muck at once. 'Vacuum' stuck because 'microscale reality-uncoupler' wouldn't fit on the label.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/Janitor_Glittervacuum</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -266,6 +266,7 @@
           <li>Dry</li>
           <li>Wet</li>
         </categories>
+        <clearsFilthStack>true</clearsFilthStack>
         <customCleaningSound>Janitor_Glittervacuum_Cleaning</customCleaningSound>
         <animProfile>
           <basePhaseRate>0.035</basePhaseRate>

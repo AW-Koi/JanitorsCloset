@@ -19,6 +19,11 @@ namespace JanitorsCloset.Cleaning
         // sonic dichotomy (e.g. the Glittervacuum, which is a humming field device).
         public SoundDef customCleaningSound;
 
+        // When true, a successful clean dematerialises every filth on the target cell in one
+        // pass, not just the piece the toil was tracking. Gates Patch_GlittervacuumDematerialise
+        // and surfaces a "Cleaning specialty" entry on the info card.
+        public bool clearsFilthStack;
+
         public bool Matches(CleaningCategory category)
         {
             return categories != null && categories.Contains(category);
