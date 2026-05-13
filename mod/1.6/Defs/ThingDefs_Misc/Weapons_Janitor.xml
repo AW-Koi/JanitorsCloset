@@ -118,9 +118,9 @@
           <speedModDepth>1.0</speedModDepth>
           <wobbleDegrees>8</wobbleDegrees>
           <slideTiles>0.22</slideTiles>
-          <reachFactor>0.35</reachFactor>
-          <rotationOffset>10</rotationOffset>
-          <verticalOffset>0.15</verticalOffset>
+          <reachFactor>0.2</reachFactor>
+          <rotationOffset>0</rotationOffset>
+          <verticalOffset>0.2</verticalOffset>
         </animProfile>
       </li>
     </modExtensions>
