@@ -50,10 +50,8 @@ namespace JanitorsCloset.Patches
 
         // Spawn the puff close to the target cell — the foam filth is what the player
         // reads at any zoom anyway, so anchoring the puff near the impact point keeps
-        // the visual cluster coherent. Previous iterations tried to anchor at the wand
-        // tip and either landed at the pawn (when distance was small) or past the wand
-        // entirely (when distance was large), both of which read wrong. A bit of jitter
-        // and a short backward velocity along pawn→target keeps it from looking static.
+        // the visual cluster coherent. A bit of jitter and a short backward velocity
+        // along pawn→target keeps it from looking static.
         private static void SpawnSprayPuff(Map map, Vector3 pawnPos, Vector3 targetPos)
         {
             Vector3 dir = targetPos - pawnPos;

@@ -7,16 +7,12 @@ using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
-    // Records the active JobDriver_CleanFilth in a thread-static so other patches
-    // (effecter suppression, mop-mark spawn) can identify "this filth is being cleaned
-    // by a mop-equipped pawn right now."
+    // Records the active cleaning/pollution JobDriver in a thread-static so other patches
+    // can identify "this filth/cell is being worked by a tool-equipped pawn right now."
     //
-    // RimWorld 1.6 split per-tick driver work between DriverTick (some setup paths)
-    // and DriverTickInterval (the per-tick toil action). The cleaning effecter is
-    // spawned during the DriverTick path, but Filth.ThinFilth fires from
-    // DriverTickInterval — confirmed via stack trace. Patch both so Current is valid
-    // in either; the save/restore pattern handles nested invocation cleanly if one
-    // method calls the other.
+    // RimWorld 1.6 splits per-tick driver work between DriverTick (cleaning effecter spawn)
+    // and DriverTickInterval (Filth.ThinFilth). Patch both so Current is valid in either;
+    // the save/restore pattern handles nested invocation if one method calls the other.
     [HarmonyPatch]
     public static class Patch_TrackCurrentJobDriver
     {

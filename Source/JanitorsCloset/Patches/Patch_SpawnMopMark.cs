@@ -36,8 +36,8 @@ namespace JanitorsCloset.Patches
             if (!__instance.Destroyed) return;
             if (__state.Map == null) return;
 
-            // Defensive recursion guard — Patch_SkipCleaningMopMark should already prevent
-            // mop marks from being cleaned, so this branch shouldn't fire in normal play.
+            // Defensive recursion guard against spawning a mop mark when the cleaned filth
+            // was itself a mop mark.
             if (__state.OriginalDef == JanitorDefOf.Janitor_MopMark) return;
 
             // Filth can be removed by rain/age/fire too — only spawn marks for cleaning work

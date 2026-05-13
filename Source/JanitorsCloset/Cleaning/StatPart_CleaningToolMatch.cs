@@ -96,6 +96,7 @@ namespace JanitorsCloset.Cleaning
 
         private static void Diag(ref int counter, string fmt, params object[] args)
         {
+            if (!Prefs.DevMode) return;
             if (counter >= DiagnosticBudget) return;
             counter++;
             Log.Message(string.Format(fmt, args));
