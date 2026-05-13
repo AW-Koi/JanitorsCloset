@@ -42,4 +42,44 @@
     </subSounds>
   </SoundDef>
 
+  <!--
+    Janitor_HazmatSprayer_Cleaning — sustaining loop played while a Hazmat Sprayer-equipped
+    pawn is clearing pollution. Wired in as customCleaningSound on the sprayer's
+    CleaningToolExtension; Patch_CleaningToolSound swaps the vanilla Interact_CleanFilth
+    sustainer (which JobDriver_ClearPollution plays) for this when the pawn starts the job.
+    Pitch range is narrow so the hiss sounds consistently like a pressurised wand — wider
+    ranges would read as a variable-flow tool, which the sprayer isn't.
+  -->
+  <SoundDef>
+    <defName>Janitor_HazmatSprayer_Cleaning</defName>
+    <context>MapOnly</context>
+    <sustain>True</sustain>
+    <sustainFadeoutTime>0.25</sustainFadeoutTime>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <subSounds>
+      <li>
+        <onCamera>false</onCamera>
+        <volumeRange>
+          <min>40</min>
+          <max>50</max>
+        </volumeRange>
+        <pitchRange>
+          <min>0.95</min>
+          <max>1.05</max>
+        </pitchRange>
+        <distRange>
+          <min>10</min>
+          <max>40</max>
+        </distRange>
+        <sustainAttack>0.15</sustainAttack>
+        <sustainLoop>true</sustainLoop>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>JanitorsCloset/HazmatSprayer_Cleaning</clipPath>
+          </li>
+        </grains>
+      </li>
+    </subSounds>
+  </SoundDef>
+
 </Defs>

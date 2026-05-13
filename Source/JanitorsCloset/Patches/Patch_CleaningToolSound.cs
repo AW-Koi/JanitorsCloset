@@ -44,10 +44,18 @@ namespace JanitorsCloset.Patches
         public static void Prefix(ref SoundDef __0)
         {
             if (__0 == null) return;
-            if (!__0.defName.StartsWith("Interact_CleanFilth_")) return;
+            // Catch both the per-filth sustainers (Interact_CleanFilth_Fluid /
+            // Interact_CleanFilth_Dirt) used by JobDriver_CleanFilth and the bare
+            // Interact_CleanFilth that JobDriver_ClearPollution plays.
+            if (!__0.defName.StartsWith("Interact_CleanFilth")) return;
 
-            var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
-            var toolDef = driver?.pawn?.equipment?.Primary?.def;
+            // Tracked driver may be either a filth-clean or pollution-clear job — both
+            // are tracked by Patch_TrackCurrentJobDriver. We just need a pawn off of it.
+            var driver = Patch_TrackCurrentJobDriver.Current;
+            Pawn pawn = null;
+            if (driver is JobDriver_CleanFilth filthDriver) pawn = filthDriver.pawn;
+            else if (driver is JobDriver_ClearPollution pollutionDriver) pawn = pollutionDriver.pawn;
+            var toolDef = pawn?.equipment?.Primary?.def;
             if (toolDef == null)
             {
                 Diag(ref diagNoTool, "[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
@@ -62,6 +70,12 @@ namespace JanitorsCloset.Patches
                     toolDef.defName, __0.defName);
                 return;
             }
+
+            // Sound swap is a filth-cleaning specialty thing. A tool whose declared
+            // categories are purely Toxic (Hazmat Sprayer) isn't a filth specialist — its
+            // bonus is suppressed on filth and only fires during pollution-clearing work,
+            // which uses its own vanilla sustainer. Silently leave the incoming sound alone.
+            if (ext.customCleaningSound == null && !HasFilthCleaningCategory(ext)) return;
 
             SoundDef target = null;
 
@@ -104,6 +118,17 @@ namespace JanitorsCloset.Patches
                 "[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
                 toolDef.defName, __0.defName, target.defName);
             __0 = target;
+        }
+
+        private static bool HasFilthCleaningCategory(CleaningToolExtension ext)
+        {
+            if (ext.categories == null) return false;
+            for (int i = 0; i < ext.categories.Count; i++)
+            {
+                var c = ext.categories[i];
+                if (c == CleaningCategory.Wet || c == CleaningCategory.Dry) return true;
+            }
+            return false;
         }
 
         private static void Diag(ref int counter, string fmt, params object[] args)

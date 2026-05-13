@@ -42,7 +42,11 @@ namespace JanitorsCloset.Patches
             if (!(eq.ParentHolder is Pawn_EquipmentTracker tracker)) return;
             var pawn = tracker.pawn;
             if (pawn == null) return;
-            if (pawn.CurJobDef != JobDefOf.Clean) return;
+            var jobDef = pawn.CurJobDef;
+            // Both filth-cleaning and Biotech pollution-clearing should drive the anim —
+            // a Hazmat Sprayer pawn waving a wand at a polluted tile needs the same
+            // reach/wobble treatment as a mop pawn working a blood spatter.
+            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution) return;
             if (pawn.pather != null && pawn.pather.Moving) return;
 
             // Push drawLoc toward the cell being cleaned so the tool reaches the actual filth,

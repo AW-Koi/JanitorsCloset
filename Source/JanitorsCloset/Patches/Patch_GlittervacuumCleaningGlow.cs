@@ -26,7 +26,11 @@ namespace JanitorsCloset.Patches
         [HarmonyPostfix]
         public static void Postfix(JobDriver __instance)
         {
-            if (!(__instance is JobDriver_CleanFilth)) return;
+            // Fire on both filth cleaning and Biotech pollution clearing — the
+            // Glittervacuum is an omni-tool (Dry + Wet + Toxic categories), so its
+            // glow should follow it into pollution work the same way it follows it
+            // onto a blood spatter or a dirt pile.
+            if (!(__instance is JobDriver_CleanFilth) && !(__instance is JobDriver_ClearPollution)) return;
 
             var pawn = __instance.pawn;
             if (pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Glittervacuum) return;

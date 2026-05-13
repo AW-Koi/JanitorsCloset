@@ -5,10 +5,11 @@ using Verse;
 
 namespace JanitorsCloset.Patches
 {
-    // Force vanilla to keep the equipped weapon visible while a pawn is doing a Clean job,
-    // for any tool that declares itself a cleaning tool via CleaningToolExtension. Without
-    // this, RimWorld treats cleaning as "working" and hides the weapon, so the broom/mop/
-    // glittervacuum vanishes during the path-to-filth and while scrubbing.
+    // Force vanilla to keep the equipped weapon visible while a pawn is doing a cleaning
+    // job (either Clean for filth or ClearPollution for Biotech pollution work), for any
+    // tool that declares itself a cleaning tool via CleaningToolExtension. Without this,
+    // RimWorld treats cleaning as "working" and hides the weapon, so the broom/mop/sprayer/
+    // glittervacuum vanishes during the path-to-target and while working.
     [HarmonyPatch(typeof(PawnRenderUtility), "CarryWeaponOpenly")]
     public static class Patch_CarryWeaponOpenly
     {
@@ -16,7 +17,8 @@ namespace JanitorsCloset.Patches
         {
             if (__result) return;
             if (pawn == null) return;
-            if (pawn.CurJobDef != JobDefOf.Clean) return;
+            var jobDef = pawn.CurJobDef;
+            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution) return;
 
             var primary = pawn.equipment?.Primary;
             if (primary == null) return;
