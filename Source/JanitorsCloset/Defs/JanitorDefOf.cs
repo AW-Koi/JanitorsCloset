@@ -6,6 +6,8 @@ namespace JanitorsCloset.Defs
     [DefOf]
     public static class JanitorDefOf
     {
+        public static ThingDef Janitor_StrawBroom;
+        public static ThingDef Janitor_PushBroom;
         public static ThingDef Janitor_Mop;
         public static ThingDef Janitor_MopMark;
         public static ThingDef Janitor_Glittervacuum;
