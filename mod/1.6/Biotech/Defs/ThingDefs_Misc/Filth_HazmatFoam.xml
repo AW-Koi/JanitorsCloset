@@ -23,6 +23,9 @@
   -->
   <ThingDef ParentName="BaseFilth">
     <defName>Janitor_HazmatFoam</defName>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.JanitorMarkerFilthExtension" />
+    </modExtensions>
     <label>decontaminant foam</label>
     <description>A patch of pale neutraliser foam sprayed across the floor. Breaks down a few hours after application.</description>
     <statBases>

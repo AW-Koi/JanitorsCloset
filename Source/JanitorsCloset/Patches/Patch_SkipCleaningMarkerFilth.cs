@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
+using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
@@ -26,17 +27,14 @@ namespace JanitorsCloset.Patches
     // Each tracked def fades on its own via disappearsInDays, so we never want a pawn to
     // bother with them at all.
     //
-    // Covered defs:
-    //   * Janitor_MopMark    — damp-floor trace left by mopping. Cosmetic only.
-    //   * Janitor_HazmatFoam — decontaminant foam deposited by the Hazmat Sprayer.
-    //                          Auto-decays in hours; cleaning would race the spawn loop.
+    // Marker filth is identified by the JanitorMarkerFilthExtension DefModExtension on
+    // the filth ThingDef itself — any future tool's signature deposit can opt in by
+    // attaching the extension without touching this patch.
     public static class Patch_SkipCleaningMarkerFilth
     {
         private static bool IsMarkerFilth(Thing t)
         {
-            if (t == null) return false;
-            var def = t.def;
-            return def == JanitorDefOf.Janitor_MopMark || def == JanitorDefOf.Janitor_HazmatFoam;
+            return MarkerFilth.IsMarker(t);
         }
 
         // Auto-scan + single-target "Prioritize cleaning X" — both ride HasJobOnThing.

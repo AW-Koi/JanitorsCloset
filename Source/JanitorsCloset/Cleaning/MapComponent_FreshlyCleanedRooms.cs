@@ -5,9 +5,10 @@ using Verse;
 
 namespace JanitorsCloset.Cleaning
 {
-    // Tracks rooms whose last non-marker filth was just removed. While a room is
-    // "freshly cleaned", colonists inside it receive (and keep refreshing) the
-    // Janitor_FreshlyCleanedRoom memory.
+    // Tracks rooms whose last non-marker filth was removed. While a room remains in
+    // that state, colonists inside it receive (and keep refreshing) the
+    // Janitor_FreshlyCleanedRoom memory. The stamp dies only when filth reappears in
+    // the room — no fixed timer.
     //
     // Performance shape:
     //   * No per-tick filth scanning. Stamping is event-driven: Patch_StampFreshRoomOnClean
@@ -15,27 +16,24 @@ namespace JanitorsCloset.Cleaning
     //     a cleaning JobDriver, and the room-emptiness check iterates the room's own
     //     region filth lists (Region.ListerThings is pre-grouped, so this is just a few
     //     ints in the common case).
+    //   * Stamp expiry is event-driven too: Patch_TrackedFilthIntoCleanRoom drops the
+    //     stamp the moment filth spawns inside it.
     //   * The periodic refresher runs once every RefreshIntervalTicks. It iterates
-    //     FreeColonistsSpawned only (small list) and calls GetRoom (O(1) via region grid)
-    //     + a dictionary lookup per pawn. Skipped entirely when no rooms are stamped.
-    //   * Stamp expiry is folded into the same throttled tick — no separate cleanup pass.
+    //     FreeColonistsSpawned only, and verifies cleanliness only for rooms that
+    //     actually have a colonist in them. Skipped entirely when no rooms are stamped.
     //
     // Room.ID is reused as rooms split/merge from wall edits; we accept that resets the
-    // bonus on remodel rather than tracking representative cells.
+    // bonus on remodel rather than tracking representative cells. Stamps on orphaned
+    // room IDs cost a few bytes apiece and never grant a mood (no colonist will ever
+    // resolve to them), so we leave them alone.
     public class MapComponent_FreshlyCleanedRooms : MapComponent
     {
-        // How long after a clean a room continues to grant the memory to entrants.
-        // 5000 ticks ≈ 2 in-game hours; latecomers within this window still pick it up,
-        // and pawns who linger get their memory refreshed continuously.
-        private const int FreshnessDurationTicks = 5000;
-
         // Scan cadence for the periodic refresher. 500 ticks ≈ 8 in-game seconds at normal
         // speed — fast enough that "walks into a clean room and gets the mood" feels
         // immediate, slow enough that the cost is negligible.
         private const int RefreshIntervalTicks = 500;
 
         private Dictionary<int, int> roomCleanedTick = new Dictionary<int, int>();
-        private static readonly List<int> tmpExpiredKeys = new List<int>();
 
         public MapComponent_FreshlyCleanedRooms(Map map) : base(map) { }
 
@@ -43,17 +41,6 @@ namespace JanitorsCloset.Cleaning
         {
             // Stagger across maps so multi-map saves don't all scan on the same tick.
             if ((Find.TickManager.TicksGame + map.uniqueID) % RefreshIntervalTicks != 0) return;
-            if (roomCleanedTick.Count == 0) return;
-
-            int now = Find.TickManager.TicksGame;
-
-            tmpExpiredKeys.Clear();
-            foreach (var kvp in roomCleanedTick)
-            {
-                if (now - kvp.Value > FreshnessDurationTicks) tmpExpiredKeys.Add(kvp.Key);
-            }
-            for (int i = 0; i < tmpExpiredKeys.Count; i++) roomCleanedTick.Remove(tmpExpiredKeys[i]);
-
             if (roomCleanedTick.Count == 0) return;
 
             var colonists = map.mapPawns.FreeColonistsSpawned;
@@ -132,7 +119,7 @@ namespace JanitorsCloset.Cleaning
                 {
                     var f = things[j] as Filth;
                     if (f == null) continue;
-                    if (IsMarkerFilth(f.def)) continue;
+                    if (MarkerFilth.IsMarker(f.def)) continue;
                     // Region thing lists can include things in adjacent rooms when the
                     // region spans a doorway; confirm the cell actually belongs to this
                     // room before counting it.
@@ -141,11 +128,6 @@ namespace JanitorsCloset.Cleaning
                 }
             }
             return false;
-        }
-
-        private static bool IsMarkerFilth(ThingDef def)
-        {
-            return def == JanitorDefOf.Janitor_MopMark || def == JanitorDefOf.Janitor_HazmatFoam;
         }
 
         public override void ExposeData()

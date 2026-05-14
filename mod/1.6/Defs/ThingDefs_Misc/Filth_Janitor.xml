@@ -25,6 +25,9 @@
 
   <ThingDef ParentName="BaseFilth">
     <defName>Janitor_MopMark</defName>
+    <modExtensions>
+      <li Class="JanitorsCloset.Cleaning.JanitorMarkerFilthExtension" />
+    </modExtensions>
     <label>damp floor</label>
     <description>A patch of floor still damp from a recent mopping. It will dry on its own shortly.</description>
     <statBases>

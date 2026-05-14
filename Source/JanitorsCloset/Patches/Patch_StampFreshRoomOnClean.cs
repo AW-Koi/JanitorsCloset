@@ -42,10 +42,9 @@ namespace JanitorsCloset.Patches
             if (!__instance.Destroyed) return;
             if (__state.Map == null) return;
 
-            // Marker filth (mop marks, hazmat foam) are decorative — cleaning one doesn't
-            // mean the room got fresher.
-            if (__state.Def == JanitorDefOf.Janitor_MopMark) return;
-            if (__state.Def == JanitorDefOf.Janitor_HazmatFoam) return;
+            // Marker filth (mop marks, hazmat foam, any future tool marker) is decorative —
+            // cleaning one doesn't mean the room got fresher.
+            if (MarkerFilth.IsMarker(__state.Def)) return;
 
             // Only count this as "cleaning" if a cleaning JobDriver was actually running.
             // Filth also disappears from rain/fire/age — those shouldn't grant moodlets.
