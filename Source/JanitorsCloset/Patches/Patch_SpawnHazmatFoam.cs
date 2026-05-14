@@ -50,6 +50,11 @@ namespace JanitorsCloset.Patches
             var cell = job.targetA.Cell;
             if (!cell.InBounds(pawn.Map)) return;
 
+            // Spray-cone bystander check runs every interval regardless of whether new
+            // foam is placed — anyone lingering next to an active sprayer keeps catching
+            // overspray, refreshing their "stings" memory.
+            DouseAdjacentPawns(pawn);
+
             // One foam per cell. The filth's default thickness behavior would let
             // TryMakeFilth stack up to 3 layers; we don't want that — a single deposit
             // is the visual we're after and stacking would darken the tile beyond the
@@ -57,6 +62,28 @@ namespace JanitorsCloset.Patches
             if (HasFoamAt(cell, pawn.Map)) return;
 
             FilthMaker.TryMakeFilth(cell, pawn.Map, JanitorDefOf.Janitor_HazmatFoam);
+        }
+
+        private static void DouseAdjacentPawns(Pawn sprayer)
+        {
+            if (JanitorDefOf.Janitor_DousedInDeconFoam == null) return;
+            var map = sprayer.Map;
+            if (map == null) return;
+
+            var origin = sprayer.Position;
+            for (int i = 0; i < GenAdj.AdjacentCells.Length; i++)
+            {
+                var cell = origin + GenAdj.AdjacentCells[i];
+                if (!cell.InBounds(map)) continue;
+                var things = map.thingGrid.ThingsListAtFast(cell);
+                for (int j = 0; j < things.Count; j++)
+                {
+                    var bystander = things[j] as Pawn;
+                    if (bystander == null || bystander == sprayer) continue;
+                    if (bystander.needs?.mood == null) continue;
+                    bystander.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_DousedInDeconFoam);
+                }
+            }
         }
 
         private static bool HasFoamAt(IntVec3 cell, Map map)

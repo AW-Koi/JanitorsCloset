@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <!-- Biotech-only: refreshed while a bystander stands within the Hazmat Sprayer's
+         spray cone. Worse than the mop splash because it's industrial decon foam, not
+         water. -->
+    <ThoughtDef>
+        <defName>Janitor_DousedInDeconFoam</defName>
+        <durationDays>0.3</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>doused in decontaminant</label>
+                <description>I caught a faceful of industrial decontaminant foam. It stings.</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
@@ -61,6 +62,33 @@ namespace JanitorsCloset.Patches
             }
 
             FilthMaker.TryMakeFilth(__state.Cell, __state.Map, JanitorDefOf.Janitor_MopMark);
+
+            SplashAdjacentPawns(driver.pawn, __state.Map);
+        }
+
+        // Each completed mop swing flicks water onto anyone standing within one tile of
+        // the mopper. stackLimit=1 on the thought means repeated splashes refresh the
+        // same memory instead of stacking — the bystander keeps the "eww" mood as long
+        // as they linger next to the work.
+        private static void SplashAdjacentPawns(Pawn mopper, Map map)
+        {
+            if (mopper == null || map == null) return;
+            if (JanitorDefOf.Janitor_SplashedByMop == null) return;
+
+            var origin = mopper.Position;
+            for (int i = 0; i < GenAdj.AdjacentCells.Length; i++)
+            {
+                var cell = origin + GenAdj.AdjacentCells[i];
+                if (!cell.InBounds(map)) continue;
+                var things = map.thingGrid.ThingsListAtFast(cell);
+                for (int j = 0; j < things.Count; j++)
+                {
+                    var bystander = things[j] as Pawn;
+                    if (bystander == null || bystander == mopper) continue;
+                    if (bystander.needs?.mood == null) continue;
+                    bystander.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_SplashedByMop);
+                }
+            }
         }
     }
 }

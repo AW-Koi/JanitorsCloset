@@ -84,6 +84,17 @@ namespace JanitorsCloset.Cleaning
             }
         }
 
+        public bool IsRoomStamped(Room room)
+        {
+            return room != null && roomCleanedTick.ContainsKey(room.ID);
+        }
+
+        public void ExpireStamp(Room room)
+        {
+            if (room == null) return;
+            roomCleanedTick.Remove(room.ID);
+        }
+
         private void TryAward(Pawn pawn)
         {
             if (pawn?.needs?.mood == null) return;

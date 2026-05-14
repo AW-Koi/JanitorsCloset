@@ -33,6 +33,14 @@ namespace JanitorsCloset.Defs
         // Memory thought granted to colonists in a room whose last filth was just cleaned.
         public static ThoughtDef Janitor_FreshlyCleanedRoom;
 
+        // Memory thoughts for bystanders/perpetrators of janitor side effects.
+        public static ThoughtDef Janitor_SplashedByMop;
+        public static ThoughtDef Janitor_TrackedFilthIntoCleanRoom;
+
+        // Hazmat Sprayer overspray.
+        [MayRequire("Ludeon.RimWorld.Biotech")]
+        public static ThoughtDef Janitor_DousedInDeconFoam;
+
         static JanitorDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(JanitorDefOf));

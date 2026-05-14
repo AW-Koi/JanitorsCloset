@@ -17,4 +17,33 @@
         </stages>
     </ThoughtDef>
 
+    <!-- Refreshed every mop-mark spawn while a bystander is adjacent to the mopper. -->
+    <ThoughtDef>
+        <defName>Janitor_SplashedByMop</defName>
+        <durationDays>0.04</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>splashed by the mop</label>
+                <description>I got mop water flicked on me. Eww.</description>
+                <baseMoodEffect>-1</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- One-shot, granted when a pawn deposits filth in a room we'd just stamped clean.
+         Vanilla pawn-tracked filth (mud, blood) is the main trigger. -->
+    <ThoughtDef>
+        <defName>Janitor_TrackedFilthIntoCleanRoom</defName>
+        <durationDays>0.08</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>tracked filth into a clean room</label>
+                <description>I just trampled mess into a freshly cleaned room. Oops.</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
 </Defs>
