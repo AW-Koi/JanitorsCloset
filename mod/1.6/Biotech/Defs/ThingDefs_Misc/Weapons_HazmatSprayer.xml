@@ -41,8 +41,10 @@
       <WorkToMake>4500</WorkToMake>
       <Mass>3.0</Mass>
     </statBases>
+    <!-- Reused by StatPart_PollutionToolBonus as the GeneralLaborSpeed bonus while
+         clearing pollution; suppressed on non-Toxic filth. -->
     <equippedStatOffsets>
-      <CleaningSpeed>0.75</CleaningSpeed>
+      <CleaningSpeed>3.0</CleaningSpeed>
     </equippedStatOffsets>
     <equippedAngleOffset>350</equippedAngleOffset>
     <modExtensions>

@@ -117,21 +117,15 @@ namespace JanitorsCloset.Patches
             return _tankGraphic;
         }
 
-        // drawPos comes in at the equipment altitude (layer 90 for S/E/W, layer -10 for N).
-        // We invert that — the tank wants the opposite layering vs. the weapon, since a
-        // backpack reads as "on the back" and the weapon as "in the front hand."
-        //
-        // The small horizontal offset pushes the tank toward the pawn's back side per facing,
-        // so the silhouette doesn't sit flat-centered on the body. Tuned by eye; revisit if
-        // we ever swap to a wider tank texture.
+        // North: tank above all apparel — Shell apparel uses a north layer override of 88
+        // (vanilla RotationalData), which z-fights the standard equipment layer 90. Layer
+        // 100 (AltitudeForLayer's clamp max) clears it.
+        // S/E/W: tank behind body so it reads as strapped to the back, peeking out the
+        // shoulders / back-of-facing side.
         private static Vector3 ComputeTankDrawPos(Vector3 drawPos, Rot4 facing, float bodyFactor)
         {
-            // Layer 90 = in front of body (visible). Layer -10 = behind body (hidden).
-            // North-facing pawns show their back to the camera, so "on the back" means
-            // ON TOP of the visible silhouette → layer 90. Every other facing wants the
-            // tank tucked behind the torso → layer -10.
             float currentLayer = (facing == Rot4.North) ? -10f : 90f;
-            float targetLayer  = (facing == Rot4.North) ?  90f : -10f;
+            float targetLayer  = (facing == Rot4.North) ? 100f : -10f;
             float yOffset = PawnRenderUtility.AltitudeForLayer(targetLayer)
                           - PawnRenderUtility.AltitudeForLayer(currentLayer);
 
