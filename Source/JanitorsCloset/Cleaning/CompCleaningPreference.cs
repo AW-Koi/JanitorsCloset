@@ -101,27 +101,66 @@ namespace JanitorsCloset.Cleaning
             };
         }
 
-        // Vanilla GizmoOnGUIInt forces GUI.color to white right before drawing the BG, so a
-        // GUI.color wrapper around base does nothing. Returning a solid-color texture for
-        // BGTexture paints the gizmo's background as the area's exact color — easier to
-        // recognise at a glance than a tint multiplied over DesButBG. Cached by Color32 to
-        // avoid leaking a fresh Texture2D every frame (NewSolidColorTexture doesn't cache).
+        // Mirrors what vanilla does for ability gizmos (Command_Ability swaps BGTexture to
+        // AbilityButBG, a pre-baked green-tinted DesButBG). We do the same thing at runtime,
+        // multiplying DesButBG by the area's color so border and vignette survive. One-time
+        // bake per Color32, cached for the session.
         private class Command_AreaTinted : Command_Action
         {
             public Color bgColor = Color.white;
 
-            public override Texture2D BGTexture => SolidTexFor(bgColor);
-            public override Texture2D BGTextureShrunk => SolidTexFor(bgColor);
+            public override Texture2D BGTexture => TintedBgFor(bgColor);
+            public override Texture2D BGTextureShrunk => TintedBgFor(bgColor);
 
-            private static readonly Dictionary<Color32, Texture2D> SolidTexCache = new Dictionary<Color32, Texture2D>();
+            private static readonly Dictionary<Color32, Texture2D> TintedBgCache = new Dictionary<Color32, Texture2D>();
 
-            private static Texture2D SolidTexFor(Color color)
+            private static Texture2D TintedBgFor(Color color)
             {
+                if (color == Color.white) return Command.BGTex;
                 Color32 key = color;
-                if (SolidTexCache.TryGetValue(key, out var tex) && tex != null) return tex;
-                tex = SolidColorMaterials.NewSolidColorTexture(color);
-                SolidTexCache[key] = tex;
+                if (TintedBgCache.TryGetValue(key, out var tex) && tex != null) return tex;
+                tex = BakeTinted(Command.BGTex, color);
+                TintedBgCache[key] = tex;
                 return tex;
+            }
+
+            private static Texture2D BakeTinted(Texture2D src, Color tint)
+            {
+                // DesButBG is loaded non-readable; round-trip through a RenderTexture to
+                // pull its pixels back into a CPU-side Texture2D we can recolor and Apply.
+                var rt = RenderTexture.GetTemporary(src.width, src.height, 0, RenderTextureFormat.ARGB32);
+                var prevActive = RenderTexture.active;
+                Graphics.Blit(src, rt);
+                RenderTexture.active = rt;
+                var copy = new Texture2D(src.width, src.height, TextureFormat.RGBA32, false);
+                copy.ReadPixels(new Rect(0, 0, src.width, src.height), 0, 0);
+                RenderTexture.active = prevActive;
+                RenderTexture.ReleaseTemporary(rt);
+
+                // Treat DesButBG as a luminance mask and re-color with the tint, the way
+                // AbilityButBG looks vs DesButBG. Plain multiply went black-dark because the
+                // BG is a mid-grey; normalising against the texture's peak brightness lets
+                // the brightest pixel land at the full area color and the vignette/border
+                // fall off from there.
+                var px = copy.GetPixels();
+                float maxV = 0f;
+                for (int i = 0; i < px.Length; i++)
+                {
+                    var p = px[i];
+                    float v = Mathf.Max(p.r, p.g, p.b);
+                    if (v > maxV) maxV = v;
+                }
+                if (maxV < 0.001f) maxV = 1f;
+                float inv = 1f / maxV;
+                for (int i = 0; i < px.Length; i++)
+                {
+                    var p = px[i];
+                    float v = Mathf.Max(p.r, p.g, p.b) * inv;
+                    px[i] = new Color(tint.r * v, tint.g * v, tint.b * v, p.a);
+                }
+                copy.SetPixels(px);
+                copy.Apply(false, true);
+                return copy;
             }
         }
 
