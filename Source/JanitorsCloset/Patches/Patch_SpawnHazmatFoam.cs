@@ -82,6 +82,10 @@ namespace JanitorsCloset.Patches
                     if (bystander == null || bystander == sprayer) continue;
                     if (bystander.needs?.mood == null) continue;
                     bystander.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_DousedInDeconFoam);
+                    if (JanitorDefOf.Janitor_AnnoyedByDeconFoam != null)
+                    {
+                        bystander.needs.mood.thoughts.memories.TryGainMemory(JanitorDefOf.Janitor_AnnoyedByDeconFoam, sprayer);
+                    }
                 }
             }
         }

@@ -17,4 +17,20 @@
         </stages>
     </ThoughtDef>
 
+    <!-- Social counterpart to Janitor_DousedInDeconFoam: targeted at the sprayer.
+         Stronger and longer-lived than the mop equivalent — industrial decon foam in
+         the face is harder to forgive than a stray water flick. -->
+    <ThoughtDef>
+        <defName>Janitor_AnnoyedByDeconFoam</defName>
+        <thoughtClass>Thought_MemorySocial</thoughtClass>
+        <durationDays>0.3</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>sprayed me with decontaminant</label>
+                <baseOpinionOffset>-5</baseOpinionOffset>
+            </li>
+        </stages>
+    </ThoughtDef>
+
 </Defs>

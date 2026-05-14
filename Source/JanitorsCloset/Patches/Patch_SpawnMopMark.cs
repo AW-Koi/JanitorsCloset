@@ -87,6 +87,13 @@ namespace JanitorsCloset.Patches
                     if (bystander == null || bystander == mopper) continue;
                     if (bystander.needs?.mood == null) continue;
                     bystander.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_SplashedByMop);
+                    // Social slight against the mopper. TryGainMemory (not Fast) is required
+                    // because the social variant needs the otherPawn argument to bind the
+                    // opinion penalty to a specific target.
+                    if (JanitorDefOf.Janitor_AnnoyedByMopSplash != null)
+                    {
+                        bystander.needs.mood.thoughts.memories.TryGainMemory(JanitorDefOf.Janitor_AnnoyedByMopSplash, mopper);
+                    }
                 }
             }
         }

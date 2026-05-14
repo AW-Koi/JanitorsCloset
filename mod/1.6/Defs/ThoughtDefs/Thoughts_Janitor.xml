@@ -31,6 +31,22 @@
         </stages>
     </ThoughtDef>
 
+    <!-- Social counterpart to Janitor_SplashedByMop: targeted at the mopper so the
+         bystander's opinion of them dips slightly. Same refresh cadence as the mood
+         memory so the two age out together. -->
+    <ThoughtDef>
+        <defName>Janitor_AnnoyedByMopSplash</defName>
+        <thoughtClass>Thought_MemorySocial</thoughtClass>
+        <durationDays>0.04</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>splashed me with the mop</label>
+                <baseOpinionOffset>-3</baseOpinionOffset>
+            </li>
+        </stages>
+    </ThoughtDef>
+
     <!-- One-shot, granted when a pawn deposits filth in a room we'd just stamped clean.
          Vanilla pawn-tracked filth (mud, blood) is the main trigger. -->
     <ThoughtDef>

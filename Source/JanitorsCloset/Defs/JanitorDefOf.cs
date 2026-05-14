@@ -37,11 +37,14 @@ namespace JanitorsCloset.Defs
 
         // Memory thoughts for bystanders/perpetrators of janitor side effects.
         public static ThoughtDef Janitor_SplashedByMop;
+        public static ThoughtDef Janitor_AnnoyedByMopSplash;
         public static ThoughtDef Janitor_TrackedFilthIntoCleanRoom;
 
         // Hazmat Sprayer overspray.
         [MayRequire("Ludeon.RimWorld.Biotech")]
         public static ThoughtDef Janitor_DousedInDeconFoam;
+        [MayRequire("Ludeon.RimWorld.Biotech")]
+        public static ThoughtDef Janitor_AnnoyedByDeconFoam;
 
         static JanitorDefOf()
         {
