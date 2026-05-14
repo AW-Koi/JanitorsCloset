@@ -38,7 +38,8 @@ namespace JanitorsCloset.Patches
                 for (int i = 0; i < eq.Count; i++)
                 {
                     var comp = eq[i]?.GetComp<CompCleaningPreference>();
-                    if (comp != null) yield return comp.BuildGizmo();
+                    if (comp == null) continue;
+                    foreach (var gizmo in comp.BuildGizmos()) yield return gizmo;
                 }
             }
         }

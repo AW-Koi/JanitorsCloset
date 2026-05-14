@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -28,25 +29,50 @@ namespace JanitorsCloset.Cleaning
     {
         public CleaningAreaPreference preference = CleaningAreaPreference.Any;
 
+        // Stored by label rather than reference: areas are map-scoped but the tool travels
+        // with the pawn across maps. On lookup we resolve against the filth's map, so the
+        // restriction follows the player's "Home"-equivalent on each map. If the area is
+        // renamed or deleted the resolve returns null and we treat it as no restriction.
+        public string areaLabel;
+
+        public Area ResolveArea(Map map)
+        {
+            if (map == null || string.IsNullOrEmpty(areaLabel)) return null;
+            return map.areaManager.GetLabeled(areaLabel);
+        }
+
         public bool Matches(IntVec3 cell, Map map)
         {
-            if (preference == CleaningAreaPreference.Any) return true;
             if (map == null || !cell.InBounds(map)) return true;
-            var room = cell.GetRoom(map);
-            bool outdoors = room == null || room.PsychologicallyOutdoors;
-            return preference == CleaningAreaPreference.Outdoors ? outdoors : !outdoors;
+            if (preference != CleaningAreaPreference.Any)
+            {
+                var room = cell.GetRoom(map);
+                bool outdoors = room == null || room.PsychologicallyOutdoors;
+                bool prefOk = preference == CleaningAreaPreference.Outdoors ? outdoors : !outdoors;
+                if (!prefOk) return false;
+            }
+            var area = ResolveArea(map);
+            if (area != null && !area[cell]) return false;
+            return true;
         }
 
         public override void PostExposeData()
         {
             base.PostExposeData();
             Scribe_Values.Look(ref preference, "cleaningAreaPref", CleaningAreaPreference.Any);
+            Scribe_Values.Look(ref areaLabel, "cleaningAreaLabel");
         }
 
         // Surfaced via Patch_CleaningAreaPreference's Pawn_EquipmentTracker.GetGizmos hook —
         // vanilla only invokes CompGetEquippedGizmosExtra on the weapon's CompEquippable,
         // not on every comp, so we can't rely on CompGetGizmosExtra here.
-        public Gizmo BuildGizmo()
+        public IEnumerable<Gizmo> BuildGizmos()
+        {
+            yield return BuildIndoorOutdoorGizmo();
+            yield return BuildAreaGizmo();
+        }
+
+        private Gizmo BuildIndoorOutdoorGizmo()
         {
             return new Command_Action
             {
@@ -55,6 +81,50 @@ namespace JanitorsCloset.Cleaning
                 icon = IconFor(preference),
                 action = Cycle,
             };
+        }
+
+        private Gizmo BuildAreaGizmo()
+        {
+            var map = parent.MapHeld;
+            var area = ResolveArea(map);
+            return new Command_Action
+            {
+                defaultLabel = area != null
+                    ? "JanitorsCloset.CleaningArea.Label.Restricted".Translate(area.Label)
+                    : "JanitorsCloset.CleaningArea.Label.None".Translate(),
+                defaultDesc = area != null
+                    ? "JanitorsCloset.CleaningArea.Desc.Restricted".Translate(area.Label)
+                    : "JanitorsCloset.CleaningArea.Desc.None".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Janitor_CleaningPref_Area", false) ?? BaseContent.BadTex,
+                defaultIconColor = area != null ? area.Color : Color.white,
+                action = () => OpenAreaPicker(map),
+            };
+        }
+
+        private void OpenAreaPicker(Map map)
+        {
+            var opts = new List<FloatMenuOption>
+            {
+                new FloatMenuOption("NoAreaAllowed".Translate(), () =>
+                {
+                    areaLabel = null;
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                }),
+            };
+            if (map != null)
+            {
+                foreach (var a in map.areaManager.AllAreas)
+                {
+                    if (!a.AssignableAsAllowed()) continue;
+                    var captured = a;
+                    opts.Add(new FloatMenuOption(captured.Label, () =>
+                    {
+                        areaLabel = captured.Label;
+                        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    }, captured.ColorTexture, Color.white));
+                }
+            }
+            Find.WindowStack.Add(new FloatMenu(opts));
         }
 
         private void Cycle()
