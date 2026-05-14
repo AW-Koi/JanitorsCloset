@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using JanitorsCloset.Defs;
 using RimWorld;
@@ -9,18 +10,25 @@ namespace JanitorsCloset.Patches
 {
     // While a Glittervacuum-wielding pawn is on a cleaning job, spawn the slow cyan
     // Janitor_GlittervacuumPulse fleck under the wand head. The fleck's own fade-in /
-    // solid / fade-out curve does the breathing; the spawn cadence just keeps a fresh
-    // one starting before the previous fades out so the glow reads as continuous rather
-    // than blinking. Companion to Patch_GlittervacuumDematerialise, which fires the
-    // floating-away puffs and clears any co-located filth when the cell finishes.
+    // solid / fade-out curve does the breathing; the spawn cadence keeps a fresh one
+    // starting before the previous fades out so the glow reads as continuous rather than
+    // blinking. The first pulse of each cleaning job fires immediately on the first
+    // qualifying tick so very short toils still show the effect. Companion to
+    // Patch_GlittervacuumDematerialise, which fires the floating-away puffs and clears
+    // co-located/neighbour filth when the cell finishes.
     [HarmonyPatch]
     public static class Patch_GlittervacuumCleaningGlow
     {
-        // Pulse fleck total lifespan is ~0.95s (0.25 fade-in + 0.3 solid + 0.4 fade-out).
-        // Spawning every 45 ticks (~0.75s) overlaps adjacent pulses by ~0.2s so the glow
-        // stays continuous without strobing while still appearing promptly when cleaning
-        // starts and clearing quickly when a tile finishes.
-        private const int PulseIntervalTicks = 45;
+        // Pulse fleck total lifespan ~0.78s (0.08 fade-in + 0.3 solid + 0.4 fade-out, ~47t).
+        // Spawning every 40 ticks (~0.67s) keeps a ~7-tick overlap so the breathing stays
+        // continuous without strobing.
+        private const int PulseIntervalTicks = 40;
+
+        // Per-pawn pulse bookkeeping. Keyed by Pawn.thingIDNumber, value is (jobLoadId,
+        // lastPulseTick). When the active job changes we force-spawn on the first tick of
+        // the new job so a fast clean never finishes before the player sees any pulse.
+        private static readonly Dictionary<int, (int jobLoadId, int lastPulseTick)> PulseState
+            = new Dictionary<int, (int, int)>();
 
         [HarmonyPatch(typeof(JobDriver), "DriverTickInterval")]
         [HarmonyPostfix]
@@ -40,10 +48,21 @@ namespace JanitorsCloset.Patches
             var job = __instance.job;
             if (job == null || !job.targetA.IsValid) return;
 
-            int ticks = Find.TickManager.TicksGame;
-            // Per-pawn phase so multiple Glittervacuums don't pulse in lockstep.
-            int phase = pawn.thingIDNumber & 0xFF;
-            if ((ticks + phase) % PulseIntervalTicks != 0) return;
+            int now = Find.TickManager.TicksGame;
+            int key = pawn.thingIDNumber;
+
+            bool fire;
+            if (!PulseState.TryGetValue(key, out var entry) || entry.jobLoadId != job.loadID)
+            {
+                // First sighting of this pawn, or the pawn switched to a new cleaning job
+                // — pulse on this very tick so the glow is visible even for short toils.
+                fire = true;
+            }
+            else
+            {
+                fire = (now - entry.lastPulseTick) >= PulseIntervalTicks;
+            }
+            if (!fire) return;
 
             // Spawn at the filth cell — that's where the wand head reaches to once the
             // aimAtTarget profile shifts the draw point. Scale ~5 so the LightningGlow
@@ -52,6 +71,7 @@ namespace JanitorsCloset.Patches
             // so the breathing isn't perfectly uniform.
             Vector3 center = job.targetA.CenterVector3;
             FleckMaker.Static(center, pawn.Map, JanitorDefOf.Janitor_GlittervacuumPulse, Rand.Range(4.8f, 5.4f));
+            PulseState[key] = (job.loadID, now);
         }
     }
 }

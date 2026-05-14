@@ -9,8 +9,8 @@
     <JanitorsCloset.CleaningTool.SpecialtyToxic>Polluted terrain only</JanitorsCloset.CleaningTool.SpecialtyToxic>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>The cleaning speed bonus from this tool only applies while clearing polluted terrain. Ordinary filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>
     <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
-    <JanitorsCloset.CleaningTool.SpecialtyStackClear>Whole-tile clean</JanitorsCloset.CleaningTool.SpecialtyStackClear>
-    <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises the entire filth stack on the target tile in a single pass, not just the topmost piece.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
+    <JanitorsCloset.CleaningTool.SpecialtyStackClear>Area dematerialisation (3x3)</JanitorsCloset.CleaningTool.SpecialtyStackClear>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises every layer of filth on the target tile and its eight neighbours in a single pass, not just the topmost piece on the target tile. The per-tile cleaning speed is unchanged; the trick is that nine tiles are cleared at once.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
     <JanitorsCloset.CleaningPref.Label.Any>Clean anywhere</JanitorsCloset.CleaningPref.Label.Any>
     <JanitorsCloset.CleaningPref.Label.Indoors>Clean indoors</JanitorsCloset.CleaningPref.Label.Indoors>
     <JanitorsCloset.CleaningPref.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningPref.Label.Outdoors>

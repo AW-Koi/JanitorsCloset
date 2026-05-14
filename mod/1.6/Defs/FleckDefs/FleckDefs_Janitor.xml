@@ -21,7 +21,7 @@
       <graphicClass>Graphic_Fleck</graphicClass>
       <color>(0.45, 0.85, 1.0, 1.0)</color>
     </graphicData>
-    <fadeInTime>0.25</fadeInTime>
+    <fadeInTime>0.08</fadeInTime>
     <solidTime>0.3</solidTime>
     <fadeOutTime>0.4</fadeOutTime>
   </FleckDef>
