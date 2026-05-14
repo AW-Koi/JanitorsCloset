@@ -7,6 +7,7 @@ using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
 using Verse.Sound;
+using JCMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Patches
 {
@@ -14,18 +15,9 @@ namespace JanitorsCloset.Patches
     // their dry/wet vanilla sustainer; tools with a customCleaningSound on their extension
     // override that entirely. Multi-category tools without a custom sound fall through to
     // the vanilla per-filth selection.
-    //
-    // Diagnostics are gated to the first N hits per branch — confirm the swap is firing
-    // and observe which target SoundDef we chose for the Glittervacuum.
     [HarmonyPatch]
     public static class Patch_CleaningToolSound
     {
-        private const int DiagnosticBudget = 20;
-        private static int diagNoTool;
-        private static int diagNoExtension;
-        private static int diagSwapped;
-        private static int diagNoSwap;
-
         public static MethodBase TargetMethod()
         {
             var ctor = typeof(Sustainer)
@@ -58,15 +50,14 @@ namespace JanitorsCloset.Patches
             var toolDef = pawn?.equipment?.Primary?.def;
             if (toolDef == null)
             {
-                Diag(ref diagNoTool, "[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
+                Diag("[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
                 return;
             }
 
             var ext = toolDef.GetModExtension<CleaningToolExtension>();
             if (ext == null)
             {
-                Diag(ref diagNoExtension,
-                    "[JC sound] tool='{0}' has no CleaningToolExtension; incoming='{1}'",
+                Diag("[JC sound] tool='{0}' has no CleaningToolExtension; incoming='{1}'",
                     toolDef.defName, __0.defName);
                 return;
             }
@@ -98,8 +89,7 @@ namespace JanitorsCloset.Patches
 
             if (target == null)
             {
-                Diag(ref diagNoSwap,
-                    "[JC sound] tool='{0}' no target sound (custom={1}, categories={2}); leaving incoming='{3}'",
+                Diag("[JC sound] tool='{0}' no target sound (custom={1}, categories={2}); leaving incoming='{3}'",
                     toolDef.defName,
                     ext.customCleaningSound?.defName ?? "<null>",
                     ext.categories?.Count ?? -1,
@@ -108,14 +98,12 @@ namespace JanitorsCloset.Patches
             }
             if (__0 == target)
             {
-                Diag(ref diagNoSwap,
-                    "[JC sound] tool='{0}' incoming already matches target='{1}', no swap",
+                Diag("[JC sound] tool='{0}' incoming already matches target='{1}', no swap",
                     toolDef.defName, target.defName);
                 return;
             }
 
-            Diag(ref diagSwapped,
-                "[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
+            Diag("[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
                 toolDef.defName, __0.defName, target.defName);
             __0 = target;
         }
@@ -131,14 +119,10 @@ namespace JanitorsCloset.Patches
             return false;
         }
 
-        private static void Diag(ref int counter, string fmt, params object[] args)
+        private static void Diag(string fmt, params object[] args)
         {
-            if (!Prefs.DevMode) return;
-            if (counter >= DiagnosticBudget) return;
-            counter++;
+            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
-            if (counter == DiagnosticBudget)
-                Log.Message("[JC sound] diagnostic budget exhausted for this branch — future hits silent.");
         }
     }
 }

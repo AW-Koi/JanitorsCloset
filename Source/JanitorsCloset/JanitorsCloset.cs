@@ -19,8 +19,10 @@ namespace JanitorsCloset
         {
             var listing = new Listing_Standard();
             listing.Begin(inRect);
-            // TODO: add settings UI, e.g.:
-            // listing.CheckboxLabeled("Enable feature", ref Settings.SomeFlag, "Tooltip text.");
+            listing.CheckboxLabeled(
+                "JanitorsCloset.Settings.DebugLogging".Translate(),
+                ref Settings.DebugLogging,
+                "JanitorsCloset.Settings.DebugLoggingTooltip".Translate());
             listing.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -28,15 +30,12 @@ namespace JanitorsCloset
 
     public class JanitorsClosetSettings : ModSettings
     {
-        // TODO: add settings fields, e.g.:
-        // public bool SomeFlag = true;
+        public bool DebugLogging;
 
-        // ReSharper disable once RedundantOverriddenMember
         public override void ExposeData()
         {
             base.ExposeData();
-            // TODO: scribe each field, e.g.:
-            // Scribe_Values.Look(ref SomeFlag, "SomeFlag", true);
+            Scribe_Values.Look(ref DebugLogging, "DebugLogging", false);
         }
     }
 

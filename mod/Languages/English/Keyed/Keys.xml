@@ -11,4 +11,6 @@
     <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Whole-tile clean</JanitorsCloset.CleaningTool.SpecialtyStackClear>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises the entire filth stack on the target tile in a single pass, not just the topmost piece.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
+    <JanitorsCloset.Settings.DebugLogging>Debug logging</JanitorsCloset.Settings.DebugLogging>
+    <JanitorsCloset.Settings.DebugLoggingTooltip>Log per-tick decisions about cleaning-tool sound swaps and CleaningSpeed/GeneralLaborSpeed adjustments. Verbose — turn on only when investigating an issue.</JanitorsCloset.Settings.DebugLoggingTooltip>
 </LanguageData>

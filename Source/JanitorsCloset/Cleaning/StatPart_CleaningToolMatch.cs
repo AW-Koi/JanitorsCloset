@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JanitorsCloset.Patches;
 using RimWorld;
 using Verse;
+using JCMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Cleaning
 {
@@ -16,15 +17,8 @@ namespace JanitorsCloset.Cleaning
     // We rely on Patch_TrackCurrentJobDriver.Current to identify which filth is the active
     // target. When no cleaning job is active (UI inspections, generic stat queries),
     // the full bonus shows — the inspect window reports the tool's *potential* speed.
-    //
-    // Diagnostics are gated to the first N hits per branch — useful for confirming the
-    // mismatch path actually runs while you're playtesting tools against filth types.
     public class StatPart_CleaningToolMatch : StatPart
     {
-        private const int DiagnosticBudget = 20;
-        private static int diagMatched;
-        private static int diagSuppressed;
-
         public override void TransformValue(StatRequest req, ref float val)
         {
             var penalty = ResolveOffsetToSuppress(req, diag: true);
@@ -65,8 +59,7 @@ namespace JanitorsCloset.Cleaning
             {
                 if (diag)
                 {
-                    Diag(ref diagMatched,
-                        "[JC stat] MATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> keep bonus",
+                    Diag("[JC stat] MATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> keep bonus",
                         pawn.LabelShort, tool.def.defName, filth.def.defName, category.Value);
                 }
                 return 0f;
@@ -76,8 +69,7 @@ namespace JanitorsCloset.Cleaning
             var penalty = EquippedCleaningSpeedOffset(tool.def);
             if (diag)
             {
-                Diag(ref diagSuppressed,
-                    "[JC stat] MISMATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> suppress {4}",
+                Diag("[JC stat] MISMATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> suppress {4}",
                     pawn.LabelShort, tool.def.defName, filth.def.defName, category.Value, penalty.ToStringPercent());
             }
             return penalty;
@@ -94,14 +86,10 @@ namespace JanitorsCloset.Cleaning
             return 0f;
         }
 
-        private static void Diag(ref int counter, string fmt, params object[] args)
+        private static void Diag(string fmt, params object[] args)
         {
-            if (!Prefs.DevMode) return;
-            if (counter >= DiagnosticBudget) return;
-            counter++;
+            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
-            if (counter == DiagnosticBudget)
-                Log.Message("[JC stat] diagnostic budget exhausted for this branch — future hits silent.");
         }
     }
 }

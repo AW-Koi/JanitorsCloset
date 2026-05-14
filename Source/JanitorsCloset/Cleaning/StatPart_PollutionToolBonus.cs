@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JanitorsCloset.Patches;
 using RimWorld;
 using Verse;
+using JCMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Cleaning
 {
@@ -21,9 +22,6 @@ namespace JanitorsCloset.Cleaning
     // a Hazmat Sprayer doesn't speed up cooking or smithing.
     public class StatPart_PollutionToolBonus : StatPart
     {
-        private const int DiagnosticBudget = 20;
-        private static int diagApplied;
-
         public override void TransformValue(StatRequest req, ref float val)
         {
             var bonus = ResolveBonus(req, diag: true);
@@ -53,8 +51,7 @@ namespace JanitorsCloset.Cleaning
             var bonus = EquippedCleaningSpeedOffset(tool.def);
             if (bonus > 0f && diag)
             {
-                Diag(ref diagApplied,
-                    "[JC stat] POLLUTION BONUS pawn='{0}' tool='{1}' +{2}",
+                Diag("[JC stat] POLLUTION BONUS pawn='{0}' tool='{1}' +{2}",
                     pawn.LabelShort, tool.def.defName, bonus.ToStringPercent());
             }
             return bonus;
@@ -71,14 +68,10 @@ namespace JanitorsCloset.Cleaning
             return 0f;
         }
 
-        private static void Diag(ref int counter, string fmt, params object[] args)
+        private static void Diag(string fmt, params object[] args)
         {
-            if (!Prefs.DevMode) return;
-            if (counter >= DiagnosticBudget) return;
-            counter++;
+            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
-            if (counter == DiagnosticBudget)
-                Log.Message("[JC stat] pollution-bonus diagnostic budget exhausted — future hits silent.");
         }
     }
 }
