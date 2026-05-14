@@ -1,5 +1,3 @@
-using System;
-using System.Reflection;
 using HarmonyLib;
 using JanitorsCloset.Defs;
 using UnityEngine;
@@ -18,7 +16,7 @@ namespace JanitorsCloset.Patches
     // Runs as a Prefix at Priority.Low so the existing Patch_DrawEquipmentAiming (which
     // applies the CleaningAnimProfile wobble/aim to drawLoc and aimAngle) has already
     // executed by the time we read the values. Returning false skips vanilla's own draw.
-    [HarmonyPatch(typeof(Verse.PawnRenderUtility), "DrawEquipmentAiming")]
+    [HarmonyPatch(typeof(PawnRenderUtility), "DrawEquipmentAiming")]
     [StaticConstructorOnStartup] // Holds a static Graphic field — RimWorld's main-thread
                                  // asset-load check requires this on any such type.
     public static class Patch_HazmatSprayerInHandDraw

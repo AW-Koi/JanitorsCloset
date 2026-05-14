@@ -99,7 +99,7 @@ namespace JanitorsCloset.Patches
             if (_tankGraphicMissing) return null;
             if (_tankGraphic != null) return _tankGraphic;
 
-            var probe = ContentFinder<UnityEngine.Texture2D>.Get(TankTexPath + "_south", reportFailure: false);
+            var probe = ContentFinder<Texture2D>.Get(TankTexPath + "_south", reportFailure: false);
             if (probe == null)
             {
                 _tankGraphicMissing = true;
