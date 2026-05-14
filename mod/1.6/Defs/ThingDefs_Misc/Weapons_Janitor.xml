@@ -296,7 +296,7 @@
     </comps>
     <recipeMaker>
       <researchPrerequisite>AtomicSanitation</researchPrerequisite>
-      <recipeUsers>
+      <recipeUsers Inherit="False">
         <li>FabricationBench</li>
       </recipeUsers>
       <skillRequirements>
