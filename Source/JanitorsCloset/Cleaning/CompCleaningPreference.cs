@@ -96,27 +96,32 @@ namespace JanitorsCloset.Cleaning
                     ? "JanitorsCloset.CleaningArea.Desc.Restricted".Translate(area.Label)
                     : "JanitorsCloset.CleaningArea.Desc.None".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/Janitor_CleaningPref_Area", false) ?? BaseContent.BadTex,
-                bgTint = area != null ? area.Color : Color.white,
+                bgColor = area != null ? area.Color : Color.white,
                 action = () => OpenAreaPicker(map),
             };
         }
 
-        // Tints the gizmo background by the selected area's color while keeping the icon
-        // texture untouched. Command's base draws BGTex through the current GUI.color, then
-        // resets GUI.color to white before drawing the icon — so setting the color around
-        // base.GizmoOnGUI tints only the background. Mouse-over still wins (vanilla forces
-        // GenUI.MouseoverColor) which is the behavior we want — hover should look standard.
+        // Vanilla GizmoOnGUIInt forces GUI.color to white right before drawing the BG, so a
+        // GUI.color wrapper around base does nothing. Returning a solid-color texture for
+        // BGTexture paints the gizmo's background as the area's exact color — easier to
+        // recognise at a glance than a tint multiplied over DesButBG. Cached by Color32 to
+        // avoid leaking a fresh Texture2D every frame (NewSolidColorTexture doesn't cache).
         private class Command_AreaTinted : Command_Action
         {
-            public Color bgTint = Color.white;
+            public Color bgColor = Color.white;
 
-            public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
+            public override Texture2D BGTexture => SolidTexFor(bgColor);
+            public override Texture2D BGTextureShrunk => SolidTexFor(bgColor);
+
+            private static readonly Dictionary<Color32, Texture2D> SolidTexCache = new Dictionary<Color32, Texture2D>();
+
+            private static Texture2D SolidTexFor(Color color)
             {
-                var prev = GUI.color;
-                GUI.color = bgTint;
-                var result = base.GizmoOnGUI(topLeft, maxWidth, parms);
-                GUI.color = prev;
-                return result;
+                Color32 key = color;
+                if (SolidTexCache.TryGetValue(key, out var tex) && tex != null) return tex;
+                tex = SolidColorMaterials.NewSolidColorTexture(color);
+                SolidTexCache[key] = tex;
+                return tex;
             }
         }
 
