@@ -30,16 +30,15 @@ namespace JanitorsCloset.Patches
             if (comp == null) return;
 
             var room = __instance.Position.GetRoom(map);
-            bool stamped = comp.IsRoomStamped(room);
-
-            if (JanitorsCloset.Settings != null && JanitorsCloset.Settings.DebugLogging)
-            {
-                Log.Message($"[Janitor's Closet] Filth {__instance.def.defName} spawned at {__instance.Position} room#{room?.ID.ToString() ?? "null"} stamped={stamped}");
-            }
-
-            if (!stamped) return;
+            if (!comp.IsRoomStamped(room)) return;
 
             comp.ExpireStamp(room);
+
+            bool debug = JanitorsCloset.Settings != null && JanitorsCloset.Settings.DebugLogging;
+            if (debug)
+            {
+                Log.Message($"[Janitor's Closet] Stamp dropped: {__instance.def.defName} spawned in stamped room #{room.ID} at {__instance.Position}");
+            }
 
             if (JanitorDefOf.Janitor_TrackedFilthIntoCleanRoom == null) return;
 
@@ -53,10 +52,7 @@ namespace JanitorsCloset.Patches
                 if (pawn == null) continue;
                 if (pawn.needs?.mood == null) continue;
                 pawn.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_TrackedFilthIntoCleanRoom);
-                if (JanitorsCloset.Settings != null && JanitorsCloset.Settings.DebugLogging)
-                {
-                    Log.Message($"[Janitor's Closet]   awarded tracked-filth thought to {pawn.LabelShort}");
-                }
+                if (debug) Log.Message($"[Janitor's Closet]   awarded tracked-filth thought to {pawn.LabelShort}");
             }
         }
     }
