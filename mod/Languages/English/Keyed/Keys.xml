@@ -18,7 +18,7 @@
     <JanitorsCloset.CleaningPref.Desc.Indoors>This tool's bearer will ignore filth outdoors, only cleaning rooms enclosed by walls and roof. Click to restrict to outdoors only.</JanitorsCloset.CleaningPref.Desc.Indoors>
     <JanitorsCloset.CleaningPref.Desc.Outdoors>This tool's bearer will ignore indoor filth, only cleaning outside or in unenclosed spaces. Click to clear the restriction.</JanitorsCloset.CleaningPref.Desc.Outdoors>
     <JanitorsCloset.CleaningArea.Label.None>Clean any area</JanitorsCloset.CleaningArea.Label.None>
-    <JanitorsCloset.CleaningArea.Label.Restricted>Clean: {0}</JanitorsCloset.CleaningArea.Label.Restricted>
+    <JanitorsCloset.CleaningArea.Label.Restricted>Clean {0}</JanitorsCloset.CleaningArea.Label.Restricted>
     <JanitorsCloset.CleaningArea.Desc.None>This tool's bearer will pick up cleaning jobs anywhere on the map. Click to restrict cleaning to a player-painted area.</JanitorsCloset.CleaningArea.Desc.None>
     <JanitorsCloset.CleaningArea.Desc.Restricted>This tool's bearer will only clean filth inside the "{0}" area. If that area is renamed or deleted, the restriction is dropped. Click to choose a different area or clear the restriction.</JanitorsCloset.CleaningArea.Desc.Restricted>
     <JanitorsCloset.Thought.FreshlyCleanedRoom.Label>Freshly cleaned room</JanitorsCloset.Thought.FreshlyCleanedRoom.Label>

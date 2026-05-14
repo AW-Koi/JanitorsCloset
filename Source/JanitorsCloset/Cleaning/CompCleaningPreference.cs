@@ -87,7 +87,7 @@ namespace JanitorsCloset.Cleaning
         {
             var map = parent.MapHeld;
             var area = ResolveArea(map);
-            return new Command_Action
+            return new Command_AreaTinted
             {
                 defaultLabel = area != null
                     ? "JanitorsCloset.CleaningArea.Label.Restricted".Translate(area.Label)
@@ -96,9 +96,28 @@ namespace JanitorsCloset.Cleaning
                     ? "JanitorsCloset.CleaningArea.Desc.Restricted".Translate(area.Label)
                     : "JanitorsCloset.CleaningArea.Desc.None".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/Janitor_CleaningPref_Area", false) ?? BaseContent.BadTex,
-                defaultIconColor = area != null ? area.Color : Color.white,
+                bgTint = area != null ? area.Color : Color.white,
                 action = () => OpenAreaPicker(map),
             };
+        }
+
+        // Tints the gizmo background by the selected area's color while keeping the icon
+        // texture untouched. Command's base draws BGTex through the current GUI.color, then
+        // resets GUI.color to white before drawing the icon — so setting the color around
+        // base.GizmoOnGUI tints only the background. Mouse-over still wins (vanilla forces
+        // GenUI.MouseoverColor) which is the behavior we want — hover should look standard.
+        private class Command_AreaTinted : Command_Action
+        {
+            public Color bgTint = Color.white;
+
+            public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
+            {
+                var prev = GUI.color;
+                GUI.color = bgTint;
+                var result = base.GizmoOnGUI(topLeft, maxWidth, parms);
+                GUI.color = prev;
+                return result;
+            }
         }
 
         private void OpenAreaPicker(Map map)
