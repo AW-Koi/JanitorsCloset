@@ -11,6 +11,12 @@
     <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Whole-tile clean</JanitorsCloset.CleaningTool.SpecialtyStackClear>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises the entire filth stack on the target tile in a single pass, not just the topmost piece.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
+    <JanitorsCloset.CleaningPref.Label.Any>Clean anywhere</JanitorsCloset.CleaningPref.Label.Any>
+    <JanitorsCloset.CleaningPref.Label.Indoors>Clean indoors</JanitorsCloset.CleaningPref.Label.Indoors>
+    <JanitorsCloset.CleaningPref.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningPref.Label.Outdoors>
+    <JanitorsCloset.CleaningPref.Desc.Any>This tool's bearer will pick up cleaning jobs regardless of whether the filth is indoors or outdoors. Click to restrict to indoors only.</JanitorsCloset.CleaningPref.Desc.Any>
+    <JanitorsCloset.CleaningPref.Desc.Indoors>This tool's bearer will ignore filth outdoors, only cleaning rooms enclosed by walls and roof. Click to restrict to outdoors only.</JanitorsCloset.CleaningPref.Desc.Indoors>
+    <JanitorsCloset.CleaningPref.Desc.Outdoors>This tool's bearer will ignore indoor filth, only cleaning outside or in unenclosed spaces. Click to clear the restriction.</JanitorsCloset.CleaningPref.Desc.Outdoors>
     <JanitorsCloset.Settings.DebugLogging>Debug logging</JanitorsCloset.Settings.DebugLogging>
     <JanitorsCloset.Settings.DebugLoggingTooltip>Log per-tick decisions about cleaning-tool sound swaps and CleaningSpeed/GeneralLaborSpeed adjustments. Verbose — turn on only when investigating an issue.</JanitorsCloset.Settings.DebugLoggingTooltip>
 </LanguageData>

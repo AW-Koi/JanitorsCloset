@@ -46,6 +46,9 @@
         </animProfile>
       </li>
     </modExtensions>
+    <comps>
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+    </comps>
     <recipeMaker>
       <researchPrerequisite>Housekeeping</researchPrerequisite>
       <recipeUsers>
@@ -124,6 +127,9 @@
         </animProfile>
       </li>
     </modExtensions>
+    <comps>
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+    </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
       <recipeUsers>
@@ -202,6 +208,9 @@
         </animProfile>
       </li>
     </modExtensions>
+    <comps>
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+    </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
       <recipeUsers>
@@ -286,6 +295,9 @@
         </animProfile>
       </li>
     </modExtensions>
+    <comps>
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+    </comps>
     <recipeMaker>
       <researchPrerequisite>AtomicSanitation</researchPrerequisite>
       <recipeUsers>
