@@ -30,6 +30,9 @@ namespace JanitorsCloset.Defs
         public static SoundDef Interact_CleanFilth_Fluid;
         public static SoundDef Interact_CleanFilth_Dirt;
 
+        // Memory thought granted to colonists in a room whose last filth was just cleaned.
+        public static ThoughtDef Janitor_FreshlyCleanedRoom;
+
         static JanitorDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(JanitorDefOf));

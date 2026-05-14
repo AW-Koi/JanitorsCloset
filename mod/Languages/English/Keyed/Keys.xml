@@ -17,6 +17,8 @@
     <JanitorsCloset.CleaningPref.Desc.Any>This tool's bearer will pick up cleaning jobs regardless of whether the filth is indoors or outdoors. Click to restrict to indoors only.</JanitorsCloset.CleaningPref.Desc.Any>
     <JanitorsCloset.CleaningPref.Desc.Indoors>This tool's bearer will ignore filth outdoors, only cleaning rooms enclosed by walls and roof. Click to restrict to outdoors only.</JanitorsCloset.CleaningPref.Desc.Indoors>
     <JanitorsCloset.CleaningPref.Desc.Outdoors>This tool's bearer will ignore indoor filth, only cleaning outside or in unenclosed spaces. Click to clear the restriction.</JanitorsCloset.CleaningPref.Desc.Outdoors>
+    <JanitorsCloset.Thought.FreshlyCleanedRoom.Label>Freshly cleaned room</JanitorsCloset.Thought.FreshlyCleanedRoom.Label>
+    <JanitorsCloset.Thought.FreshlyCleanedRoom.Description>That room was spotless. I'm glad we have a janitor around.</JanitorsCloset.Thought.FreshlyCleanedRoom.Description>
     <JanitorsCloset.Settings.DebugLogging>Debug logging</JanitorsCloset.Settings.DebugLogging>
     <JanitorsCloset.Settings.DebugLoggingTooltip>Log per-tick decisions about cleaning-tool sound swaps and CleaningSpeed/GeneralLaborSpeed adjustments. Verbose — turn on only when investigating an issue.</JanitorsCloset.Settings.DebugLoggingTooltip>
 </LanguageData>

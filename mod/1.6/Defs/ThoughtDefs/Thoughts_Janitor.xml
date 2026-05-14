@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <!-- Memory granted (and refreshed) while a colonist is in a room that was recently
+         cleaned to zero filth. stackLimit=1 so repeated TryGainMemory calls refresh the
+         existing memory's age instead of stacking new instances. -->
+    <ThoughtDef>
+        <defName>Janitor_FreshlyCleanedRoom</defName>
+        <durationDays>0.17</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>freshly cleaned room</label>
+                <description>That room was spotless. I'm glad we have a janitor around.</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>
