@@ -4,8 +4,8 @@
     <JanitorsCloset.CleaningTool.SpecialtyLabel>Cleaning specialty</JanitorsCloset.CleaningTool.SpecialtyLabel>
     <JanitorsCloset.CleaningTool.SpecialtyDry>Dry filth only</JanitorsCloset.CleaningTool.SpecialtyDry>
     <JanitorsCloset.CleaningTool.SpecialtyWet>Wet filth only</JanitorsCloset.CleaningTool.SpecialtyWet>
-    <JanitorsCloset.CleaningTool.SpecialtyExplanationDry>The cleaning speed bonus from this tool only applies to dry filth. Wet filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationDry>
-    <JanitorsCloset.CleaningTool.SpecialtyExplanationWet>The cleaning speed bonus from this tool only applies to wet filth. Dry filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationWet>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationDry>The cleaning speed bonus from this tool only applies to dry filth. Wet filth is cleaned at regular speed.\n\nA pawn carrying this tool will also gravitate toward dry filth when choosing what to clean next, and finish the dry filth in a cluster before any wet filth in the same trip.</JanitorsCloset.CleaningTool.SpecialtyExplanationDry>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationWet>The cleaning speed bonus from this tool only applies to wet filth. Dry filth is cleaned at regular speed.\n\nA pawn carrying this tool will also gravitate toward wet filth when choosing what to clean next, and finish the wet filth in a cluster before any dry filth in the same trip.</JanitorsCloset.CleaningTool.SpecialtyExplanationWet>
     <JanitorsCloset.CleaningTool.SpecialtyToxic>Polluted terrain only</JanitorsCloset.CleaningTool.SpecialtyToxic>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>The cleaning speed bonus from this tool only applies while clearing polluted terrain. Ordinary filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>
     <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
