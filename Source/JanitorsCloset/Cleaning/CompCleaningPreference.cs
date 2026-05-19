@@ -184,7 +184,12 @@ namespace JanitorsCloset.Cleaning
                     {
                         areaLabel = captured.Label;
                         SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    }, captured.ColorTexture, Color.white));
+                    }, captured.ColorTexture, Color.white)
+                    {
+                        // Vanilla allowed-area picker calls MarkForDraw each frame the option
+                        // is hovered so the area overlay paints on the map.
+                        mouseoverGuiAction = _ => captured.MarkForDraw(),
+                    });
                 }
             }
             Find.WindowStack.Add(new FloatMenu(opts));
