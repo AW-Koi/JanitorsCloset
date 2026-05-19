@@ -36,17 +36,23 @@ namespace JanitorsCloset.Patches
         public static void Prefix(ref SoundDef __0)
         {
             if (__0 == null) return;
-            // Catch both the per-filth sustainers (Interact_CleanFilth_Fluid /
-            // Interact_CleanFilth_Dirt) used by JobDriver_CleanFilth and the bare
-            // Interact_CleanFilth that JobDriver_ClearPollution plays.
+            // Catch the per-filth sustainers (Interact_CleanFilth_Fluid /
+            // Interact_CleanFilth_Dirt) used by JobDriver_CleanFilth, plus the bare
+            // Interact_CleanFilth that JobDriver_ClearPollution and JobDriver_ClearSnowAndSand
+            // both play.
             if (!__0.defName.StartsWith("Interact_CleanFilth")) return;
 
-            // Tracked driver may be either a filth-clean or pollution-clear job — both
-            // are tracked by Patch_TrackCurrentJobDriver. We just need a pawn off of it.
+            // Tracked driver covers filth, pollution, and weather-buildup jobs.
             var driver = Patch_TrackCurrentJobDriver.Current;
             Pawn pawn = null;
+            bool isWeatherBuildupJob = false;
             if (driver is JobDriver_CleanFilth filthDriver) pawn = filthDriver.pawn;
             else if (driver is JobDriver_ClearPollution pollutionDriver) pawn = pollutionDriver.pawn;
+            else if (driver is JobDriver_ClearSnowAndSand snowDriver)
+            {
+                pawn = snowDriver.pawn;
+                isWeatherBuildupJob = true;
+            }
             var toolDef = pawn?.equipment?.Primary?.def;
             if (toolDef == null)
             {
@@ -62,7 +68,17 @@ namespace JanitorsCloset.Patches
                 return;
             }
 
-            // Sound swap is a filth-cleaning specialty thing. A tool whose declared
+            // Weather-buildup work: keep sound in lockstep with anim and bonus. Only swap
+            // when the tool would actually contribute on this tile — a broom on Thick
+            // buildup stays on vanilla sustainer to match the missing anim and speedup.
+            if (isWeatherBuildupJob)
+            {
+                if (!ext.Matches(CleaningCategory.WeatherBuildup)) return;
+                var cell = driver.job?.targetA.Cell ?? IntVec3.Invalid;
+                if (!StatPart_WeatherBuildupToolBonus.ToolEligibleAt(ext, pawn.Map, cell)) return;
+            }
+
+            // Sound swap is a filth/buildup-specialty thing. A tool whose declared
             // categories are purely Toxic (Hazmat Sprayer) isn't a filth specialist — its
             // bonus is suppressed on filth and only fires during pollution-clearing work,
             // which uses its own vanilla sustainer. Silently leave the incoming sound alone.
@@ -74,17 +90,15 @@ namespace JanitorsCloset.Patches
             {
                 target = ext.customCleaningSound;
             }
-            else if (ext.categories != null && ext.categories.Count == 1)
+            else
             {
-                switch (ext.categories[0])
-                {
-                    case CleaningCategory.Wet:
-                        target = JanitorDefOf.Interact_CleanFilth_Fluid;
-                        break;
-                    case CleaningCategory.Dry:
-                        target = JanitorDefOf.Interact_CleanFilth_Dirt;
-                        break;
-                }
+                // Filth-cleaning category drives the sustainer. WeatherBuildup and Toxic
+                // are non-filth tags; we ignore them here. A tool that's both Dry and Wet
+                // is ambiguous — fall through to no swap rather than guess.
+                bool hasDry = ext.Matches(CleaningCategory.Dry);
+                bool hasWet = ext.Matches(CleaningCategory.Wet);
+                if (hasDry && !hasWet) target = JanitorDefOf.Interact_CleanFilth_Dirt;
+                else if (hasWet && !hasDry) target = JanitorDefOf.Interact_CleanFilth_Fluid;
             }
 
             if (target == null)

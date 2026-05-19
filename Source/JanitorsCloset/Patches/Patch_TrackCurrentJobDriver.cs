@@ -30,10 +30,15 @@ namespace JanitorsCloset.Patches
         public static void Prefix(JobDriver __instance, out JobDriver __state)
         {
             __state = Current;
-            // JobDriver_ClearPollution drives terrain pollution cleanup (Biotech). We track
-            // it for the GeneralLaborSpeed StatPart that grants the Toxic-tool bonus only
-            // during pollution work.
-            if (__instance is JobDriver_CleanFilth || __instance is JobDriver_ClearPollution)
+            // JobDriver_ClearPollution drives terrain pollution cleanup (Biotech).
+            // JobDriver_ClearSnowAndSand drives weather-buildup-layer cleanup
+            // (vanilla snow + Odyssey sand share one driver and one depth grid concept).
+            // Both are terrain work scaled by GeneralLaborSpeed; the bonus StatParts gate
+            // on tool category and the matching driver type. JobDriver_CleanFilth covers
+            // the filth case via the CleaningSpeed StatPart.
+            if (__instance is JobDriver_CleanFilth
+                || __instance is JobDriver_ClearPollution
+                || __instance is JobDriver_ClearSnowAndSand)
                 Current = __instance;
         }
 

@@ -36,17 +36,30 @@ namespace JanitorsCloset.Patches
         public static void Prefix(Thing eq, ref Vector3 drawLoc, ref float aimAngle)
         {
             if (eq == null) return;
-            var profile = eq.def.GetModExtension<CleaningToolExtension>()?.animProfile;
+            var ext = eq.def.GetModExtension<CleaningToolExtension>();
+            var profile = ext?.animProfile;
             if (profile == null) return;
 
             if (!(eq.ParentHolder is Pawn_EquipmentTracker tracker)) return;
             var pawn = tracker.pawn;
             if (pawn == null) return;
             var jobDef = pawn.CurJobDef;
-            // Both filth-cleaning and Biotech pollution-clearing should drive the anim —
-            // a Hazmat Sprayer pawn waving a wand at a polluted tile needs the same
-            // reach/wobble treatment as a mop pawn working a blood spatter.
-            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution) return;
+            // Filth-cleaning, Biotech pollution-clearing, and weather-buildup-clearing all
+            // drive the anim — a Hazmat Sprayer pawn waving a wand at a polluted tile needs
+            // the same reach/wobble treatment as a mop pawn working a blood spatter or a
+            // broom pawn sweeping a dusting.
+            //
+            // For weather-buildup work we additionally gate on the tool's depth cap: if a
+            // broom is standing on Thick buildup it gets no labor-speed bonus, so it should
+            // also stay in the default carry pose. Anim presence == tool advantage active.
+            bool isWeatherBuildupJob = jobDef == JobDefOf.ClearSnow;
+            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution && !isWeatherBuildupJob) return;
+            if (isWeatherBuildupJob)
+            {
+                var buildupJob = pawn.CurJob;
+                if (buildupJob == null || !buildupJob.targetA.IsValid) return;
+                if (!StatPart_WeatherBuildupToolBonus.ToolEligibleAt(ext, pawn.Map, buildupJob.targetA.Cell)) return;
+            }
             if (pawn.pather != null && pawn.pather.Moving) return;
 
             // Push drawLoc toward the cell being cleaned so the tool reaches the actual filth,

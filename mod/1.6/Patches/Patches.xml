@@ -35,6 +35,7 @@
     <value>
       <parts>
         <li Class="JanitorsCloset.Cleaning.StatPart_PollutionToolBonus"/>
+        <li Class="JanitorsCloset.Cleaning.StatPart_WeatherBuildupToolBonus"/>
       </parts>
     </value>
   </Operation>
