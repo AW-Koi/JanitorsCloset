@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Patches
 {
@@ -41,6 +42,28 @@ namespace JanitorsCloset.Patches
                 .OrderBy(t => FilthCategoryResolver.Resolve(t.Thing?.def) == preferred ? 0 : 1)
                 .ThenBy(t => (t.Cell - pawnPos).LengthHorizontalSquared)
                 .ToList();
+
+            if (JanitorMod.Settings != null && JanitorMod.Settings.DebugLogging)
+            {
+                int matched = sorted.Count(t => FilthCategoryResolver.Resolve(t.Thing?.def) == preferred);
+                bool changed = !sorted.SequenceEqual(queue);
+                var breakdown = sorted
+                    .GroupBy(t => t.Thing?.def)
+                    .Select(g => string.Format("{0}={1}({2})",
+                        g.Key?.defName ?? "<null>",
+                        g.Count(),
+                        FilthCategoryResolver.Resolve(g.Key)?.ToString() ?? "<none>"));
+                Log.Message(string.Format(
+                    "[JC queue] pawn='{0}' tool='{1}' preferred={2} queue={3} matched={4} reordered={5} breakdown=[{6}]",
+                    pawn.LabelShort,
+                    pawn.equipment?.Primary?.def?.defName ?? "<none>",
+                    preferred.Value,
+                    queue.Count,
+                    matched,
+                    changed,
+                    string.Join(", ", breakdown)));
+            }
+
             queue.Clear();
             queue.AddRange(sorted);
         }

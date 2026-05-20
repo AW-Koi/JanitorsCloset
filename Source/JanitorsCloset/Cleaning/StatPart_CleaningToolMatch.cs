@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using JanitorsCloset.Patches;
 using RimWorld;
 using Verse;
-using JCMod = JanitorsCloset.JanitorsCloset;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Cleaning
 {
@@ -59,7 +59,7 @@ namespace JanitorsCloset.Cleaning
             {
                 if (diag)
                 {
-                    Diag("[JC stat] MATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> keep bonus",
+                    Diagnostics("[JC stat] MATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> keep bonus",
                         pawn.LabelShort, tool.def.defName, filth.def.defName, category.Value);
                 }
                 return 0f;
@@ -69,7 +69,7 @@ namespace JanitorsCloset.Cleaning
             var penalty = EquippedCleaningSpeedOffset(tool.def);
             if (diag)
             {
-                Diag("[JC stat] MISMATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> suppress {4}",
+                Diagnostics("[JC stat] MISMATCH pawn='{0}' tool='{1}' filth='{2}' cat={3} -> suppress {4}",
                     pawn.LabelShort, tool.def.defName, filth.def.defName, category.Value, penalty.ToStringPercent());
             }
             return penalty;
@@ -86,9 +86,9 @@ namespace JanitorsCloset.Cleaning
             return 0f;
         }
 
-        private static void Diag(string fmt, params object[] args)
+        private static void Diagnostics(string fmt, params object[] args)
         {
-            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
         }
     }

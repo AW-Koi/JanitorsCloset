@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -29,10 +30,16 @@ namespace JanitorsCloset.Cleaning
             var category = DefDatabase<StatCategoryDef>.GetNamedSilentFail("EquippedStatOffsets")
                            ?? StatCategoryDefOf.Basics;
 
-            if (ext.categories != null && ext.categories.Count == 1)
+            // Count only filth categories — WeatherBuildup is an auxiliary capability
+            // that doesn't change what kind of filth the tool specialises in. A broom
+            // declaring [Dry, WeatherBuildup] is still a single-filth-category tool.
+            var filthCategories = ext.categories?
+                .Where(c => c == CleaningCategory.Dry || c == CleaningCategory.Wet || c == CleaningCategory.Toxic)
+                .ToList();
+            if (filthCategories != null && filthCategories.Count == 1)
             {
                 string valueKey = null, explanationKey = null;
-                switch (ext.categories[0])
+                switch (filthCategories[0])
                 {
                     case CleaningCategory.Dry:
                         valueKey = "JanitorsCloset.CleaningTool.SpecialtyDry";

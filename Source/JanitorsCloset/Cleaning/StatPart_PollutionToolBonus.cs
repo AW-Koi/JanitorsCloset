@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using JanitorsCloset.Patches;
 using RimWorld;
 using Verse;
-using JCMod = JanitorsCloset.JanitorsCloset;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Cleaning
 {
@@ -51,7 +51,7 @@ namespace JanitorsCloset.Cleaning
             var bonus = EquippedCleaningSpeedOffset(tool.def);
             if (bonus > 0f && diag)
             {
-                Diag("[JC stat] POLLUTION BONUS pawn='{0}' tool='{1}' +{2}",
+                Diagnostics("[JC stat] POLLUTION BONUS pawn='{0}' tool='{1}' +{2}",
                     pawn.LabelShort, tool.def.defName, bonus.ToStringPercent());
             }
             return bonus;
@@ -68,9 +68,9 @@ namespace JanitorsCloset.Cleaning
             return 0f;
         }
 
-        private static void Diag(string fmt, params object[] args)
+        private static void Diagnostics(string fmt, params object[] args)
         {
-            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
         }
     }

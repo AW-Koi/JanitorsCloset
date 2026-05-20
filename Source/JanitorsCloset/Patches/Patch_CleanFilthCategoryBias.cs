@@ -1,9 +1,11 @@
+using System;
 using HarmonyLib;
 using JanitorsCloset.Cleaning;
 using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Patches
 {
@@ -30,6 +32,32 @@ namespace JanitorsCloset.Patches
         }
     }
 
+    // Per-pawn-tick scan logging. GetPriority fires once per home-area filth candidate,
+    // so we suppress repeats within the same (pawn, tick) to keep the log to one line
+    // per pick scan rather than one line per filth tile.
+    internal static class CleanFilthBiasDiagnostics
+    {
+        [ThreadStatic] private static Pawn _lastPawn;
+        [ThreadStatic] private static int _lastTick;
+
+        public static void OnceForScan(Pawn pawn, CleaningCategory? preferred)
+        {
+            if (pawn == null) return;
+            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+            int tick = Find.TickManager?.TicksGame ?? 0;
+            if (_lastPawn == pawn && _lastTick == tick) return;
+            _lastPawn = pawn;
+            _lastTick = tick;
+
+            var toolDef = pawn.equipment?.Primary?.def;
+            Log.Message(string.Format(
+                "[JC bias] scan pawn='{0}' tool='{1}' preferred={2}",
+                pawn.LabelShort,
+                toolDef?.defName ?? "<none>",
+                preferred.HasValue ? preferred.Value.ToString() : "<none>"));
+        }
+    }
+
     [HarmonyPatch(typeof(WorkGiver_Scanner), nameof(WorkGiver_Scanner.GetPriority),
         new[] { typeof(Pawn), typeof(TargetInfo) })]
     [UsedImplicitly]
@@ -47,6 +75,7 @@ namespace JanitorsCloset.Patches
 
             float distSq = (t.Cell - pawn.Position).LengthHorizontalSquared;
             var preferred = PawnToolPreference.TryResolvePreferredCategory(pawn);
+            CleanFilthBiasDiagnostics.OnceForScan(pawn, preferred);
             if (preferred == null)
             {
                 // No preference -> distance-only ranking, equivalent to vanilla

@@ -7,7 +7,7 @@ using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
 using Verse.Sound;
-using JCMod = JanitorsCloset.JanitorsCloset;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 
 namespace JanitorsCloset.Patches
 {
@@ -56,14 +56,14 @@ namespace JanitorsCloset.Patches
             var toolDef = pawn?.equipment?.Primary?.def;
             if (toolDef == null)
             {
-                Diag("[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
+                Diagnostics("[JC sound] cleaning sustainer with no tool equipped; incoming='{0}'", __0.defName);
                 return;
             }
 
             var ext = toolDef.GetModExtension<CleaningToolExtension>();
             if (ext == null)
             {
-                Diag("[JC sound] tool='{0}' has no CleaningToolExtension; incoming='{1}'",
+                Diagnostics("[JC sound] tool='{0}' has no CleaningToolExtension; incoming='{1}'",
                     toolDef.defName, __0.defName);
                 return;
             }
@@ -103,7 +103,7 @@ namespace JanitorsCloset.Patches
 
             if (target == null)
             {
-                Diag("[JC sound] tool='{0}' no target sound (custom={1}, categories={2}); leaving incoming='{3}'",
+                Diagnostics("[JC sound] tool='{0}' no target sound (custom={1}, categories={2}); leaving incoming='{3}'",
                     toolDef.defName,
                     ext.customCleaningSound?.defName ?? "<null>",
                     ext.categories?.Count ?? -1,
@@ -112,12 +112,12 @@ namespace JanitorsCloset.Patches
             }
             if (__0 == target)
             {
-                Diag("[JC sound] tool='{0}' incoming already matches target='{1}', no swap",
+                Diagnostics("[JC sound] tool='{0}' incoming already matches target='{1}', no swap",
                     toolDef.defName, target.defName);
                 return;
             }
 
-            Diag("[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
+            Diagnostics("[JC sound] tool='{0}' SWAP incoming='{1}' -> target='{2}'",
                 toolDef.defName, __0.defName, target.defName);
             __0 = target;
         }
@@ -133,9 +133,9 @@ namespace JanitorsCloset.Patches
             return false;
         }
 
-        private static void Diag(string fmt, params object[] args)
+        private static void Diagnostics(string fmt, params object[] args)
         {
-            if (JCMod.Settings == null || !JCMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
             Log.Message(string.Format(fmt, args));
         }
     }
