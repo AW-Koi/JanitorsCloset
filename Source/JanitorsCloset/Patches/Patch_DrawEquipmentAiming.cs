@@ -129,7 +129,7 @@ namespace JanitorsCloset.Patches
 
             public static void Log(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string outcome)
             {
-                if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+                if (JanitorMod.Settings?.LogAnim != true) return;
                 if (pawn == null) return;
                 string key = outcome + "|" + (jobDef?.defName ?? "<null>") + "|" + (driver?.GetType().Name ?? "<null>");
                 var map = _lastByPawn ?? (_lastByPawn = new System.Collections.Generic.Dictionary<Pawn, string>());

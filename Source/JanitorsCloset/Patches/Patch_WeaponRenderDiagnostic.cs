@@ -16,7 +16,7 @@ namespace JanitorsCloset.Patches
     // DrawEquipmentAndApparelExtras (likely on CarryTracker.CarriedThing != null or
     // a posture check). If even this doesn't log, the entire weapon draw path is
     // being skipped further upstream and we need to patch the render-node worker
-    // instead. Gated on DebugLogging; one line per (pawn, state) change.
+    // instead. Gated on DebugLogRenderTrace; one line per (pawn, state) change.
     [HarmonyPatch]
     [UsedImplicitly]
     public static class Patch_WeaponRenderDiagnostic
@@ -28,7 +28,7 @@ namespace JanitorsCloset.Patches
 
         public static void Prefix(Pawn pawn)
         {
-            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings?.LogRenderTrace != true) return;
             if (pawn?.equipment?.Primary?.def?.GetModExtension<CleaningToolExtension>() == null) return;
             WeaponRenderDiagnostics.Note(pawn, "DrawEquipmentAndApparelExtras-entered");
         }

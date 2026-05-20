@@ -129,7 +129,7 @@ namespace JanitorsCloset.Patches
 
         private static void Diagnostics(string fmt, params object[] args)
         {
-            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings?.LogSound != true) return;
             Log.Message(string.Format(fmt, args));
         }
     }

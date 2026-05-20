@@ -26,6 +26,20 @@
     <JanitorsCloset.CleaningArea.Desc.Restricted>This tool's bearer will only clean filth inside the "{0}" area. If that area is renamed or deleted, the restriction is dropped. Click to choose a different area or clear the restriction.</JanitorsCloset.CleaningArea.Desc.Restricted>
     <JanitorsCloset.Thought.FreshlyCleanedRoom.Label>Freshly cleaned room</JanitorsCloset.Thought.FreshlyCleanedRoom.Label>
     <JanitorsCloset.Thought.FreshlyCleanedRoom.Description>That room was spotless. I'm glad we have a janitor around.</JanitorsCloset.Thought.FreshlyCleanedRoom.Description>
-    <JanitorsCloset.Settings.DebugLogging>Debug logging</JanitorsCloset.Settings.DebugLogging>
-    <JanitorsCloset.Settings.DebugLoggingTooltip>Log per-tick decisions about cleaning-tool sound swaps and CleaningSpeed/GeneralLaborSpeed adjustments. Verbose — turn on only when investigating an issue.</JanitorsCloset.Settings.DebugLoggingTooltip>
+    <JanitorsCloset.Settings.Diagnostics.Enabled>Enable debug logging</JanitorsCloset.Settings.Diagnostics.Enabled>
+    <JanitorsCloset.Settings.Diagnostics.Enabled.Tooltip>Master switch for diagnostic logging. When off, no diagnostics are written regardless of the individual channel toggles below.</JanitorsCloset.Settings.Diagnostics.Enabled.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.Heading>Diagnostic channels</JanitorsCloset.Settings.Diagnostics.Heading>
+    <JanitorsCloset.Settings.Diagnostics.Subtitle>Each channel logs at most once per state change. Verbose — only enable while investigating an issue.</JanitorsCloset.Settings.Diagnostics.Subtitle>
+    <JanitorsCloset.Settings.Diagnostics.AI>Cleaning AI (filth bias and queue)</JanitorsCloset.Settings.Diagnostics.AI>
+    <JanitorsCloset.Settings.Diagnostics.AI.Tooltip>Logs the per-pawn cleaning-category preference and any in-trip filth queue reorders or drops. One line per pawn per cleaning scan.</JanitorsCloset.Settings.Diagnostics.AI.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.Anim>Tool animation</JanitorsCloset.Settings.Diagnostics.Anim>
+    <JanitorsCloset.Settings.Diagnostics.Anim.Tooltip>Logs whether the broom/mop/sprayer sweep anim is applied each frame the pawn redraws, and the reason if rejected. One line per pawn per state change.</JanitorsCloset.Settings.Diagnostics.Anim.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.RenderTrace>Weapon render trace (very verbose)</JanitorsCloset.Settings.Diagnostics.RenderTrace>
+    <JanitorsCloset.Settings.Diagnostics.RenderTrace.Tooltip>Logs every state change in vanilla's weapon render path for tool-bearing pawns. Useful when an anim never starts — tells you whether vanilla is even calling the render hook. Spammy; leave off unless chasing a missing-anim bug.</JanitorsCloset.Settings.Diagnostics.RenderTrace.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.Stats>Stat bonuses</JanitorsCloset.Settings.Diagnostics.Stats>
+    <JanitorsCloset.Settings.Diagnostics.Stats.Tooltip>Logs cleaning-speed, weather-buildup and pollution-clearing bonuses as they apply or get suppressed each tick of a cleaning toil.</JanitorsCloset.Settings.Diagnostics.Stats.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.Sound>Cleaning sound swap</JanitorsCloset.Settings.Diagnostics.Sound>
+    <JanitorsCloset.Settings.Diagnostics.Sound.Tooltip>Logs every cleaning sustainer the mod swaps in (dirt, fluid, glittervacuum, etc.) plus any tool that has nothing to swap.</JanitorsCloset.Settings.Diagnostics.Sound.Tooltip>
+    <JanitorsCloset.Settings.Diagnostics.TrackedFilth>Tracked-filth attribution</JanitorsCloset.Settings.Diagnostics.TrackedFilth>
+    <JanitorsCloset.Settings.Diagnostics.TrackedFilth.Tooltip>Logs when tracked-in filth gets attributed to a freshly-cleaned room (the "they just dirtied my floor" thought trigger).</JanitorsCloset.Settings.Diagnostics.TrackedFilth.Tooltip>
 </LanguageData>

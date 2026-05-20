@@ -34,7 +34,7 @@ namespace JanitorsCloset.Patches
 
             comp.ExpireStamp(room);
 
-            bool debug = JanitorsCloset.Settings != null && JanitorsCloset.Settings.DebugLogging;
+            bool debug = JanitorsCloset.Settings?.LogTrackedFilth == true;
             if (debug)
             {
                 Log.Message($"[Janitor's Closet] Stamp dropped: {__instance.def.defName} spawned in stamped room #{room.ID} at {__instance.Position}");

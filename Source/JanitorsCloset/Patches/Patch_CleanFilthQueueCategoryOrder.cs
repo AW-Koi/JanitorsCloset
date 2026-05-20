@@ -71,7 +71,7 @@ namespace JanitorsCloset.Patches
                 (a.Cell - pawnPos).LengthHorizontalSquared
                     .CompareTo((b.Cell - pawnPos).LengthHorizontalSquared));
 
-            if (JanitorMod.Settings != null && JanitorMod.Settings.DebugLogging)
+            if (JanitorMod.Settings?.LogAI == true)
             {
                 LogQueueDiagnostic(pawn, preferred.Value, queue, buf, matchedCount);
             }

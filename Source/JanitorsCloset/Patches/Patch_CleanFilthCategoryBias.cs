@@ -43,7 +43,7 @@ namespace JanitorsCloset.Patches
         public static void OnceForScan(Pawn pawn, CleaningCategory? preferred)
         {
             if (pawn == null) return;
-            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings?.LogAI != true) return;
             int tick = Find.TickManager?.TicksGame ?? 0;
             if (_lastPawn == pawn && _lastTick == tick) return;
             _lastPawn = pawn;

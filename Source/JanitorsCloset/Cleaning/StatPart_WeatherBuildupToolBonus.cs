@@ -65,7 +65,7 @@ namespace JanitorsCloset.Cleaning
 
         private static void Diagnostics(string fmt, params object[] args)
         {
-            if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+            if (JanitorMod.Settings?.LogStats != true) return;
             Log.Message(string.Format(fmt, args));
         }
     }
