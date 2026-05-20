@@ -7,5 +7,7 @@
              Loads only when the Biotech DLC is active. Without Biotech there's no
              pollution to clear, so the sprayer would have nothing to do. -->
         <li IfModActive="Ludeon.RimWorld.Biotech">1.6/Biotech</li>
+        <!-- Gated so PE's class names never reach the def parser when PE is absent. -->
+        <li IfModActive="ferny.ProgressionEducation">1.6/ProgressionEducation</li>
     </v1.6>
 </LoadFolders>
