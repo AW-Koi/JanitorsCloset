@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using JanitorMod = JanitorsCloset.JanitorsCloset;
 // ReSharper disable InconsistentNaming
 
 namespace JanitorsCloset.Patches
@@ -55,9 +56,22 @@ namespace JanitorsCloset.Patches
             var jobDef = pawn.CurJobDef;
             var driver = pawn.jobs?.curDriver;
             bool isWeatherBuildupJob = driver is JobDriver_ClearSnowAndSand;
-            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution && !isWeatherBuildupJob) return;
-            if (isWeatherBuildupJob && !ext.Matches(CleaningCategory.WeatherBuildup)) return;
-            if (pawn.pather != null && pawn.pather.Moving) return;
+            if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution && !isWeatherBuildupJob)
+            {
+                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "jobDef-mismatch");
+                return;
+            }
+            if (isWeatherBuildupJob && !ext.Matches(CleaningCategory.WeatherBuildup))
+            {
+                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "tool-not-weather-buildup");
+                return;
+            }
+            if (pawn.pather != null && pawn.pather.Moving)
+            {
+                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "pawn-moving");
+                return;
+            }
+            AnimDiagnostics.Apply(pawn, eq.def, jobDef, driver);
 
             // Push drawLoc toward the cell being cleaned so the tool reaches the actual filth,
             // not the pawn's feet. Target can be any of the 9 cells around the pawn (or the cell
@@ -99,6 +113,44 @@ namespace JanitorsCloset.Patches
             drawLoc.x += Mathf.Cos(postWobbleRad) * slide;
             drawLoc.z += Mathf.Sin(postWobbleRad) * slide + profile.verticalOffset;
             aimAngle  += wobble + profile.rotationOffset;
+        }
+
+        // Renders fire per-pawn-per-frame; dedup per (pawn, tick, outcome) so we get one
+        // line per state change instead of 60/sec. Outcome is the reject reason or
+        // "apply", so a transition (apply -> reject:pawn-moving as the pawn walks to the
+        // next tile) shows up as two lines, not silence.
+        private static class AnimDiagnostics
+        {
+            [ThreadStatic] private static Pawn _lastPawn;
+            [ThreadStatic] private static int _lastTick;
+            [ThreadStatic] private static string _lastOutcome;
+
+            public static void Reject(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string reason)
+            {
+                Emit(pawn, toolDef, jobDef, driver, reason);
+            }
+
+            public static void Apply(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver)
+            {
+                Emit(pawn, toolDef, jobDef, driver, "apply");
+            }
+
+            private static void Emit(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string outcome)
+            {
+                if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
+                int tick = Find.TickManager?.TicksGame ?? 0;
+                if (_lastPawn == pawn && _lastTick == tick && _lastOutcome == outcome) return;
+                _lastPawn = pawn;
+                _lastTick = tick;
+                _lastOutcome = outcome;
+                Log.Message(string.Format(
+                    "[JC anim] pawn='{0}' tool='{1}' jobDef='{2}' driver='{3}' outcome={4}",
+                    pawn?.LabelShort ?? "<null>",
+                    toolDef?.defName ?? "<null>",
+                    jobDef?.defName ?? "<null>",
+                    driver?.GetType().Name ?? "<null>",
+                    outcome));
+            }
         }
     }
 }

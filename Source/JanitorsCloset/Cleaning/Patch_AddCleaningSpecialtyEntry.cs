@@ -8,12 +8,8 @@ namespace JanitorsCloset.Cleaning
 {
     // Adds "Cleaning specialty" entries alongside the equipped Cleaning speed offset on the
     // weapon's info card, so the conditional / unusual aspects of the bonus are visible to
-    // the player. Two kinds of entry can be emitted:
-    //   - Filth-category specialty (e.g. "Dry filth only") for single-category tools whose
-    //     bonus is conditional on filth type.
-    //   - Stack-clearing trait (clearsFilthStack) for tools that vaporise the whole filth
-    //     stack on a cell in one pass.
-    // A tool with both flags gets both entries.
+    // the player. Multiple entries can stack on one tool — e.g. a broom shows both
+    // "Dry filth" and "Weather buildup". Each entry is informational: hover for the rules.
     [HarmonyPatch(typeof(Thing), nameof(Thing.SpecialDisplayStats))]
     public static class Patch_AddCleaningSpecialtyEntry
     {
@@ -65,6 +61,16 @@ namespace JanitorsCloset.Cleaning
                 }
             }
 
+            if (ext.Matches(CleaningCategory.WeatherBuildup))
+            {
+                yield return new StatDrawEntry(
+                    category,
+                    "JanitorsCloset.CleaningTool.SpecialtyLabel".Translate(),
+                    "JanitorsCloset.CleaningTool.SpecialtyWeatherBuildup".Translate(),
+                    "JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup".Translate(),
+                    4999);
+            }
+
             if (ext.clearsFilthStack)
             {
                 yield return new StatDrawEntry(
@@ -72,7 +78,7 @@ namespace JanitorsCloset.Cleaning
                     "JanitorsCloset.CleaningTool.SpecialtyLabel".Translate(),
                     "JanitorsCloset.CleaningTool.SpecialtyStackClear".Translate(),
                     "JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear".Translate(),
-                    4999);
+                    4998);
             }
         }
     }
