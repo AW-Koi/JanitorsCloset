@@ -34,9 +34,6 @@
           <li>Dry</li>
           <li>WeatherBuildup</li>
         </categories>
-        <!-- 0.75 = up to vanilla's Medium buildup tier; Thick buildup (>=0.75) is past
-             what straw bristles can move, so the bonus and the sweep anim both fall away. -->
-        <weatherBuildupDepthCap>0.75</weatherBuildupDepthCap>
         <animProfile>
           <basePhaseRate>0.075</basePhaseRate>
           <speedModRate>0.025</speedModRate>
@@ -118,7 +115,6 @@
           <li>Dry</li>
           <li>WeatherBuildup</li>
         </categories>
-        <weatherBuildupDepthCap>0.75</weatherBuildupDepthCap>
         <animProfile>
           <basePhaseRate>0.045</basePhaseRate>
           <speedModRate>0.020</speedModRate>
@@ -280,7 +276,6 @@
           <li>Toxic</li>
           <li>WeatherBuildup</li>
         </categories>
-        <!-- No weatherBuildupDepthCap: the field projector unmakes any depth. -->
         <clearsFilthStack>true</clearsFilthStack>
         <customCleaningSound>Janitor_Glittervacuum_Cleaning</customCleaningSound>
         <animProfile>

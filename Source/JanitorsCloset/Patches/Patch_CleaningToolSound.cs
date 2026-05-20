@@ -68,15 +68,9 @@ namespace JanitorsCloset.Patches
                 return;
             }
 
-            // Weather-buildup work: keep sound in lockstep with anim and bonus. Only swap
-            // when the tool would actually contribute on this tile — a broom on Thick
-            // buildup stays on vanilla sustainer to match the missing anim and speedup.
-            if (isWeatherBuildupJob)
-            {
-                if (!ext.Matches(CleaningCategory.WeatherBuildup)) return;
-                var cell = driver.job?.targetA.Cell ?? IntVec3.Invalid;
-                if (!StatPart_WeatherBuildupToolBonus.ToolEligibleAt(ext, pawn.Map, cell)) return;
-            }
+            // Weather-buildup work: only swap when the tool is actually a buildup-clearing
+            // specialist. A mop running a snow job stays on the vanilla sustainer.
+            if (isWeatherBuildupJob && !ext.Matches(CleaningCategory.WeatherBuildup)) return;
 
             // Sound swap is a filth/buildup-specialty thing. A tool whose declared
             // categories are purely Toxic (Hazmat Sprayer) isn't a filth specialist — its

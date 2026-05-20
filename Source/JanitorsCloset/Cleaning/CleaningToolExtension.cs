@@ -26,15 +26,6 @@ namespace JanitorsCloset.Cleaning
         // bundled in later as part of the same field-collapse effect.
         public bool clearsFilthStack;
 
-        // For WeatherBuildup tools only: maximum buildup depth (0–1) at which the
-        // bonus — and the cleaning anim — apply. Aligns with vanilla's
-        // WeatherBuildupCategory thresholds (Dusting < 0.25, Thin < 0.5, Medium < 0.75,
-        // Thick ≥ 0.75), so 0.75 means "up to Medium". Null means uncapped (e.g. the
-        // Glittervacuum unmakes any depth regardless). A broom-equipped pawn working a
-        // heavier tile falls back to vanilla GeneralLaborSpeed with the default carry
-        // pose, so the visual matches the absence of a speed bonus.
-        public float? weatherBuildupDepthCap;
-
         public bool Matches(CleaningCategory category)
         {
             return categories != null && categories.Contains(category);

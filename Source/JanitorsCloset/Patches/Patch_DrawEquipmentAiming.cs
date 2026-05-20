@@ -43,23 +43,20 @@ namespace JanitorsCloset.Patches
             if (!(eq.ParentHolder is Pawn_EquipmentTracker tracker)) return;
             var pawn = tracker.pawn;
             if (pawn == null) return;
-            var jobDef = pawn.CurJobDef;
             // Filth-cleaning, Biotech pollution-clearing, and weather-buildup-clearing all
             // drive the anim — a Hazmat Sprayer pawn waving a wand at a polluted tile needs
             // the same reach/wobble treatment as a mop pawn working a blood spatter or a
             // broom pawn sweeping a dusting.
             //
-            // For weather-buildup work we additionally gate on the tool's depth cap: if a
-            // broom is standing on Thick buildup it gets no labor-speed bonus, so it should
-            // also stay in the default carry pose. Anim presence == tool advantage active.
-            bool isWeatherBuildupJob = jobDef == JobDefOf.ClearSnow;
+            // Buildup-clearing is detected by driver type (matches the rest of the
+            // codebase) so a 1.6 def rename or Odyssey absence can't silently break the
+            // anim — JobDriver_ClearSnowAndSand lives in Assembly-CSharp regardless of
+            // DLC ownership. JobDefOf.ClearSnow was unreliable here.
+            var jobDef = pawn.CurJobDef;
+            var driver = pawn.jobs?.curDriver;
+            bool isWeatherBuildupJob = driver is JobDriver_ClearSnowAndSand;
             if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution && !isWeatherBuildupJob) return;
-            if (isWeatherBuildupJob)
-            {
-                var buildupJob = pawn.CurJob;
-                if (buildupJob == null || !buildupJob.targetA.IsValid) return;
-                if (!StatPart_WeatherBuildupToolBonus.ToolEligibleAt(ext, pawn.Map, buildupJob.targetA.Cell)) return;
-            }
+            if (isWeatherBuildupJob && !ext.Matches(CleaningCategory.WeatherBuildup)) return;
             if (pawn.pather != null && pawn.pather.Moving) return;
 
             // Push drawLoc toward the cell being cleaned so the tool reaches the actual filth,

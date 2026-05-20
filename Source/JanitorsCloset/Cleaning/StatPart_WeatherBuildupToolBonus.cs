@@ -7,17 +7,14 @@ using JanitorMod = JanitorsCloset.JanitorsCloset;
 namespace JanitorsCloset.Cleaning
 {
     // Adds an equipped WeatherBuildup-tagged tool's CleaningSpeed offset to
-    // GeneralLaborSpeed while the pawn is running JobDriver_ClearSnowAndSand on a tile
-    // within the tool's depth cap. Snow/sand clearing is terrain work scaled by
-    // GeneralLaborSpeed * delta (work-per-tile = 50 * depth), so this is the right stat
-    // to ride. Named after vanilla's WeatherBuildupCategory / WeatherBuildupUtility,
-    // which already bucket depth into Dusting/Thin/Medium/Thick.
+    // GeneralLaborSpeed while the pawn is running JobDriver_ClearSnowAndSand. Snow/sand
+    // clearing is terrain work scaled by GeneralLaborSpeed * delta (work-per-tile =
+    // 50 * depth), so this is the right stat to ride. Named after vanilla's
+    // WeatherBuildupCategory / WeatherBuildupUtility.
     //
-    // Mirror of StatPart_PollutionToolBonus, with one extra gate: brooms have a per-tool
-    // depth cap (weatherBuildupDepthCap). A straw broom on Thick buildup falls back to
-    // vanilla labor speed — and Patch_DrawEquipmentAiming reads the same predicate, so
-    // the cleaning anim is suppressed in lockstep with the bonus. Tools with a null cap
-    // (Glittervacuum) get the bonus at any depth.
+    // Mirror of StatPart_PollutionToolBonus. The bonus applies at any depth — confining
+    // it to light buildup only confused players ("why is my broom not working?") and the
+    // tradeoff was already baked in via the tool's raw CleaningSpeed offset.
     public class StatPart_WeatherBuildupToolBonus : StatPart
     {
         public override void TransformValue(StatRequest req, ref float val)
@@ -46,9 +43,6 @@ namespace JanitorsCloset.Cleaning
             var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_ClearSnowAndSand;
             if (driver == null || driver.pawn != pawn) return 0f;
 
-            if (!ToolEligibleAt(toolExt, pawn.Map, driver.job?.targetA.Cell ?? IntVec3.Invalid))
-                return 0f;
-
             var bonus = EquippedCleaningSpeedOffset(tool.def);
             if (bonus > 0f && diag)
             {
@@ -56,24 +50,6 @@ namespace JanitorsCloset.Cleaning
                     pawn.LabelShort, tool.def.defName, bonus.ToStringPercent());
             }
             return bonus;
-        }
-
-        // Shared with Patch_DrawEquipmentAiming so the broom anim is on exactly when the
-        // bonus is on. The cap is the *upper bound at which the tool still helps*; null
-        // means uncapped.
-        public static bool ToolEligibleAt(CleaningToolExtension ext, Map map, IntVec3 cell)
-        {
-            if (ext == null || map == null || !cell.IsValid) return false;
-            if (!ext.weatherBuildupDepthCap.HasValue) return true;
-            float depth = CellDepth(map, cell);
-            return depth <= ext.weatherBuildupDepthCap.Value;
-        }
-
-        public static float CellDepth(Map map, IntVec3 cell)
-        {
-            float snow = map.snowGrid?.GetDepth(cell) ?? 0f;
-            float sand = map.sandGrid?.GetDepth(cell) ?? 0f;
-            return snow > sand ? snow : sand;
         }
 
         private static float EquippedCleaningSpeedOffset(ThingDef toolDef)
