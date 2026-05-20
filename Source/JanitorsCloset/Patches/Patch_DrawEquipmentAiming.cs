@@ -56,22 +56,26 @@ namespace JanitorsCloset.Patches
             var jobDef = pawn.CurJobDef;
             var driver = pawn.jobs?.curDriver;
             bool isWeatherBuildupJob = driver is JobDriver_ClearSnowAndSand;
+            // Log every state transition for an animProfile-bearing tool, so we can see
+            // which driver/jobDef vanilla picks for sand clearing vs snow. We skip the
+            // common "user is doing literally anything else" reject because it floods the
+            // log with Wait_Combat etc. when janitors are drafted.
             if (jobDef != JobDefOf.Clean && jobDef != JobDefOf.ClearPollution && !isWeatherBuildupJob)
             {
-                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "jobDef-mismatch");
+                AnimDiagnostics.Log(pawn, eq.def, jobDef, driver, "skip:not-a-cleaning-job");
                 return;
             }
             if (isWeatherBuildupJob && !ext.Matches(CleaningCategory.WeatherBuildup))
             {
-                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "tool-not-weather-buildup");
+                AnimDiagnostics.Log(pawn, eq.def, jobDef, driver, "reject:tool-not-weather-buildup");
                 return;
             }
             if (pawn.pather != null && pawn.pather.Moving)
             {
-                AnimDiagnostics.Reject(pawn, eq.def, jobDef, driver, "pawn-moving");
+                AnimDiagnostics.Log(pawn, eq.def, jobDef, driver, "reject:pawn-moving");
                 return;
             }
-            AnimDiagnostics.Apply(pawn, eq.def, jobDef, driver);
+            AnimDiagnostics.Log(pawn, eq.def, jobDef, driver, "apply");
 
             // Push drawLoc toward the cell being cleaned so the tool reaches the actual filth,
             // not the pawn's feet. Target can be any of the 9 cells around the pawn (or the cell
@@ -115,37 +119,25 @@ namespace JanitorsCloset.Patches
             aimAngle  += wobble + profile.rotationOffset;
         }
 
-        // Renders fire per-pawn-per-frame; dedup per (pawn, tick, outcome) so we get one
-        // line per state change instead of 60/sec. Outcome is the reject reason or
-        // "apply", so a transition (apply -> reject:pawn-moving as the pawn walks to the
-        // next tile) shows up as two lines, not silence.
+        // Per-pawn dedup keyed on the full state (outcome + jobDef + driver type) so we
+        // emit exactly one line per pawn per state change — no flooding when paused or
+        // when multiple pawns redraw the same frame. Despawned pawns leak slowly; a
+        // debug-only dict is the right tradeoff against a weak-ref dance.
         private static class AnimDiagnostics
         {
-            [ThreadStatic] private static Pawn _lastPawn;
-            [ThreadStatic] private static int _lastTick;
-            [ThreadStatic] private static string _lastOutcome;
+            [ThreadStatic] private static System.Collections.Generic.Dictionary<Pawn, string> _lastByPawn;
 
-            public static void Reject(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string reason)
-            {
-                Emit(pawn, toolDef, jobDef, driver, reason);
-            }
-
-            public static void Apply(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver)
-            {
-                Emit(pawn, toolDef, jobDef, driver, "apply");
-            }
-
-            private static void Emit(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string outcome)
+            public static void Log(Pawn pawn, Def toolDef, Def jobDef, Verse.AI.JobDriver driver, string outcome)
             {
                 if (JanitorMod.Settings == null || !JanitorMod.Settings.DebugLogging) return;
-                int tick = Find.TickManager?.TicksGame ?? 0;
-                if (_lastPawn == pawn && _lastTick == tick && _lastOutcome == outcome) return;
-                _lastPawn = pawn;
-                _lastTick = tick;
-                _lastOutcome = outcome;
-                Log.Message(string.Format(
+                if (pawn == null) return;
+                string key = outcome + "|" + (jobDef?.defName ?? "<null>") + "|" + (driver?.GetType().Name ?? "<null>");
+                var map = _lastByPawn ?? (_lastByPawn = new System.Collections.Generic.Dictionary<Pawn, string>());
+                if (map.TryGetValue(pawn, out var last) && last == key) return;
+                map[pawn] = key;
+                Verse.Log.Message(string.Format(
                     "[JC anim] pawn='{0}' tool='{1}' jobDef='{2}' driver='{3}' outcome={4}",
-                    pawn?.LabelShort ?? "<null>",
+                    pawn.LabelShort,
                     toolDef?.defName ?? "<null>",
                     jobDef?.defName ?? "<null>",
                     driver?.GetType().Name ?? "<null>",

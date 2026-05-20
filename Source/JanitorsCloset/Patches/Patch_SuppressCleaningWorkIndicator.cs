@@ -7,10 +7,13 @@ using Verse;
 
 namespace JanitorsCloset.Patches
 {
-    // Vanilla spawns a small dustpan-and-brush effecter at the cell when any pawn cleans
-    // filth. That's redundant — and visually wrong — when our pawn is already swinging a
-    // real tool. Clear the effecter's children when the active cleaner is wielding any
-    // tool with a CleaningToolExtension.
+    // Vanilla spawns small dustpan-and-brush style effecters at the cell during cleaning
+    // work — "Clean" for filth, "ClearSnow"/"ClearSand" for weather buildup. Those are
+    // redundant and visually wrong when our pawn is already swinging a real tool. Clear
+    // the spawned effecter's children when the active cleaner is wielding the right kind
+    // of tool: any CleaningToolExtension covers the filth effecter, while the snow/sand
+    // effecters only get suppressed for tools that actually declare the WeatherBuildup
+    // category (so a mop somehow on a snow job still gets the vanilla icon).
     [HarmonyPatch]
     public static class Patch_SuppressCleaningWorkIndicator
     {
@@ -23,15 +26,24 @@ namespace JanitorsCloset.Patches
 
         public static void Postfix(EffecterDef __instance, Effecter __result)
         {
-            if (__result == null) return;
-            if (__instance?.defName != "Clean") return;
+            if (__result == null || __instance == null) return;
 
             var driver = Patch_TrackCurrentJobDriver.Current;
             var primary = driver?.pawn?.equipment?.Primary;
             if (primary == null) return;
-            if (primary.def.GetModExtension<CleaningToolExtension>() == null) return;
+            var ext = primary.def.GetModExtension<CleaningToolExtension>();
+            if (ext == null) return;
 
-            __result.children?.Clear();
+            switch (__instance.defName)
+            {
+                case "Clean":
+                    __result.children?.Clear();
+                    break;
+                case "ClearSnow":
+                case "ClearSand":
+                    if (ext.Matches(CleaningCategory.WeatherBuildup)) __result.children?.Clear();
+                    break;
+            }
         }
     }
 }
