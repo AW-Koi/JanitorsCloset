@@ -26,7 +26,7 @@
       <EquipDelay>1.5</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.15</CleaningSpeed>
+      <CleaningSpeed>0.10</CleaningSpeed>
       <FilthRate>-0.50</FilthRate>
       <ToxicEnvironmentResistance>0.20</ToxicEnvironmentResistance>
     </equippedStatOffsets>
@@ -81,7 +81,7 @@
       <EquipDelay>1.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.15</CleaningSpeed>
+      <CleaningSpeed>0.10</CleaningSpeed>
       <FilthRate>-0.25</FilthRate>
       <ToxicEnvironmentResistance>0.10</ToxicEnvironmentResistance>
     </equippedStatOffsets>
@@ -138,7 +138,7 @@
       <EquipDelay>2.0</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <CleaningSpeed>0.25</CleaningSpeed>
+      <CleaningSpeed>0.20</CleaningSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>ApparelMisc</li>
