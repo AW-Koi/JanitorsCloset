@@ -63,10 +63,12 @@ namespace JanitorsCloset.Patches
     [UsedImplicitly]
     public static class Patch_CleanFilthGetPriority
     {
-        // 15 tiles squared. A matching-category filth up to ~15 tiles further away beats
-        // a closer mismatched filth; beyond that, distance wins. Calibrated so pawns
-        // don't trek across the map but reliably specialise within a typical base.
-        private const float CategoryBonus = 225f;
+        // 40 tiles squared. A matching-category filth up to ~40 tiles further away beats
+        // a closer mismatched filth; beyond that, distance wins. Sized so a specialist
+        // will cross most of a typical base for a category match — small enough that
+        // they still won't chase work across the whole map, but big enough that the
+        // specialisation is visible as emergent behaviour rather than a marginal nudge.
+        private const float CategoryBonus = 1600f;
 
         public static void Postfix(WorkGiver_Scanner __instance, Pawn pawn, TargetInfo t, ref float __result)
         {
