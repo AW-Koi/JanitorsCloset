@@ -50,7 +50,7 @@
       </li>
     </modExtensions>
     <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
     </comps>
     <recipeMaker>
       <researchPrerequisite>Housekeeping</researchPrerequisite>
@@ -132,7 +132,7 @@
       </li>
     </modExtensions>
     <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
     </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
@@ -212,7 +212,7 @@
       </li>
     </modExtensions>
     <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
     </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
@@ -297,7 +297,7 @@
       </li>
     </modExtensions>
     <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningPreference" />
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
     </comps>
     <recipeMaker>
       <researchPrerequisite>AtomicSanitation</researchPrerequisite>

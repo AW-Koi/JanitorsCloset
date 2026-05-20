@@ -12,12 +12,12 @@
     <JanitorsCloset.CleaningTool.WeatherBuildupBonus>Clearing weather buildup</JanitorsCloset.CleaningTool.WeatherBuildupBonus>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Area dematerialisation (3x3)</JanitorsCloset.CleaningTool.SpecialtyStackClear>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises every layer of filth on the target tile and its eight neighbours in a single pass, not just the topmost piece on the target tile. The per-tile cleaning speed is unchanged; the trick is that nine tiles are cleared at once.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
-    <JanitorsCloset.CleaningPref.Label.Any>Clean anywhere</JanitorsCloset.CleaningPref.Label.Any>
-    <JanitorsCloset.CleaningPref.Label.Indoors>Clean indoors</JanitorsCloset.CleaningPref.Label.Indoors>
-    <JanitorsCloset.CleaningPref.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningPref.Label.Outdoors>
-    <JanitorsCloset.CleaningPref.Desc.Any>This tool's bearer will pick up cleaning jobs regardless of whether the filth is indoors or outdoors. Click to restrict to indoors only.</JanitorsCloset.CleaningPref.Desc.Any>
-    <JanitorsCloset.CleaningPref.Desc.Indoors>This tool's bearer will ignore filth outdoors, only cleaning rooms enclosed by walls and roof. Click to restrict to outdoors only.</JanitorsCloset.CleaningPref.Desc.Indoors>
-    <JanitorsCloset.CleaningPref.Desc.Outdoors>This tool's bearer will ignore indoor filth, only cleaning outside or in unenclosed spaces. Click to clear the restriction.</JanitorsCloset.CleaningPref.Desc.Outdoors>
+    <JanitorsCloset.CleaningAssignment.Label.Any>Clean anywhere</JanitorsCloset.CleaningAssignment.Label.Any>
+    <JanitorsCloset.CleaningAssignment.Label.Indoors>Clean indoors</JanitorsCloset.CleaningAssignment.Label.Indoors>
+    <JanitorsCloset.CleaningAssignment.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningAssignment.Label.Outdoors>
+    <JanitorsCloset.CleaningAssignment.Desc.Any>This tool's bearer will pick up cleaning jobs regardless of whether the filth is indoors or outdoors. Click to restrict to indoors only.</JanitorsCloset.CleaningAssignment.Desc.Any>
+    <JanitorsCloset.CleaningAssignment.Desc.Indoors>This tool's bearer will ignore filth outdoors, only cleaning rooms enclosed by walls and roof. Click to restrict to outdoors only.</JanitorsCloset.CleaningAssignment.Desc.Indoors>
+    <JanitorsCloset.CleaningAssignment.Desc.Outdoors>This tool's bearer will ignore indoor filth, only cleaning outside or in unenclosed spaces. Click to clear the restriction.</JanitorsCloset.CleaningAssignment.Desc.Outdoors>
     <JanitorsCloset.CleaningArea.Label.None>Clean any area</JanitorsCloset.CleaningArea.Label.None>
     <JanitorsCloset.CleaningArea.Label.Restricted>Clean {0}</JanitorsCloset.CleaningArea.Label.Restricted>
     <JanitorsCloset.CleaningArea.Desc.None>This tool's bearer will pick up cleaning jobs anywhere on the map. Click to restrict cleaning to a player-painted area.</JanitorsCloset.CleaningArea.Desc.None>

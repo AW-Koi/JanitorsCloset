@@ -6,28 +6,29 @@ using Verse.Sound;
 
 namespace JanitorsCloset.Cleaning
 {
-    public enum CleaningAreaPreference : byte
+    public enum CleaningAreaAssignment : byte
     {
         Any = 0,
         Indoors = 1,
         Outdoors = 2,
     }
 
-    public class CompProperties_CleaningPreference : CompProperties
+    public class CompProperties_CleaningAssignment : CompProperties
     {
-        public CompProperties_CleaningPreference()
+        public CompProperties_CleaningAssignment()
         {
-            compClass = typeof(CompCleaningPreference);
+            compClass = typeof(CompCleaningAssignment);
         }
     }
 
-    // Per-tool indoor/outdoor cleaning preference. Lives on the weapon, so swapping tools
-    // moves the preference with the gear. Existence of the comp doubles as the "is a
-    // janitor tool" check used by Patch_CleaningAreaPreference — non-janitor weapons have
-    // no comp and are never filtered.
-    public class CompCleaningPreference : ThingComp
+    // Per-tool indoor/outdoor and area assignment. Lives on the weapon, so swapping tools
+    // moves the assignment with the gear. Existence of the comp doubles as the "is a
+    // janitor tool" check used by Patch_CleaningAreaAssignment — non-janitor weapons have
+    // no comp and are never filtered. The assignment is a hard restriction, not a soft
+    // preference: filth outside the assignment is filtered out at HasJobOnThing time.
+    public class CompCleaningAssignment : ThingComp
     {
-        public CleaningAreaPreference preference = CleaningAreaPreference.Any;
+        public CleaningAreaAssignment assignment = CleaningAreaAssignment.Any;
 
         // Stored by label rather than reference: areas are map-scoped but the tool travels
         // with the pawn across maps. On lookup we resolve against the filth's map, so the
@@ -44,12 +45,12 @@ namespace JanitorsCloset.Cleaning
         public bool Matches(IntVec3 cell, Map map)
         {
             if (map == null || !cell.InBounds(map)) return true;
-            if (preference != CleaningAreaPreference.Any)
+            if (assignment != CleaningAreaAssignment.Any)
             {
                 var room = cell.GetRoom(map);
                 bool outdoors = room == null || room.PsychologicallyOutdoors;
-                bool prefOk = preference == CleaningAreaPreference.Outdoors ? outdoors : !outdoors;
-                if (!prefOk) return false;
+                bool assignmentOk = assignment == CleaningAreaAssignment.Outdoors ? outdoors : !outdoors;
+                if (!assignmentOk) return false;
             }
             var area = ResolveArea(map);
             if (area != null && !area[cell]) return false;
@@ -59,11 +60,11 @@ namespace JanitorsCloset.Cleaning
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref preference, "cleaningAreaPref", CleaningAreaPreference.Any);
+            Scribe_Values.Look(ref assignment, "cleaningAreaAssignment", CleaningAreaAssignment.Any);
             Scribe_Values.Look(ref areaLabel, "cleaningAreaLabel");
         }
 
-        // Surfaced via Patch_CleaningAreaPreference's Pawn_EquipmentTracker.GetGizmos hook —
+        // Surfaced via Patch_CleaningAreaAssignment's Pawn_EquipmentTracker.GetGizmos hook —
         // vanilla only invokes CompGetEquippedGizmosExtra on the weapon's CompEquippable,
         // not on every comp, so we can't rely on CompGetGizmosExtra here.
         public IEnumerable<Gizmo> BuildGizmos()
@@ -76,9 +77,9 @@ namespace JanitorsCloset.Cleaning
         {
             return new Command_Action
             {
-                defaultLabel = ("JanitorsCloset.CleaningPref.Label." + preference).Translate(),
-                defaultDesc = ("JanitorsCloset.CleaningPref.Desc." + preference).Translate(),
-                icon = IconFor(preference),
+                defaultLabel = ("JanitorsCloset.CleaningAssignment.Label." + assignment).Translate(),
+                defaultDesc = ("JanitorsCloset.CleaningAssignment.Desc." + assignment).Translate(),
+                icon = IconFor(assignment),
                 action = Cycle,
             };
         }
@@ -197,17 +198,17 @@ namespace JanitorsCloset.Cleaning
 
         private void Cycle()
         {
-            preference = (CleaningAreaPreference)(((byte)preference + 1) % 3);
+            assignment = (CleaningAreaAssignment)(((byte)assignment + 1) % 3);
             SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
         }
 
-        private static Texture2D IconFor(CleaningAreaPreference pref)
+        private static Texture2D IconFor(CleaningAreaAssignment a)
         {
             string path;
-            switch (pref)
+            switch (a)
             {
-                case CleaningAreaPreference.Indoors: path = "UI/Commands/Janitor_CleaningPref_Indoors"; break;
-                case CleaningAreaPreference.Outdoors: path = "UI/Commands/Janitor_CleaningPref_Outdoors"; break;
+                case CleaningAreaAssignment.Indoors: path = "UI/Commands/Janitor_CleaningPref_Indoors"; break;
+                case CleaningAreaAssignment.Outdoors: path = "UI/Commands/Janitor_CleaningPref_Outdoors"; break;
                 default: path = "UI/Commands/Janitor_CleaningPref_Any"; break;
             }
             return ContentFinder<Texture2D>.Get(path, false) ?? BaseContent.BadTex;

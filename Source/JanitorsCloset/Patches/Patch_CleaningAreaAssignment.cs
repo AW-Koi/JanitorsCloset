@@ -8,7 +8,7 @@ using Verse;
 
 namespace JanitorsCloset.Patches
 {
-    // Honours CompCleaningPreference on the pawn's equipped tool. The comp lives on the
+    // Honours CompCleaningAssignment on the pawn's equipped tool. The comp lives on the
     // weapon, so non-janitors (no janitor tool equipped → no comp) bypass every check
     // here and behave like vanilla.
     //
@@ -17,16 +17,16 @@ namespace JanitorsCloset.Patches
     //      single-filth "Prioritize cleaning X" right-click option.
     //   2. FloatMenuOptionProvider_CleanRoom.GetRoomFilthCleanableByPawn — the bulk
     //      "Clean room" right-click that queues every filth in a room at once.
-    public static class Patch_CleaningAreaPreference
+    public static class Patch_CleaningAreaAssignment
     {
-        private static CompCleaningPreference EquippedPrefComp(Pawn pawn)
+        private static CompCleaningAssignment EquippedAssignmentComp(Pawn pawn)
         {
-            return pawn?.equipment?.Primary?.GetComp<CompCleaningPreference>();
+            return pawn?.equipment?.Primary?.GetComp<CompCleaningAssignment>();
         }
 
         // Vanilla Pawn_EquipmentTracker.GetGizmos only invokes CompGetEquippedGizmosExtra on
         // CompEquippable — it never iterates other comps on the weapon. So we inject the
-        // preference gizmo here for whichever piece of equipment carries our comp.
+        // assignment gizmo here for whichever piece of equipment carries our comp.
         [HarmonyPatch(typeof(Pawn_EquipmentTracker), nameof(Pawn_EquipmentTracker.GetGizmos))]
         public static class GetGizmosHook
         {
@@ -37,7 +37,7 @@ namespace JanitorsCloset.Patches
                 if (eq == null) yield break;
                 for (int i = 0; i < eq.Count; i++)
                 {
-                    var comp = eq[i]?.GetComp<CompCleaningPreference>();
+                    var comp = eq[i]?.GetComp<CompCleaningAssignment>();
                     if (comp == null) continue;
                     foreach (var gizmo in comp.BuildGizmos()) yield return gizmo;
                 }
@@ -54,7 +54,7 @@ namespace JanitorsCloset.Patches
                 {
                     throw new InvalidOperationException(
                         "[Janitor's Closet] Could not find WorkGiver_CleanFilth.HasJobOnThing — " +
-                        "RimWorld may have moved or renamed it. Cleaning area preference will not be enforced.");
+                        "RimWorld may have moved or renamed it. Cleaning area assignment will not be enforced.");
                 }
                 return m;
             }
@@ -63,7 +63,7 @@ namespace JanitorsCloset.Patches
             {
                 if (!__result) return;
                 if (!(t is Filth filth)) return;
-                var comp = EquippedPrefComp(pawn);
+                var comp = EquippedAssignmentComp(pawn);
                 if (comp == null) return;
                 if (!comp.Matches(filth.Position, filth.Map)) __result = false;
             }
@@ -79,7 +79,7 @@ namespace JanitorsCloset.Patches
                 {
                     throw new InvalidOperationException(
                         "[Janitor's Closet] Could not find RimWorld.FloatMenuOptionProvider_CleanRoom — " +
-                        "RimWorld may have moved or renamed it. \"Clean room\" right-click will ignore the cleaning area preference.");
+                        "RimWorld may have moved or renamed it. \"Clean room\" right-click will ignore the cleaning area assignment.");
                 }
                 var m = AccessTools.DeclaredMethod(providerType, "GetRoomFilthCleanableByPawn");
                 if (m == null)
@@ -94,7 +94,7 @@ namespace JanitorsCloset.Patches
             public static void Postfix(Pawn pawn, List<Filth> __result)
             {
                 if (__result == null || __result.Count == 0) return;
-                var comp = EquippedPrefComp(pawn);
+                var comp = EquippedAssignmentComp(pawn);
                 if (comp == null) return;
                 for (int i = __result.Count - 1; i >= 0; i--)
                 {
