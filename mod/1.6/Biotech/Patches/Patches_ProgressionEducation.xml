@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- Without this override, PE maps Industrial-tier weapons to Firearm proficiency. -->
+
+  <Operation Class="PatchOperationAddModExtension" MayRequire="ferny.ProgressionEducation">
+    <xpath>Defs/ThingDef[defName="Janitor_HazmatSprayer"]</xpath>
+    <value>
+      <li Class="ProgressionEducation.ItemProficiencyRequirement">
+        <requiredProficiency>PE_LowTechProficiency</requiredProficiency>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>
