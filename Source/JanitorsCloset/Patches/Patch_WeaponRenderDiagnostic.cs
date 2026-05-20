@@ -4,7 +4,6 @@ using System.Reflection;
 using HarmonyLib;
 using JanitorsCloset.Cleaning;
 using JetBrains.Annotations;
-using RimWorld;
 using Verse;
 using JanitorMod = JanitorsCloset.JanitorsCloset;
 

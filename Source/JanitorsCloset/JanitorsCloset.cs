@@ -81,13 +81,13 @@ namespace JanitorsCloset
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref DebugEnabled, "DebugEnabled", false);
-            Scribe_Values.Look(ref DebugLogAI, "DebugLogAI", false);
-            Scribe_Values.Look(ref DebugLogAnim, "DebugLogAnim", false);
-            Scribe_Values.Look(ref DebugLogRenderTrace, "DebugLogRenderTrace", false);
-            Scribe_Values.Look(ref DebugLogStats, "DebugLogStats", false);
-            Scribe_Values.Look(ref DebugLogSound, "DebugLogSound", false);
-            Scribe_Values.Look(ref DebugLogTrackedFilth, "DebugLogTrackedFilth", false);
+            Scribe_Values.Look(ref DebugEnabled, "DebugEnabled");
+            Scribe_Values.Look(ref DebugLogAI, "DebugLogAI");
+            Scribe_Values.Look(ref DebugLogAnim, "DebugLogAnim");
+            Scribe_Values.Look(ref DebugLogRenderTrace, "DebugLogRenderTrace");
+            Scribe_Values.Look(ref DebugLogStats, "DebugLogStats");
+            Scribe_Values.Look(ref DebugLogSound, "DebugLogSound");
+            Scribe_Values.Look(ref DebugLogTrackedFilth, "DebugLogTrackedFilth");
         }
     }
 

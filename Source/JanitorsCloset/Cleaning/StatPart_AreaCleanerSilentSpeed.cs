@@ -1,7 +1,6 @@
 using JanitorsCloset.Patches;
 using RimWorld;
 using Verse;
-using Verse.AI;
 
 namespace JanitorsCloset.Cleaning
 {

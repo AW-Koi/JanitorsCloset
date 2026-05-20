@@ -3,7 +3,6 @@ using HarmonyLib;
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 using RimWorld;
-using Verse;
 using Verse.AI;
 
 namespace JanitorsCloset.Patches

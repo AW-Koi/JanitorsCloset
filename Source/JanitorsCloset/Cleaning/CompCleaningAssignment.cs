@@ -60,7 +60,7 @@ namespace JanitorsCloset.Cleaning
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref assignment, "cleaningAreaAssignment", CleaningAreaAssignment.Any);
+            Scribe_Values.Look(ref assignment, "cleaningAreaAssignment");
             Scribe_Values.Look(ref areaLabel, "cleaningAreaLabel");
         }
 
@@ -113,7 +113,14 @@ namespace JanitorsCloset.Cleaning
             public override Texture2D BGTexture => TintedBgFor(bgColor);
             public override Texture2D BGTextureShrunk => TintedBgFor(bgColor);
 
-            private static readonly Dictionary<Color32, Texture2D> TintedBgCache = new Dictionary<Color32, Texture2D>();
+            private static readonly Dictionary<Color32, Texture2D> TintedBgCache = new Dictionary<Color32, Texture2D>(Color32Comparer.Instance);
+
+            private sealed class Color32Comparer : IEqualityComparer<Color32>
+            {
+                public static readonly Color32Comparer Instance = new Color32Comparer();
+                public bool Equals(Color32 a, Color32 b) => a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+                public int GetHashCode(Color32 c) => (c.r << 24) | (c.g << 16) | (c.b << 8) | c.a;
+            }
 
             private static Texture2D TintedBgFor(Color color)
             {

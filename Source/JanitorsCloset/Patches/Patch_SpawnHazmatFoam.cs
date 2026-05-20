@@ -34,7 +34,8 @@ namespace JanitorsCloset.Patches
             if (!(__instance is JobDriver_ClearPollution) && !(__instance is JobDriver_CleanFilth)) return;
 
             var pawn = __instance.pawn;
-            if (pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_HazmatSprayer) return;
+            if (pawn == null) return;
+            if (pawn.equipment?.Primary?.def != JanitorDefOf.Janitor_HazmatSprayer) return;
             if (pawn.Map == null) return;
             // Don't spawn while pathing — we want the foam to show up at the worked
             // tile, not as a breadcrumb trail across the floor on the way there.

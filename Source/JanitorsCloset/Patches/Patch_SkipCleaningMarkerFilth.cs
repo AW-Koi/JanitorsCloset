@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using JanitorsCloset.Cleaning;
-using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
 
