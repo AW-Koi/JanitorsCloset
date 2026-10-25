@@ -10,15 +10,20 @@ public sealed class GlittervacuumClearsSnowFaster : HarnessScenario
 
     public override async Task Run()
     {
-        // A cleaner holding a normal-quality glittervacuum, the only colonist.
+        // A cleaner holding a normal-quality glittervacuum, alone in an open-air yard.
         Clock.Speed = TimeSpeed.Paused;
-        var janitor = Spawn.Colonist().WithName("Vacuumer").At(World.Center).Doing(WorkTypeDefOf.Cleaning).Spawn();
+        var yard = Build.Room()
+            .Size(7, 7)
+            .WithFloor(TerrainDefOf.Concrete)
+            .WithDoor(Rot4.South)
+            .Build();
+        var janitor = Spawn.Colonist().WithName("Vacuumer").Inside(yard).Doing(WorkTypeDefOf.Cleaning).Spawn();
         Spawn.Thing(JanitorDefOf.Janitor_Glittervacuum).OfQuality(QualityCategory.Normal).GivenTo(janitor).Spawn();
         Colonists.RemoveAllExcept(janitor);
         var idleLabourSpeed = StatDefOf.GeneralLaborSpeed.Worker.GetValue(StatRequest.For(janitor));
 
-        // Deep snow beside the janitor, inside the snow-clearing area.
-        var snowCell = World.Center + IntVec3.East * 2;
+        // Deep snow in the yard, inside the snow-clearing area.
+        var snowCell = yard.Center + IntVec3.East * 2;
         World.Map.areaManager.SnowOrSandClear[snowCell] = true;
         World.Map.snowGrid.SetDepth(snowCell, 0.8f);
 
