@@ -5,6 +5,7 @@ using HarmonyLib;
 using JanitorsCloset.Cleaning;
 using RimWorld;
 using Verse;
+using Verse.AI;
 
 namespace JanitorsCloset.Patches
 {
@@ -33,7 +34,8 @@ namespace JanitorsCloset.Patches
             public static IEnumerable<Gizmo> Postfix(IEnumerable<Gizmo> __result, Pawn_EquipmentTracker __instance)
             {
                 foreach (var g in __result) yield return g;
-                var eq = __instance?.AllEquipmentListForReading;
+                if (__instance?.pawn == null || !__instance.pawn.IsColonistPlayerControlled) yield break;
+                var eq = __instance.AllEquipmentListForReading;
                 if (eq == null) yield break;
                 for (int i = 0; i < eq.Count; i++)
                 {
@@ -59,13 +61,18 @@ namespace JanitorsCloset.Patches
                 return m;
             }
 
-            public static void Postfix(Pawn pawn, Thing t, ref bool __result)
+            private static string _outsideAssignment;
+
+            public static void Postfix(Pawn pawn, Thing t, bool forced, ref bool __result)
             {
                 if (!__result) return;
                 if (!(t is Filth filth)) return;
                 var comp = EquippedAssignmentComp(pawn);
-                if (comp == null) return;
-                if (!comp.Matches(filth.Position, filth.Map)) __result = false;
+                if (comp == null || comp.Matches(filth.Position, filth.Map)) return;
+                __result = false;
+                if (!forced) return;
+                _outsideAssignment ??= "JanitorsCloset.CleaningAssignment.OutsideAssignment".Translate();
+                JobFailReason.Is(_outsideAssignment);
             }
         }
 
