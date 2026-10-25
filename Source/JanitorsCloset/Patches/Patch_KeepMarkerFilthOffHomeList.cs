@@ -32,10 +32,7 @@ namespace JanitorsCloset.Patches
 
             public static void Postfix(List<Thing> ___filthInHomeArea, int __state)
             {
-                for (int i = ___filthInHomeArea.Count - 1; i >= __state; i--)
-                {
-                    if (MarkerFilth.IsMarker(___filthInHomeArea[i])) ___filthInHomeArea.RemoveAt(i);
-                }
+                MarkerFilth.RemoveMarkersAddedSince(___filthInHomeArea, __state);
             }
         }
     }

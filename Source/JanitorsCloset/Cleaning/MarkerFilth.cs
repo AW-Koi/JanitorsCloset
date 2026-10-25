@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Verse;
 
 namespace JanitorsCloset.Cleaning
@@ -15,6 +16,15 @@ namespace JanitorsCloset.Cleaning
         public static bool IsMarker(Thing t)
         {
             return t != null && IsMarker(t.def);
+        }
+
+        /// <summary>Removes marker filth from the entries appended to the list after the given count.</summary>
+        public static void RemoveMarkersAddedSince(List<Thing> things, int countBefore)
+        {
+            for (int i = things.Count - 1; i >= countBefore; i--)
+            {
+                if (IsMarker(things[i])) things.RemoveAt(i);
+            }
         }
     }
 }

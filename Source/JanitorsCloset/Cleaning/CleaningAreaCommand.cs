@@ -31,12 +31,18 @@ namespace JanitorsCloset.Cleaning
         /// <summary>Picker entries that set the area on the tool behind every command in the group.</summary>
         public List<FloatMenuOption> AreaOptions(List<Gizmo> group)
         {
+            return CompCleaningAssignment.AreaOptions(ToolsIn(group), _map);
+        }
+
+        /// <summary>This command's tool, then each other tool in the group, once each.</summary>
+        public List<CompCleaningAssignment> ToolsIn(List<Gizmo> group)
+        {
             var tools = new List<CompCleaningAssignment> { _tool };
             for (int i = 0; i < group.Count; i++)
             {
                 if (group[i] is CleaningAreaCommand other && !tools.Contains(other._tool)) tools.Add(other._tool);
             }
-            return CompCleaningAssignment.AreaOptions(tools, _map);
+            return tools;
         }
 
         public override Texture2D BGTexture => TintedBgFor(bgColor);
