@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- For colonies with no hay yet: twigs bound to the handle stand in for straw. -->
+  <RecipeDef>
+    <defName>Make_Janitor_StrawBroomFromWood</defName>
+    <label>make straw broom from twigs</label>
+    <description>Make a straw broom from wood alone, binding twigs to the handle in place of straw.</description>
+    <jobString>Making straw broom.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <workAmount>1000</workAmount>
+    <unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>25</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Janitor_StrawBroom>1</Janitor_StrawBroom>
+    </products>
+    <recipeUsers>
+      <li>CraftingSpot</li>
+    </recipeUsers>
+    <researchPrerequisite>Housekeeping</researchPrerequisite>
+    <displayPriority>241</displayPriority>
+  </RecipeDef>
+
+</Defs>

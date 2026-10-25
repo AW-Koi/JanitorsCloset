@@ -39,7 +39,7 @@ Open the repo folder in your editor, so it loads `JanitorsCloset.sln` with the m
 
 ## Defs and content
 
-- Defs and patches go in `mod/Common/`. Biotech-only content goes in `mod/Common/Biotech/`, which loads only with Biotech.
+- Defs and patches go in `mod/Common/`. DLC-only content goes in that DLC's folder, such as `mod/Common/Biotech/` or `mod/Common/Anomaly/`, which `LoadFolders.xml` loads only with the DLC. `MayRequire` on a patch operation doesn't stop it running.
 - Thought labels are lowercase, and memory descriptions are in the past tense, as in vanilla.
 - Art and sound sources go next to the code in `Source/JanitorsCloset/Art` and `Source/JanitorsCloset/Sound`. Shipped textures and sounds go under `mod/`.
 

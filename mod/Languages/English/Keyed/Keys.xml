@@ -10,7 +10,7 @@
     <JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>The cleaning speed bonus from this tool applies while clearing polluted terrain. Ordinary filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>
     <JanitorsCloset.CleaningTool.SpecialtyWeatherBuildup>Weather buildup</JanitorsCloset.CleaningTool.SpecialtyWeatherBuildup>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>The cleaning speed bonus from this tool also applies while clearing accumulated snow or windblown sand from the ground.</JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>
-    <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool: +{0}</JanitorsCloset.CleaningTool.ToxicBonus>
+    <JanitorsCloset.CleaningTool.ToxicBonus>Hazmat cleaning tool: +{0}</JanitorsCloset.CleaningTool.ToxicBonus>
     <JanitorsCloset.CleaningTool.WeatherBuildupBonus>Clearing weather buildup: +{0}</JanitorsCloset.CleaningTool.WeatherBuildupBonus>
     <JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>Tool bonus applies only to: {0}</JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>
     <JanitorsCloset.CleaningTool.AreaCleanerPerTile>Area dematerialisation, per tile: -{0}</JanitorsCloset.CleaningTool.AreaCleanerPerTile>

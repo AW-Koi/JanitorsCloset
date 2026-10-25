@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <InspirationDef>
+    <defName>Janitor_CleaningFrenzy</defName>
+    <label>cleaning frenzy</label>
+    <baseDurationDays>4</baseDurationDays>
+    <beginLetter>[PAWN_pronoun] will clean twice as fast for the next 4 days. Every scuff and stain is personal now.</beginLetter>
+    <beginLetterDef>PositiveEvent</beginLetterDef>
+    <endMessage>{0} is no longer inspired (cleaning frenzy).</endMessage>
+    <baseInspectLine>Inspired: Cleaning frenzy</baseInspectLine>
+    <requiredNonDisabledWorkTypes>
+      <li>Cleaning</li>
+    </requiredNonDisabledWorkTypes>
+    <minAge>10</minAge>
+    <statFactors>
+      <CleaningSpeed>2</CleaningSpeed>
+    </statFactors>
+  </InspirationDef>
+
+</Defs>

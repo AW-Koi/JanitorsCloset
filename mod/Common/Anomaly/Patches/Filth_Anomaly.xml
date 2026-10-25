@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- Fleshmass debris is wet tissue for a mop, whatever its cleaning sound says. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Filth_Fleshmass"]</xpath>
+    <value>
+      <li Class="JanitorsCloset.Cleaning.FilthCategoryExtension">
+        <category>Wet</category>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <BackstoryDef>
+    <defName>Janitor_JanitorsKid</defName>
+    <title>janitor's kid</title>
+    <titleShort>mop kid</titleShort>
+    <description>[PAWN_nameDef] spent [PAWN_possessive] childhood trailing a parent through the corridors of an orbital habitat after hours, carrying the bucket.\n\n[PAWN_pronoun] learned which panels hid the best shortcuts, and that nobody notices a clean floor until it isn't.</description>
+    <slot>Childhood</slot>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Outlander</li>
+    </spawnCategories>
+    <skillGains>
+      <Construction>1</Construction>
+      <Social>1</Social>
+    </skillGains>
+    <requiredWorkTags>
+      <li>Cleaning</li>
+    </requiredWorkTags>
+  </BackstoryDef>
+
+  <BackstoryDef>
+    <defName>Janitor_Custodian</defName>
+    <title>custodian</title>
+    <titleShort>custodian</titleShort>
+    <description>[PAWN_nameDef] kept a glitterworld academy spotless for two decades. Students came and went; the floors stayed immaculate.\n\n[PAWN_pronoun] can fix a jammed door, calm a flooded lavatory and find anything anyone ever lost. [PAWN_pronoun] has opinions about mud.</description>
+    <slot>Adulthood</slot>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Outlander</li>
+    </spawnCategories>
+    <skillGains>
+      <Construction>3</Construction>
+      <Social>1</Social>
+    </skillGains>
+    <requiredWorkTags>
+      <li>Cleaning</li>
+    </requiredWorkTags>
+  </BackstoryDef>
+
+  <BackstoryDef>
+    <defName>Janitor_SanitationWorker</defName>
+    <title>sanitation worker</title>
+    <titleShort>sanitation</titleShort>
+    <description>[PAWN_nameDef] worked the night shift in the waste tunnels beneath an urbworld megacity, where the rats were the size of dogs and the dogs were worse.\n\n[PAWN_pronoun] can stomach any mess, and keeps a heavy tool within reach.</description>
+    <slot>Adulthood</slot>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Outlander</li>
+      <li>Pirate</li>
+    </spawnCategories>
+    <skillGains>
+      <Melee>2</Melee>
+      <Construction>2</Construction>
+    </skillGains>
+    <requiredWorkTags>
+      <li>Cleaning</li>
+    </requiredWorkTags>
+  </BackstoryDef>
+
+  <BackstoryDef>
+    <defName>Janitor_ShipsSwab</defName>
+    <title>ship's swab</title>
+    <titleShort>swab</titleShort>
+    <description>[PAWN_nameDef] scrubbed the decks of a long-haul freighter, where a single loose crumb could jam an air scrubber and kill the crew.\n\n[PAWN_pronoun] picked up a little engineering from the crew, and a lot of bad songs.</description>
+    <slot>Adulthood</slot>
+    <spawnCategories>
+      <li>Offworld</li>
+    </spawnCategories>
+    <skillGains>
+      <Construction>2</Construction>
+      <Intellectual>1</Intellectual>
+    </skillGains>
+    <requiredWorkTags>
+      <li>Cleaning</li>
+    </requiredWorkTags>
+  </BackstoryDef>
+
+</Defs>
