@@ -47,6 +47,15 @@ Open the repo folder in your editor, so it loads `JanitorsCloset.sln` with the m
 
 Write prose in British English, in the active voice. That covers commit messages, comments and docs. Commit subjects are short imperatives, such as "Keep the clicked filth in a forced cleaning order", with the reasoning in the body.
 
+## Sending a change
+
+1. Fork the repo and create a branch from `main`.
+2. Open a pull request against `main` and fill in the template.
+3. The maintainer reviews it. Resolve every review conversation and push fixes to the same branch.
+4. The maintainer squash-merges the pull request, so its title becomes the commit subject on `main`.
+
+Nobody pushes to `main` directly.
+
 ## Licence
 
 By contributing, you agree your code is released under [Apache 2.0](LICENSE), and your art, audio and written text under [CC BY 4.0](LICENSE-ASSETS), as the [NOTICE](NOTICE) describes.

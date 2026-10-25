@@ -1,0 +1,36 @@
+name: Bug report
+description: Report something in the mod that doesn't work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe what you saw and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the steps that make the problem happen.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Game version and DLCs
+      description: Name the RimWorld version and the DLCs you have active.
+    validations:
+      required: true
+  - type: textarea
+    id: mods
+    attributes:
+      label: Mod list
+      description: Paste your mod list, or say that you run Janitor's Closet with Harmony only.
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: Paste any errors from the dev log.
+      render: text

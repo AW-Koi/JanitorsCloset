@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest a new tool, job or behaviour for the mod.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea
+      description: Describe what you'd like the mod to do.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it helps
+      description: Describe the situation in game where this would help.
+    validations:
+      required: true
