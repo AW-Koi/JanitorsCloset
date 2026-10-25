@@ -49,4 +49,4 @@ Write prose in British English, in the active voice. That covers commit messages
 
 ## Licence
 
-By contributing, you agree your contribution is released under the [MIT licence](LICENSE).
+By contributing, you agree your code is released under [Apache 2.0](LICENSE), and your art, audio and written text under [CC BY 4.0](LICENSE-ASSETS), as the [NOTICE](NOTICE) describes.

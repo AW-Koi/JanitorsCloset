@@ -1,0 +1,16 @@
+Janitor's Closet
+Copyright 2026 Terra Incognita
+https://github.com/AW-Koi/JanitorsCloset
+
+The code is licensed under the Apache License 2.0 (LICENSE).
+
+Art, audio and written text are licensed under Creative Commons
+Attribution 4.0 International (LICENSE-ASSETS,
+https://creativecommons.org/licenses/by/4.0/). That covers:
+- textures and their sources (mod/Textures, Source/JanitorsCloset/Art)
+- sounds and their sources (mod/Sounds, Source/JanitorsCloset/Sound)
+- labels, descriptions and other player-facing text in mod/Common and
+  mod/Languages
+
+If you reuse or adapt any part, credit "Terra Incognita, Janitor's Closet"
+with a link to https://github.com/AW-Koi/JanitorsCloset.

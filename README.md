@@ -73,4 +73,8 @@ Gameplay is tested end to end with [Archotech Harness](https://github.com/AW-Koi
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Janitor's Closet is released under the [MIT licence](LICENSE).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licence
+
+Janitor's Closet is by Terra Incognita. The code is licensed under [Apache 2.0](LICENSE). Art, audio and written text are licensed under [CC BY 4.0](LICENSE-ASSETS). You may reuse and adapt them, as long as you credit Terra Incognita and keep the [NOTICE](NOTICE).
