@@ -4,7 +4,7 @@ Status as of 25 October 2026. Janitor's Closet `main` is at `06f7246`. Archotech
 
 ## Where things stand
 
-Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Pure logic has unit tests (49), and glue to vanilla code has in-game scenarios (17), which run in parallel in about a minute. Each new test failed before its change. Scenarios that only checked def data or RimWorld's own behaviour were cut, since the harness now fails a run on load errors.
+Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Pure logic has unit tests (49), and glue to vanilla code has in-game scenarios (18), which run in parallel in about a minute. Each new test failed before its change. Scenarios that only checked def data or RimWorld's own behaviour were cut, since the harness now fails a run on load errors.
 
 Tier 3 is next, and each feature needs a design pass first; see [design notes](reviews/design-notes.md).
 
@@ -37,7 +37,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 - Four backstories: janitor's kid, custodian, sanitation worker and latrine keeper. Vanilla's starship janitor covers the spaceship cleaner; see [backstories](backstories.md).
 - A straw broom can be made from wood alone.
 - "Hazmat" is lowercase in labels and stat lines.
-- With Progression: Education and Biotech, the sprayer needs low-tech proficiency. A one-off run with PE and VE Framework from the workshop confirmed it.
+- With Progression: Education and Biotech, the sprayer needs low-tech proficiency. The `Compatibility/ProgressionEducationSprayer` scenario proves it whenever PE is installed.
 - The galoshes keep their grip claim for the Tier 3 slip mechanic.
 
 **Verified from Tier 1**
@@ -52,7 +52,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 
 ## Scenarios
 
-Scenarios live in feature folders under `harness/`: `Assignments`, `Cleaning`, `FreshRooms`, `Performance` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
+Scenarios live in feature folders under `harness/`: `Assignments`, `Cleaning`, `Compatibility`, `FreshRooms`, `Performance` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
 
 ## Archotech Harness
 
