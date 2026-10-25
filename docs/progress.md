@@ -37,7 +37,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 - Four backstories: janitor's kid, custodian, sanitation worker and ship's swab.
 - A straw broom can be made from wood alone.
 - "Hazmat" is lowercase in labels and stat lines.
-- With Progression: Education and Biotech, the sprayer needs low-tech proficiency.
+- With Progression: Education and Biotech, the sprayer needs low-tech proficiency. A one-off run with PE and VE Framework from the workshop confirmed it.
 - The galoshes keep their grip claim for the Tier 3 slip mechanic.
 
 **Verified from Tier 1**
@@ -67,7 +67,6 @@ Both repos protect `main`: nobody can force-push, delete it or merge non-linear 
 
 ## Not yet verified in game
 
-- The Progression: Education sprayer patch. PE has no 1.7 build on the test machine.
 - The glittervacuum's pollution bonus. Its snow bonus is verified, and both use the same stat part.
 - Backstories have no scenario. They load without errors.
 
