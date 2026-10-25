@@ -3,7 +3,6 @@
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
-    <RimWorldDir>D:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldDir>
   </PropertyGroup>
 
   <ItemGroup>

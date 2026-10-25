@@ -1,11 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!-- Archotech Harness: ARCHO_HOME if set, otherwise a sibling ArchotechHarness checkout. -->
   <PropertyGroup>
-    <ArchoHome Condition="'$(ArchoHome)' == ''">..\..\ArchotechHarness</ArchoHome>
+    <ArchoHome Condition="'$(ArchoHome)' == ''">$(ARCHO_HOME)</ArchoHome>
+    <ArchoHome Condition="'$(ArchoHome)' == '' And Exists('..\..\ArchotechHarness')">..\..\ArchotechHarness</ArchoHome>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>JanitorsCloset.Scenarios</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(ArchoHome)\build\ArchotechScenarios.props" />
+  <Import Project="$(ArchoHome)\build\ArchotechScenarios.props" Condition="Exists('$(ArchoHome)\build\ArchotechScenarios.props')" />
 
   <ItemGroup>
     <Reference Include="JanitorsCloset" HintPath="..\mod\1.7\Assemblies\JanitorsCloset.dll" Private="false" />
   </ItemGroup>
+
+  <Target Name="RequireArchotechHarness" BeforeTargets="ResolveAssemblyReferences" Condition="!Exists('$(ArchoHome)\build\ArchotechScenarios.props')">
+    <Error Text="Archotech Harness not found. Clone https://github.com/AW-Koi/archotech-harness and set ARCHO_HOME to it." />
+  </Target>
 </Project>

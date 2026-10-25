@@ -40,7 +40,7 @@ This keeps `.git/` and `Source/` (`.ai`/`.psd` design files) out of the Workshop
 
 ## Building
 
-The C# project is at `Source/JanitorsCloset/JanitorsCloset.csproj`. It targets .NET 10 and outputs the DLL into `mod/1.7/Assemblies/`. It references `Assembly-CSharp.dll`, `UnityStubs.dll` and `Waylith.dll` in your RimWorld install root. Set `RimWorldDir` in the csproj if your install isn't at the default Steam path.
+The C# project is at `Source/JanitorsCloset/JanitorsCloset.csproj`. It targets .NET 10 and outputs the DLL into `mod/1.7/Assemblies/`. It references `Assembly-CSharp.dll`, `UnityStubs.dll` and `Waylith.dll` from your RimWorld install, which the build finds through Steam's library folders. For a non-Steam install, set the `RIMWORLD_DIR` environment variable to the folder that holds `Assembly-CSharp.dll`.
 
 ```
 dotnet build "Source/JanitorsCloset/JanitorsCloset.csproj"
@@ -48,16 +48,15 @@ dotnet build "Source/JanitorsCloset/JanitorsCloset.csproj"
 
 ## Dev workflow
 
-The repo lives outside the RimWorld install (here at `D:\Modding\RimWorld\JanitorsCloset\`). To make RimWorld load it, create a **directory junction** from the install's `Mods\` folder to the `mod\` subdirectory. Junctions are reparse points — RimWorld walks into `Mods\JanitorsCloset` and transparently reads from the source path. No copy, no sync, no upload step.
+The repo lives outside the RimWorld install. To make RimWorld load it, create a **directory junction** from the install's `Mods\` folder to the `mod\` subdirectory. Junctions are reparse points — RimWorld walks into `Mods\JanitorsCloset` and transparently reads from the source path. No copy, no sync, no upload step.
 
 ```
-mklink /J "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset" "D:\Modding\RimWorld\JanitorsCloset\mod"
+mklink /J "<RimWorld install>\Mods\JanitorsCloset" "<this repo>\mod"
 ```
 
 Notes:
 - Run from `cmd` (or `cmd /c "..."` from PowerShell). `mklink` is a `cmd.exe` builtin.
 - `/J` (junction) doesn't need admin rights and works for same-volume directories. `/D` (true symbolic link) requires admin or Windows Developer Mode and is unnecessary here.
-- Adjust both paths if your RimWorld install or source folder differs.
 - Edits via either path edit the same physical files. Restart RimWorld to reload changes (XML def changes always need a full restart; C# changes always need a rebuild + restart).
-- To remove: `rmdir "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\JanitorsCloset"` — this only deletes the junction, not the source folder.
+- To remove: `rmdir "<RimWorld install>\Mods\JanitorsCloset"`. This deletes only the junction, not the source folder.
 - Workshop publishing is a separate step done via the in-game mod settings later. Junctioned mods do not need to be on Workshop to be loadable.
