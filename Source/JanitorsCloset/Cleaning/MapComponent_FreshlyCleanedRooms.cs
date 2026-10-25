@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using JanitorsCloset.Defs;
 using RimWorld;
 using Verse;
@@ -11,6 +12,9 @@ namespace JanitorsCloset.Cleaning
     public class MapComponent_FreshlyCleanedRooms : MapComponent
     {
         private const int RefreshIntervalTicks = 500;
+
+        private static readonly ConditionalWeakTable<Map, MapComponent_FreshlyCleanedRooms> ByMap =
+            new ConditionalWeakTable<Map, MapComponent_FreshlyCleanedRooms>();
 
         private readonly FreshRoomStamps _stamps = new FreshRoomStamps();
         private readonly ShimmerQueue _shimmer = new ShimmerQueue();
@@ -24,7 +28,16 @@ namespace JanitorsCloset.Cleaning
         public MapComponent_FreshlyCleanedRooms(Map map) : base(map)
         {
             _roomIdAt = RoomIdAt;
+            ByMap.AddOrUpdate(map, this);
         }
+
+        /// <summary>The map's component, without GetComponent's linear search.</summary>
+        public static MapComponent_FreshlyCleanedRooms For(Map map)
+        {
+            return map != null && ByMap.TryGetValue(map, out var component) ? component : null;
+        }
+
+        public bool HasStamps => _stamps.Count > 0;
 
         public override void FinalizeInit()
         {

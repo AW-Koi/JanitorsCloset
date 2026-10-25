@@ -26,8 +26,8 @@ namespace JanitorsCloset.Patches
             if (MarkerFilth.IsMarker(__instance.def)) return;
 
             var map = __instance.Map;
-            var comp = map.GetComponent<MapComponent_FreshlyCleanedRooms>();
-            if (comp == null) return;
+            var comp = MapComponent_FreshlyCleanedRooms.For(map);
+            if (comp == null || !comp.HasStamps) return;
 
             var room = __instance.Position.GetRoom(map);
             if (!comp.IsRoomStamped(room)) return;

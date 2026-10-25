@@ -56,9 +56,11 @@ namespace JanitorsCloset.Patches
                 return m;
             }
 
-            public static void Postfix(Thing t, ref bool __result)
+            public static bool Prefix(Thing t, ref bool __result)
             {
-                if (IsMarkerFilth(t)) __result = false;
+                if (!IsMarkerFilth(t)) return true;
+                __result = false;
+                return false;
             }
         }
 
