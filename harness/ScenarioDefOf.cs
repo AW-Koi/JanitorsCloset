@@ -13,6 +13,9 @@ public static class ScenarioDefOf
     public static RecipeDef Make_Janitor_StrawBroomFromWood;
     public static InspirationDef Janitor_CleaningFrenzy;
 
+    [MayRequireBiotech]
+    public static GeneDef ViolenceDisabled;
+
     [MayRequireAnomaly]
     public static ThingDef Filth_Fleshmass;
 }
