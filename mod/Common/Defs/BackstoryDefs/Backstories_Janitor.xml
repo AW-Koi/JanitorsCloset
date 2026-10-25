@@ -26,6 +26,8 @@
     <titleShort>custodian</titleShort>
     <description>[PAWN_nameDef] kept a glitterworld academy spotless for two decades. Students came and went; the floors stayed immaculate.\n\n[PAWN_pronoun] can fix a jammed door, calm a flooded lavatory and find anything anyone ever lost. [PAWN_pronoun] has opinions about mud.</description>
     <slot>Adulthood</slot>
+    <bodyTypeMale>Male</bodyTypeMale>
+    <bodyTypeFemale>Female</bodyTypeFemale>
     <spawnCategories>
       <li>Offworld</li>
       <li>Outlander</li>
@@ -45,6 +47,8 @@
     <titleShort>sanitation</titleShort>
     <description>[PAWN_nameDef] worked the night shift in the waste tunnels beneath an urbworld megacity, where the rats were the size of dogs and the dogs were worse.\n\n[PAWN_pronoun] can stomach any mess, and keeps a heavy tool within reach.</description>
     <slot>Adulthood</slot>
+    <bodyTypeMale>Hulk</bodyTypeMale>
+    <bodyTypeFemale>Female</bodyTypeFemale>
     <spawnCategories>
       <li>Offworld</li>
       <li>Outlander</li>
@@ -67,6 +71,8 @@
 
 [PAWN_pronoun] knows which plants grow best on what [PAWN_pronoun] carried, and nobody argues with someone holding the dung shovel.</description>
     <slot>Adulthood</slot>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
     <spawnCategories>
       <li>Tribal</li>
     </spawnCategories>
