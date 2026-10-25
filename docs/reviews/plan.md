@@ -60,15 +60,17 @@ The performance changes must not mute the janitor. Where cost and visibility pul
   - Fix the glittervacuum's missing bonus for toxic and weather work.
   - Rewrite the galoshes description, or keep the grip claim for a later slip mechanic.
 
-## Tier 3: design first, then build
+## Tier 3: build order
 
-These deliver pillars 3 and 4, and each needs a design pass with you:
+The design is agreed in `design-notes.md`. Build in this order:
 
-- **The janitor's closet as a resupply hub,** with the glittervacuum dock and waste packs, the mop bucket (possibly with Dubs Bad Hygiene) and an equivalent for each era. See `design-notes.md`.
-- **Wet-floor signs** that other pawns path around, plus a slipping mechanic.
-- **Large-mess detection** after raids, with a letter and a priority boost.
-- **Tool swapping or Simple Sidearms support,** so a janitor doesn't have to give up their weapon.
-- **Audio and art:** broom and mop sounds, a janitor cap, the sprayer masks.
+1. **Janitor's cart (done):** the item, ownership, the push job, parking cell choice, drawing it in front of the pawn and -15% push speed. Art is in `Source/JanitorsCloset/Art/Janitor_Cart_*.svg`.
+2. **Mop charge and the closet sink (done, except Dubs Bad Hygiene):** dunking at the cart, refilling at the sink, Dubs Bad Hygiene plumbing, and the 4-hour return home to the sink.
+3. **Glittervacuum dock:** capacity, the empty job, wastepacks under Biotech, and the reworded specialty text.
+4. **Simple Sidearms compat:** auto-switch to the matching tool for cleaning toils.
+5. **Audio and art:** broom and mop sounds, a janitor cap, the sprayer masks.
+
+Wet floor signs and slipping are parked until a sign design works. Large-mess detection is dropped.
 
 ## Decisions for you on Tier 1
 

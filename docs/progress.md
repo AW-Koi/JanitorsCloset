@@ -4,9 +4,9 @@ Status as of 25 October 2026. Janitor's Closet `main` is at `06f7246`. Archotech
 
 ## Where things stand
 
-Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Pure logic has unit tests (49), and glue to vanilla code has in-game scenarios (18), which run in parallel in about a minute. Each new test failed before its change. Scenarios that only checked def data or RimWorld's own behaviour were cut, since the harness now fails a run on load errors.
+Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Pure logic has unit tests, and glue to vanilla code has in-game scenarios, which run in parallel in about a minute. Each new test failed before its change. Scenarios that only checked def data or RimWorld's own behaviour were cut, since the harness now fails a run on load errors.
 
-Tier 3 is next, and each feature needs a design pass first; see [design notes](reviews/design-notes.md).
+Tier 3 is designed, and its first step, the janitor's cart, is built.
 
 ## Tier 2
 
@@ -52,7 +52,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 
 ## Scenarios
 
-Scenarios live in feature folders under `harness/`: `Assignments`, `Cleaning`, `Compatibility`, `FreshRooms`, `Performance` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
+Scenarios live in feature folders under `harness/`: `Assignments`, `Carts`, `Cleaning`, `Compatibility`, `FreshRooms`, `Performance` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
 
 ## Archotech Harness
 
@@ -69,6 +69,28 @@ Both repos protect `main`: nobody can force-push, delete it or merge non-linear 
 
 - The glittervacuum's pollution bonus. Its snow bonus is verified, and both use the same stat part.
 
-## Next: Tier 3
+## Tier 3
 
-Tier 3 holds the larger features: the closet as a resupply hub, wet-floor signs with slipping, large-mess detection, and tool swapping. Each needs a design pass first; see [design notes](reviews/design-notes.md). The `CleaningTools` stockpile category and the shared `Janitor_CleaningToolBase` are ready for the closet to build on.
+Tier 3 is designed in [design notes](reviews/design-notes.md) and built in the order [the plan](reviews/plan.md) gives.
+
+**Step 1, the janitor's cart (built)**
+- The cart is an item that haulers leave alone. It's made at a machining table after Sanitation.
+- A janitor holding a mop wheels their cart to a wet mess outside its room, or more than 12 cells away, before cleaning. Dry messes, such as tracked dirt, are cleaned without the cart. A player-forced clean skips the push.
+- The cart parks against a wall near the mess, never on a door, an item, a building or a stockpile.
+- The cart rolls in front of the janitor, facing the way they walk. Pushing slows the janitor to 85%.
+- The first janitor to push a cart owns it, and the inspect pane names the owner.
+- Drafting, downing or killing the janitor mid-push leaves the cart parked where they stood.
+- Scenarios: `Carts/JanitorWheelsCartToTheMess` and `Carts/DraftedJanitorLeavesCartParked`.
+
+**Step 2, the refill loop (built)**
+- The mop holds 8 wet messes. A dry mop cleans as if the janitor had no tool, and its stat line says it needs wetting.
+- The cart holds 4 dunks. A janitor with a dry mop next to the cart wets it there.
+- The utility sink (Misc, after Sanitation) is the cart's home. When the cart runs dry, the janitor wheels it to the sink and refills it, and the mop with it.
+- After the cleaning is done, a dry cart, or one left unused away from home for 4 in-game hours, goes back to the sink.
+- The inspect pane shows the cart's water and the mop's wetness.
+- Scenarios: `Carts/JanitorRefillsCartAtTheSink` and `Showcase/ColonyAtWork`.
+- Fixed on the way: the three adult janitor backstories had no body type, so pawns with them threw a render error every frame.
+
+**Still to do in Tier 3**
+- Dubs Bad Hygiene plumbing for the sink.
+- Steps 3 to 5: the glittervacuum dock, Simple Sidearms compatibility, and audio and art.
