@@ -10,13 +10,11 @@ public sealed class SpotlessMoment : HarnessScenario
     public override async Task Run()
     {
         Clock.Speed = TimeSpeed.Paused;
-        var room = Build.Room(World.Center, width: 8, height: 7, floor: "WoodPlankFloor", roof: true);
+        var room = Build.Room(World.Center, width: 8, height: 7, floor: TerrainDefOf.WoodPlankFloor, roof: true);
         var janitor = Spawn.Colonist("Janitor", inside: room, work: [WorkTypeDefOf.Cleaning]);
-        janitor.Equip(JanitorDefOf.Janitor_Mop.defName, stuff: "WoodLog");
+        janitor.Equip(JanitorDefOf.Janitor_Mop, stuff: ThingDefOf.WoodLog);
         Colonists.RemoveAllExcept(janitor);
-        // Starting colonists can track soil onto the new floor before the game accepts a pause.
-        foreach (var stray in room.Filth()) stray.Destroy();
-        room.Scatter("Filth_Blood", 6, seed: 3);
+        room.Scatter(ThingDefOf.Filth_Blood, 6, seed: 3);
         Camera.Follow(janitor, zoom: 11f);
 
         Clock.Speed = TimeSpeed.Superfast;
@@ -32,7 +30,7 @@ public sealed class SpotlessMoment : HarnessScenario
 
         var freshRooms = World.Map.GetComponent<MapComponent_FreshlyCleanedRooms>();
         Check(freshRooms.IsRoomStamped(room.Center.GetRoom(World.Map)));
-        Check(janitor.HasThought(JanitorDefOf.Janitor_SpotlessWork.defName));
+        Check(janitor.HasThought(JanitorDefOf.Janitor_SpotlessWork));
     }
 
     private static int Mess(HarnessRoom room) => room.Filth().Count(f => !MarkerFilth.IsMarker(f));
