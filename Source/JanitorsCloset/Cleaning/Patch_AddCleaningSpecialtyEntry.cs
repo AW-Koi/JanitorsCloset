@@ -18,6 +18,19 @@ namespace JanitorsCloset.Cleaning
             foreach (var e in entries) yield return e;
 
             if (__instance?.def == null) yield break;
+            if (__instance is Filth && !MarkerFilth.IsMarker(__instance))
+            {
+                var filthCategory = FilthCategoryResolver.Resolve(__instance.def);
+                if (filthCategory == null) yield break;
+                yield return new StatDrawEntry(
+                    StatCategoryDefOf.Basics,
+                    "JanitorsCloset.FilthCategory.Label".Translate(),
+                    ("JanitorsCloset.CleaningTool.Specialty" + filthCategory.Value).Translate(),
+                    "JanitorsCloset.FilthCategory.Explanation".Translate(),
+                    4000);
+                yield break;
+            }
+
             var ext = __instance.def.GetModExtension<CleaningToolExtension>();
             if (ext == null) yield break;
 

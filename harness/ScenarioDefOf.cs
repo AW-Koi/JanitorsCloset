@@ -7,4 +7,5 @@ public static class ScenarioDefOf
 {
     public static ThingDef MeleeWeapon_Club;
     public static WorkGiverDef CleanFilth;
+    public static ThingCategoryDef WeaponsMelee;
 }

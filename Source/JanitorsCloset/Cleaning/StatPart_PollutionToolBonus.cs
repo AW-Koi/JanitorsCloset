@@ -15,7 +15,7 @@ namespace JanitorsCloset.Cleaning
         {
             var bonus = Bonus(req);
             if (bonus <= 0f) return null;
-            return "JanitorsCloset.CleaningTool.ToxicBonus".Translate() + ": +" + bonus.ToStringPercent();
+            return "JanitorsCloset.CleaningTool.ToxicBonus".Translate(bonus.ToStringPercent());
         }
 
         private static float Bonus(StatRequest req)

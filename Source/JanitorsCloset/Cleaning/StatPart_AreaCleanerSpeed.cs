@@ -19,7 +19,7 @@ namespace JanitorsCloset.Cleaning
             var key = IsAreaCleanerCleaning(req)
                 ? "JanitorsCloset.CleaningTool.AreaCleanerPerTile"
                 : "JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning";
-            return key.Translate() + ": -" + PerTileSpeedPenalty.ToStringPercent();
+            return key.Translate(PerTileSpeedPenalty.ToStringPercent());
         }
 
         private static bool IsAreaCleanerCleaning(StatRequest req)

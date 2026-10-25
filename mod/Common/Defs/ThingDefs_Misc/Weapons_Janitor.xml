@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <!-- Shared by every cleaning tool: its own stockpile category and the assignment gizmos. -->
+  <ThingDef Name="Janitor_CleaningToolBase" ParentName="BaseMeleeWeapon_Blunt_Quality" Abstract="True">
+    <thingCategories Inherit="False">
+      <li>Janitor_CleaningTools</li>
+    </thingCategories>
+    <comps>
+      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
+    </comps>
+  </ThingDef>
+
   <!-- The Straw Broom — neolithic tier, dry filth only. Cheap, light, and useless against anything wet. -->
-  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+  <ThingDef ParentName="Janitor_CleaningToolBase">
     <defName>Janitor_StrawBroom</defName>
     <label>straw broom</label>
     <description>A bundle of dried straw lashed to a wooden handle. Pushes dust and grit around with admirable enthusiasm. Hopeless against anything wet; the straw just smears the mess around.</description>
@@ -46,9 +56,6 @@
         </animProfile>
       </li>
     </modExtensions>
-    <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
-    </comps>
     <recipeMaker>
       <researchPrerequisite>Housekeeping</researchPrerequisite>
       <recipeUsers>
@@ -79,7 +86,7 @@
 
   <!-- The Push Broom — industrial-tier dry-filth specialist. Wider sweep than a straw broom,
        cleaner stroke, no water involved. The dry-floor counterpart to the mop. -->
-  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+  <ThingDef ParentName="Janitor_CleaningToolBase">
     <defName>Janitor_PushBroom</defName>
     <label>push broom</label>
     <description>A wide block of stiff bristles bolted to a long shaft. Designed to be pushed, not waved. Sweeps a corridor's worth of grit in one pass. Not very effective for cleaning liquids, unless you want to push them around.</description>
@@ -127,9 +134,6 @@
         </animProfile>
       </li>
     </modExtensions>
-    <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
-    </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
       <recipeUsers>
@@ -160,7 +164,7 @@
   </ThingDef>
 
   <!-- The Mop — a janitor's primary tool, but works in a pinch as a blunt instrument. -->
-  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+  <ThingDef ParentName="Janitor_CleaningToolBase">
     <defName>Janitor_Mop</defName>
     <label>mop</label>
     <description>A long wooden handle with a fistful of absorbent fibres at one end. Indispensable for cleaning floors, and surprisingly serviceable for bonking raiders. Swing the dirty end at the problem.</description>
@@ -207,9 +211,6 @@
         </animProfile>
       </li>
     </modExtensions>
-    <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
-    </comps>
     <recipeMaker>
       <researchPrerequisite>Sanitation</researchPrerequisite>
       <recipeUsers>
@@ -244,7 +245,7 @@
        without Biotech the tool has nothing to clean. -->
 
   <!-- The Glittervacuum — spacer-tier universal cleaner. Decouples filth from local reality. -->
-  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+  <ThingDef ParentName="Janitor_CleaningToolBase">
     <defName>Janitor_Glittervacuum</defName>
     <label>glittervacuum</label>
     <description>Despite the name, it doesn't suck. A glitterworld field projector that quietly unmakes filth across a small radius. 'Vacuum' stuck because 'microscale reality-uncoupler' wouldn't fit on the label.</description>
@@ -291,9 +292,6 @@
         </animProfile>
       </li>
     </modExtensions>
-    <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
-    </comps>
     <recipeMaker>
       <researchPrerequisite>AtomicSanitation</researchPrerequisite>
       <recipeUsers Inherit="False">

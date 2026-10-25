@@ -8,7 +8,7 @@
        Lives under Common/Biotech/ and is only loaded when the Biotech DLC is active (gated
        via LoadFolders.xml IfModActive="Ludeon.RimWorld.Biotech"). Without Biotech there
        is no pollution to clean, so the def would have nothing to do. -->
-  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+  <ThingDef ParentName="Janitor_CleaningToolBase">
     <defName>Janitor_HazmatSprayer</defName>
     <label>HAZMAT sprayer</label>
     <description>A backpack-fed wand that sprays a stream of decontamination foam used to clean up pollution. Issued to crews who clean up after the kind of accident that's best kept secret.</description>
@@ -69,9 +69,6 @@
         </animProfile>
       </li>
     </modExtensions>
-    <comps>
-      <li Class="JanitorsCloset.Cleaning.CompProperties_CleaningAssignment" />
-    </comps>
     <recipeMaker>
       <researchPrerequisite>ToxicCleanup</researchPrerequisite>
       <recipeUsers>

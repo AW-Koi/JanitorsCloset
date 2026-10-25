@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>Janitor_CleaningTools</defName>
+    <label>cleaning tools</label>
+    <parent>Weapons</parent>
+  </ThingCategoryDef>
+
+</Defs>

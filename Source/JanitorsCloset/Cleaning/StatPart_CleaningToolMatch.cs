@@ -19,7 +19,7 @@ namespace JanitorsCloset.Cleaning
             var penalty = OffsetToSuppress(req, out bool cleaning);
             if (penalty > 0f)
             {
-                return "JanitorsCloset.CleaningTool.WrongFilthCategory".Translate() + ": -" + penalty.ToStringPercent();
+                return "JanitorsCloset.CleaningTool.WrongFilthCategory".Translate(penalty.ToStringPercent());
             }
             if (cleaning || CleaningToolStats.EquippedCleaningSpeedOffset(toolDef) <= 0f) return null;
             if (tool.Matches(CleaningCategory.Dry) && tool.Matches(CleaningCategory.Wet)) return null;

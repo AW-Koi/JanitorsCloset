@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
-    <JanitorsCloset.CleaningTool.WrongFilthCategory>Tool not suited to this filth</JanitorsCloset.CleaningTool.WrongFilthCategory>
+    <JanitorsCloset.CleaningTool.WrongFilthCategory>Tool not suited to this filth: -{0}</JanitorsCloset.CleaningTool.WrongFilthCategory>
     <JanitorsCloset.CleaningTool.SpecialtyLabel>Cleaning specialty</JanitorsCloset.CleaningTool.SpecialtyLabel>
     <JanitorsCloset.CleaningTool.SpecialtyDry>Dry filth</JanitorsCloset.CleaningTool.SpecialtyDry>
     <JanitorsCloset.CleaningTool.SpecialtyWet>Wet filth</JanitorsCloset.CleaningTool.SpecialtyWet>
@@ -10,13 +10,15 @@
     <JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>The cleaning speed bonus from this tool applies while clearing polluted terrain. Ordinary filth is cleaned at regular speed.</JanitorsCloset.CleaningTool.SpecialtyExplanationToxic>
     <JanitorsCloset.CleaningTool.SpecialtyWeatherBuildup>Weather buildup</JanitorsCloset.CleaningTool.SpecialtyWeatherBuildup>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>The cleaning speed bonus from this tool also applies while clearing accumulated snow or windblown sand from the ground.</JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>
-    <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
-    <JanitorsCloset.CleaningTool.WeatherBuildupBonus>Clearing weather buildup</JanitorsCloset.CleaningTool.WeatherBuildupBonus>
+    <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool: +{0}</JanitorsCloset.CleaningTool.ToxicBonus>
+    <JanitorsCloset.CleaningTool.WeatherBuildupBonus>Clearing weather buildup: +{0}</JanitorsCloset.CleaningTool.WeatherBuildupBonus>
     <JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>Tool bonus applies only to: {0}</JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>
-    <JanitorsCloset.CleaningTool.AreaCleanerPerTile>Area dematerialisation, per tile</JanitorsCloset.CleaningTool.AreaCleanerPerTile>
-    <JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>Area dematerialisation, per tile while cleaning</JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>
+    <JanitorsCloset.CleaningTool.AreaCleanerPerTile>Area dematerialisation, per tile: -{0}</JanitorsCloset.CleaningTool.AreaCleanerPerTile>
+    <JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>Area dematerialisation, per tile while cleaning: -{0}</JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Area dematerialisation (3x3)</JanitorsCloset.CleaningTool.SpecialtyStackClear>
     <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises every layer of filth on the target tile and its eight neighbours in a single pass, not just the topmost piece on the target tile. Each tile cleans at half speed; the trick is that nine tiles are cleared at once.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
+    <JanitorsCloset.FilthCategory.Label>Cleaning category</JanitorsCloset.FilthCategory.Label>
+    <JanitorsCloset.FilthCategory.Explanation>Cleaning tools specialise in wet or dry filth. A tool cleans filth in its own category faster, and its bearer goes for that filth first.</JanitorsCloset.FilthCategory.Explanation>
     <JanitorsCloset.CleaningAssignment.Label.Any>Clean anywhere</JanitorsCloset.CleaningAssignment.Label.Any>
     <JanitorsCloset.CleaningAssignment.Label.Indoors>Clean indoors</JanitorsCloset.CleaningAssignment.Label.Indoors>
     <JanitorsCloset.CleaningAssignment.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningAssignment.Label.Outdoors>
@@ -33,8 +35,6 @@
     <JanitorsCloset.CleaningAssignment.Inspect.Indoors>indoors</JanitorsCloset.CleaningAssignment.Inspect.Indoors>
     <JanitorsCloset.CleaningAssignment.Inspect.Outdoors>outdoors</JanitorsCloset.CleaningAssignment.Inspect.Outdoors>
     <JanitorsCloset.CleaningAssignment.Inspect.AnyArea>any area</JanitorsCloset.CleaningAssignment.Inspect.AnyArea>
-    <JanitorsCloset.Thought.FreshlyCleanedRoom.Label>Freshly cleaned room</JanitorsCloset.Thought.FreshlyCleanedRoom.Label>
-    <JanitorsCloset.Thought.FreshlyCleanedRoom.Description>That room was spotless. I'm glad we have a janitor around.</JanitorsCloset.Thought.FreshlyCleanedRoom.Description>
     <JanitorsCloset.Settings.Diagnostics.Enabled>Enable debug logging</JanitorsCloset.Settings.Diagnostics.Enabled>
     <JanitorsCloset.Settings.Diagnostics.Enabled.Tooltip>Master switch for diagnostic logging. When off, no diagnostics are written regardless of the individual channel toggles below.</JanitorsCloset.Settings.Diagnostics.Enabled.Tooltip>
     <JanitorsCloset.Settings.Diagnostics.Heading>Diagnostic channels</JanitorsCloset.Settings.Diagnostics.Heading>

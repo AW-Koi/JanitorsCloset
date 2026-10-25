@@ -11,6 +11,7 @@ namespace JanitorsCloset.Defs
         public static ThingDef Janitor_Mop;
         public static ThingDef Janitor_MopMark;
         public static ThingDef Janitor_Glittervacuum;
+        public static ThingCategoryDef Janitor_CleaningTools;
 
         // Hazmat Sprayer ThingDef and its marker filth — defined under Common/Biotech/ and
         // only loaded when Biotech is active. [MayRequire] tells DefOfHelper to leave the

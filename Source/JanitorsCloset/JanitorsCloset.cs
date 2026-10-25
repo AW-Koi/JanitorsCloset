@@ -13,7 +13,8 @@ namespace JanitorsCloset
             Settings = GetSettings<JanitorsClosetSettings>();
         }
 
-        public override string SettingsCategory() => "Janitor's Closet";
+        // Settings hold only diagnostics, so they're listed only in development mode.
+        public override string SettingsCategory() => Prefs.DevMode ? Content.Name : null;
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -58,9 +59,7 @@ namespace JanitorsCloset
 
     public class JanitorsClosetSettings : ModSettings
     {
-        // Master toggle — when off, all channels are gated off regardless of their
-        // individual state. Channel values persist so toggling the master back on
-        // restores the user's last selection.
+        // Channels keep their values while the master toggle is off.
         public bool DebugEnabled;
 
         public bool DebugLogAI;
@@ -70,13 +69,14 @@ namespace JanitorsCloset
         public bool DebugLogSound;
         public bool DebugLogTrackedFilth;
 
-        // Gate-site helpers: master AND channel.
-        public bool LogAI           => DebugEnabled && DebugLogAI;
-        public bool LogAnim         => DebugEnabled && DebugLogAnim;
-        public bool LogRenderTrace  => DebugEnabled && DebugLogRenderTrace;
-        public bool LogStats        => DebugEnabled && DebugLogStats;
-        public bool LogSound        => DebugEnabled && DebugLogSound;
-        public bool LogTrackedFilth => DebugEnabled && DebugLogTrackedFilth;
+        private bool Logging => DebugEnabled && Prefs.DevMode;
+
+        public bool LogAI           => Logging && DebugLogAI;
+        public bool LogAnim         => Logging && DebugLogAnim;
+        public bool LogRenderTrace  => Logging && DebugLogRenderTrace;
+        public bool LogStats        => Logging && DebugLogStats;
+        public bool LogSound        => Logging && DebugLogSound;
+        public bool LogTrackedFilth => Logging && DebugLogTrackedFilth;
 
         public override void ExposeData()
         {
