@@ -3,17 +3,12 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using JanitorsCloset.Cleaning;
+using RimWorld;
 using Verse;
 
 namespace JanitorsCloset.Patches
 {
-    // Vanilla spawns small dustpan-and-brush style effecters at the cell during cleaning
-    // work — "Clean" for filth, "ClearSnow"/"ClearSand" for weather buildup. Those are
-    // redundant and visually wrong when our pawn is already swinging a real tool. Clear
-    // the spawned effecter's children when the active cleaner is wielding the right kind
-    // of tool: any CleaningToolExtension covers the filth effecter, while the snow/sand
-    // effecters only get suppressed for tools that actually declare the WeatherBuildup
-    // category (so a mop somehow on a snow job still gets the vanilla icon).
+    // Hides vanilla's cleaning effecter while a tool holder works; snow and sand only for weather-buildup tools.
     [HarmonyPatch]
     public static class Patch_SuppressCleaningWorkIndicator
     {
@@ -34,15 +29,14 @@ namespace JanitorsCloset.Patches
             var ext = primary.def.GetModExtension<CleaningToolExtension>();
             if (ext == null) return;
 
-            switch (__instance.defName)
+            if (__instance == EffecterDefOf.Clean)
             {
-                case "Clean":
-                    __result.children?.Clear();
-                    break;
-                case "ClearSnow":
-                case "ClearSand":
-                    if (ext.Matches(CleaningCategory.WeatherBuildup)) __result.children?.Clear();
-                    break;
+                __result.children?.Clear();
+            }
+            else if ((__instance == EffecterDefOf.ClearSnow || __instance == EffecterDefOf.ClearSand)
+                     && ext.Matches(CleaningCategory.WeatherBuildup))
+            {
+                __result.children?.Clear();
             }
         }
     }

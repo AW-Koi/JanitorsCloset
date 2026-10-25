@@ -35,15 +35,9 @@ namespace JanitorsCloset.Patches
 
         public static void Prefix(ref SoundDef __0)
         {
-            if (__0 == null) return;
-            // Catch the per-filth sustainers (Interact_CleanFilth_Fluid /
-            // Interact_CleanFilth_Dirt) used by JobDriver_CleanFilth, plus the bare
-            // Interact_CleanFilth that JobDriver_ClearPollution and JobDriver_ClearSnowAndSand
-            // both play.
-            if (!__0.defName.StartsWith("Interact_CleanFilth")) return;
-
-            // Tracked driver covers filth, pollution, and weather-buildup jobs.
             var driver = ActiveCleaningDriver.Current;
+            if (driver == null || !CleaningSustainers.Contains(__0)) return;
+
             Pawn pawn = null;
             bool isWeatherBuildupJob = false;
             if (driver is JobDriver_CleanFilth filthDriver) pawn = filthDriver.pawn;
