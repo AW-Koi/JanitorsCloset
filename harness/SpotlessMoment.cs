@@ -14,13 +14,15 @@ public sealed class SpotlessMoment : HarnessScenario
         var janitor = Spawn.Colonist("Janitor", inside: room, work: [WorkTypeDefOf.Cleaning]);
         janitor.Equip(JanitorDefOf.Janitor_Mop.defName, stuff: "WoodLog");
         Colonists.RemoveAllExcept(janitor);
+        // Starting colonists can track soil onto the new floor before the game accepts a pause.
+        foreach (var stray in room.Filth()) stray.Destroy();
         room.Scatter("Filth_Blood", 6, seed: 3);
         Camera.Follow(janitor, zoom: 11f);
 
         Clock.Speed = TimeSpeed.Superfast;
-        await Until(() => room.Filth("Filth_Blood").Count <= 1, timeoutSeconds: 120);
+        await Until(() => Mess(room) <= 1, timeoutSeconds: 120);
         Clock.Speed = TimeSpeed.Normal;
-        await Until(() => room.Filth("Filth_Blood").Count == 0, timeoutSeconds: 60);
+        await Until(() => Mess(room) == 0, timeoutSeconds: 60);
 
         await Shot("spotless-0");
         await Ticks(20);
@@ -32,4 +34,6 @@ public sealed class SpotlessMoment : HarnessScenario
         Check(freshRooms.IsRoomStamped(room.Center.GetRoom(World.Map)));
         Check(janitor.HasThought(JanitorDefOf.Janitor_SpotlessWork.defName));
     }
+
+    private static int Mess(HarnessRoom room) => room.Filth().Count(f => !MarkerFilth.IsMarker(f));
 }
