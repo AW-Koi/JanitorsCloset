@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- After the cleaning is done: take a dry cart, or one idle for four hours, back to the closet sink. -->
+  <WorkGiverDef>
+    <defName>Janitor_ReturnCartHome</defName>
+    <label>return janitor's cart</label>
+    <giverClass>JanitorsCloset.Carts.WorkGiver_ReturnCartHome</giverClass>
+    <workType>Cleaning</workType>
+    <verb>return</verb>
+    <gerund>returning</gerund>
+    <priorityInType>4</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+</Defs>

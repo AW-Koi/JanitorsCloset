@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Janitor's cart, facing east: shelf frame and bin bag at the rear, mop bucket and wringer at the front -->
+  <defs>
+    <rect id="frame" x="76" y="132" width="196" height="236" rx="12"/>
+    <path id="bag" d="M50 236 Q42 320 66 362 Q88 380 110 362 Q128 320 120 236 Z"/>
+    <rect id="bucket" x="272" y="214" width="166" height="152" rx="14"/>
+    <rect id="bucketRim" x="266" y="198" width="178" height="30" rx="12"/>
+    <rect id="wringer" x="300" y="150" width="112" height="56" rx="12"/>
+    <rect id="base" x="66" y="350" width="384" height="30" rx="12"/>
+    <circle id="wheelRear" cx="110" cy="390" r="20"/>
+    <circle id="wheelMid" cx="250" cy="390" r="20"/>
+    <circle id="wheelFront" cx="408" cy="390" r="20"/>
+    <linearGradient id="rail" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa4ea"/><stop offset="1" stop-color="#3f78c4"/></linearGradient>
+    <linearGradient id="post" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b95dc"/><stop offset="1" stop-color="#3a6fb8"/></linearGradient>
+    <linearGradient id="interior" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a3159"/><stop offset="1" stop-color="#25467a"/></linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2d23e"/><stop offset="1" stop-color="#c99f1a"/></linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7e070"/><stop offset="1" stop-color="#ddb825"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3c7cd"/><stop offset="1" stop-color="#8d9199"/></linearGradient>
+    <linearGradient id="bag" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#70747d"/><stop offset="1" stop-color="#454850"/></linearGradient>
+  </defs>
+
+  <!-- Outline -->
+  <g fill="#111" stroke="#111" stroke-width="26" stroke-linejoin="round">
+    <use xlink:href="#frame"/><use xlink:href="#bucket"/><use xlink:href="#bucketRim"/><use xlink:href="#wringer"/>
+    <use xlink:href="#base"/><use xlink:href="#bag"/>
+    <use xlink:href="#wheelRear"/><use xlink:href="#wheelMid"/><use xlink:href="#wheelFront"/>
+  </g>
+
+  <g stroke="#152440" stroke-width="5" stroke-linejoin="round">
+    <!-- Shelf frame: dark interior, three shelves, two posts -->
+    <use xlink:href="#frame" fill="url(#interior)"/>
+    <rect x="76" y="132" width="196" height="28" rx="12" fill="url(#rail)"/>
+    <rect x="76" y="226" width="196" height="22" rx="8" fill="url(#rail)"/>
+    <rect x="76" y="300" width="196" height="22" rx="8" fill="url(#rail)"/>
+    <rect x="76" y="132" width="26" height="236" rx="10" fill="url(#post)"/>
+    <rect x="246" y="132" width="26" height="236" rx="10" fill="url(#post)"/>
+
+    <!-- Mop bucket with water and wringer -->
+    <use xlink:href="#wringer" fill="url(#steel)"/>
+    <use xlink:href="#bucket" fill="url(#yellow)"/>
+    <use xlink:href="#bucketRim" fill="url(#rim)"/>
+    <rect x="286" y="206" width="150" height="12" rx="6" fill="#5d9cc4" stroke="none"/>
+    <path d="M294 246 L294 340" fill="none" stroke="#f7e070" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Base rail and wheels -->
+    <use xlink:href="#base" fill="url(#rail)"/>
+    <use xlink:href="#wheelRear" fill="#3a3c42"/>
+    <use xlink:href="#wheelMid" fill="#3a3c42"/>
+    <use xlink:href="#wheelFront" fill="#3a3c42"/>
+    <circle cx="110" cy="390" r="7" fill="#b9bdc4" stroke="none"/>
+    <circle cx="250" cy="390" r="7" fill="#b9bdc4" stroke="none"/>
+    <circle cx="408" cy="390" r="7" fill="#b9bdc4" stroke="none"/>
+
+    <!-- Bin bag hanging off the rear post -->
+    <use xlink:href="#bag" fill="url(#bag)"/>
+    <rect x="46" y="226" width="80" height="20" rx="8" fill="#2c2e33"/>
+  </g>
+</svg>

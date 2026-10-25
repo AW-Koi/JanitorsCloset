@@ -1,4 +1,5 @@
 using HarmonyLib;
+using JanitorsCloset.Carts;
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Cleaning.ToolEffects;
 using JanitorsCloset.Defs;
@@ -41,6 +42,7 @@ namespace JanitorsCloset.Patches
             // Clear the field first, so the room check below sees the whole patch gone.
             if (tool.clearsFilthStack) GlittervacuumFieldCollapse.Clear(__state.Cell, __state.Map);
             if (toolDef == JanitorDefOf.Janitor_Mop) MopMarks.Leave(__state.Cell, __state.Map, janitor);
+            if (FilthCategoryResolver.Resolve(__state.Def) == CleaningCategory.Wet) janitor.equipment.Primary.TryGetComp<CompMopCharge>()?.Wetness.TryUse();
 
             var room = __state.Cell.GetRoom(__state.Map);
             if (room != null) MapComponent_FreshlyCleanedRooms.For(__state.Map)?.OnFilthCleanedInRoom(room, __state.Cell, janitor);

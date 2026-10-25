@@ -51,4 +51,11 @@
     <JanitorsCloset.Settings.Diagnostics.Sound.Tooltip>Logs every cleaning sustainer the mod swaps in (dirt, fluid, glittervacuum, etc.) plus any tool that has nothing to swap.</JanitorsCloset.Settings.Diagnostics.Sound.Tooltip>
     <JanitorsCloset.Settings.Diagnostics.TrackedFilth>Tracked-filth attribution</JanitorsCloset.Settings.Diagnostics.TrackedFilth>
     <JanitorsCloset.Settings.Diagnostics.TrackedFilth.Tooltip>Logs when tracked-in filth gets attributed to a freshly-cleaned room (the "they just dirtied my floor" thought trigger).</JanitorsCloset.Settings.Diagnostics.TrackedFilth.Tooltip>
+
+    <!-- Janitor's cart -->
+    <JanitorsCloset.Cart.Owner>Owner: {0}</JanitorsCloset.Cart.Owner>
+    <JanitorsCloset.Cart.Water>Water: {0} / {1} dunks</JanitorsCloset.Cart.Water>
+    <JanitorsCloset.Mop.Wetness>Wet for {0} / {1} wet messes</JanitorsCloset.Mop.Wetness>
+    <JanitorsCloset.Mop.Dry>Mop needs wetting: -{0}</JanitorsCloset.Mop.Dry>
+    <JanitorsCloset.Cart.PushingSpeed>Pushing a janitor's cart: x{0}</JanitorsCloset.Cart.PushingSpeed>
 </LanguageData>

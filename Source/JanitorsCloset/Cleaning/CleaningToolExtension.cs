@@ -26,6 +26,9 @@ namespace JanitorsCloset.Cleaning
         // bundled in later as part of the same field-collapse effect.
         public bool clearsFilthStack;
 
+        // A janitor holding this tool wheels their cart to each mess before cleaning it.
+        public bool refillsAtCart;
+
         public bool Matches(CleaningCategory category)
         {
             return categories != null && categories.Contains(category);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Wheels the janitor's cart to a parking cell, then hands over to the clean job it was pushed for. -->
+  <JobDef>
+    <defName>Janitor_PushCart</defName>
+    <driverClass>JanitorsCloset.Carts.JobDriver_PushCart</driverClass>
+    <reportString>pushing TargetA.</reportString>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+  <!-- Wets the mop in the cart's bucket, then hands over to the clean job. -->
+  <JobDef>
+    <defName>Janitor_DunkMop</defName>
+    <driverClass>JanitorsCloset.Carts.JobDriver_DunkMop</driverClass>
+    <reportString>wetting mop in TargetA.</reportString>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+  <!-- Wheels the cart home to the utility sink and changes its water. -->
+  <JobDef>
+    <defName>Janitor_ReturnCart</defName>
+    <driverClass>JanitorsCloset.Carts.JobDriver_ReturnCart</driverClass>
+    <reportString>taking TargetA back to TargetB.</reportString>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+</Defs>

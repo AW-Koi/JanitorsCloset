@@ -13,6 +13,15 @@ namespace JanitorsCloset.Defs
         public static ThingDef Janitor_Glittervacuum;
         public static ThingCategoryDef Janitor_CleaningTools;
 
+        // The janitor's cart and the job that wheels it to a mess.
+        public static ThingDef Janitor_Cart;
+        public static JobDef Janitor_PushCart;
+
+        // The closet's utility sink and the jobs that wet the mop and take the cart home.
+        public static ThingDef Janitor_UtilitySink;
+        public static JobDef Janitor_DunkMop;
+        public static JobDef Janitor_ReturnCart;
+
         // Hazmat Sprayer ThingDef and its marker filth — defined under Common/Biotech/ and
         // only loaded when Biotech is active. [MayRequire] tells DefOfHelper to leave the
         // field null rather than log a missing-def warning when the DLC isn't present.

@@ -193,12 +193,18 @@
     <equippedStatOffsets>
       <CleaningSpeed>0.60</CleaningSpeed>
     </equippedStatOffsets>
+    <comps>
+      <li Class="JanitorsCloset.Carts.CompProperties_MopCharge">
+        <charges>8</charges>
+      </li>
+    </comps>
     <equippedAngleOffset>170</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">
         <categories>
           <li>Wet</li>
         </categories>
+        <refillsAtCart>true</refillsAtCart>
         <animProfile>
           <basePhaseRate>0.025</basePhaseRate>
           <speedModRate>0.025</speedModRate>

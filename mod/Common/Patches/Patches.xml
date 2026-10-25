@@ -19,6 +19,7 @@
       <parts>
         <li Class="JanitorsCloset.Cleaning.StatPart_CleaningToolMatch"/>
         <li Class="JanitorsCloset.Cleaning.StatPart_AreaCleanerSpeed"/>
+        <li Class="JanitorsCloset.Carts.StatPart_DryMop"/>
         <!-- Vanilla runs a stat's parts over each gear offset, so this scales a tool's cleaning bonus by its quality. -->
         <li Class="StatPart_Quality">
           <factorAwful>0.8</factorAwful>
@@ -47,6 +48,14 @@
         <li Class="JanitorsCloset.Cleaning.StatPart_PollutionToolBonus"/>
         <li Class="JanitorsCloset.Cleaning.StatPart_WeatherBuildupToolBonus"/>
       </parts>
+    </value>
+  </Operation>
+
+  <!-- Pushing the janitor's cart slows the janitor down. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="MoveSpeed"]/parts</xpath>
+    <value>
+      <li Class="JanitorsCloset.Carts.StatPart_PushingCart"/>
     </value>
   </Operation>
 

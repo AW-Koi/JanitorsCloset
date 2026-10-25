@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- The janitor's cart: an item the janitor wheels to each mess and parks while they clean. Haulers leave it alone. -->
+  <ThingDef>
+    <defName>Janitor_Cart</defName>
+    <label>janitor's cart</label>
+    <description>A wheeled trolley with shelves, a bin bag and a mop bucket with a wringer. A janitor with a mop wheels it to wherever the mess is and parks it out of the way while they work.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>RealtimeOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <graphicData>
+      <texPath>Things/Item/Janitor_Cart/Janitor_Cart</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.5, 1.5)</drawSize>
+    </graphicData>
+    <selectable>true</selectable>
+    <useHitPoints>true</useHitPoints>
+    <pathCost>30</pathCost>
+    <stackLimit>1</stackLimit>
+    <alwaysHaulable>false</alwaysHaulable>
+    <soundPickup>Standard_Pickup</soundPickup>
+    <soundDrop>Standard_Drop</soundDrop>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>12</Mass>
+      <Flammability>0.5</Flammability>
+      <Beauty>-2</Beauty>
+      <WorkToMake>2400</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>40</Steel>
+      <Cloth>10</Cloth>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>Sanitation</researchPrerequisite>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Smith</soundWorking>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <displayPriority>250</displayPriority>
+    </recipeMaker>
+    <comps>
+      <li Class="JanitorsCloset.Carts.CompProperties_JanitorCart">
+        <dunks>4</dunks>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>
