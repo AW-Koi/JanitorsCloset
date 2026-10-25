@@ -77,4 +77,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licence
 
-Janitor's Closet is by Terra Incognita. The code is licensed under [Apache 2.0](LICENSE). Art, audio and written text are licensed under [CC BY 4.0](LICENSE-ASSETS). You may reuse and adapt them, as long as you credit Terra Incognita and keep the [NOTICE](NOTICE).
+Janitor's Closet is by Max Kooij (Terra Incognita). The code is licensed under [Apache 2.0](LICENSE). Art, audio and written text are licensed under [CC BY 4.0](LICENSE-ASSETS). You may reuse and adapt them, as long as you credit Terra Incognita and keep the [NOTICE](NOTICE).
