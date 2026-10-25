@@ -20,14 +20,14 @@ namespace JanitorsCloset.Cleaning
 
         private static float Bonus(StatRequest req)
         {
-            if (!CleaningToolStats.TryGetTool(req, out var pawn, out var toolDef, out var tool)) return 0f;
+            if (!CleaningToolStats.TryGetTool(req, out var pawn, out var toolThing, out var tool)) return 0f;
             if (!tool.Matches(CleaningCategory.Toxic)) return 0f;
             if (!(CleaningToolStats.CurrentDriver(pawn) is JobDriver_ClearPollution)) return 0f;
 
-            var bonus = CleaningToolStats.EquippedCleaningSpeedOffset(toolDef);
+            var bonus = CleaningToolStats.EquippedCleaningSpeedOffset(toolThing);
             if (bonus > 0f && CleaningToolStats.LogEnabled)
             {
-                Log.Message($"[JC stat] POLLUTION BONUS pawn='{pawn.LabelShort}' tool='{toolDef.defName}' +{bonus.ToStringPercent()}");
+                Log.Message($"[JC stat] POLLUTION BONUS pawn='{pawn.LabelShort}' tool='{toolThing.def.defName}' +{bonus.ToStringPercent()}");
             }
             return bonus;
         }

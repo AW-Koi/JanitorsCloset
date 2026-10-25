@@ -19,6 +19,16 @@
       <parts>
         <li Class="JanitorsCloset.Cleaning.StatPart_CleaningToolMatch"/>
         <li Class="JanitorsCloset.Cleaning.StatPart_AreaCleanerSpeed"/>
+        <!-- Vanilla runs a stat's parts over each gear offset, so this scales a tool's cleaning bonus by its quality. -->
+        <li Class="StatPart_Quality">
+          <factorAwful>0.8</factorAwful>
+          <factorPoor>0.9</factorPoor>
+          <factorNormal>1</factorNormal>
+          <factorGood>1.1</factorGood>
+          <factorExcellent>1.2</factorExcellent>
+          <factorMasterwork>1.35</factorMasterwork>
+          <factorLegendary>1.5</factorLegendary>
+        </li>
       </parts>
     </value>
   </Operation>
@@ -37,6 +47,25 @@
         <li Class="JanitorsCloset.Cleaning.StatPart_PollutionToolBonus"/>
         <li Class="JanitorsCloset.Cleaning.StatPart_WeatherBuildupToolBonus"/>
       </parts>
+    </value>
+  </Operation>
+
+  <!-- Machine bits are debris for a broom; fleshmass debris is wet tissue for a mop. Their cleaning sounds say otherwise. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Filth_MachineBits"]</xpath>
+    <value>
+      <li Class="JanitorsCloset.Cleaning.FilthCategoryExtension">
+        <category>Dry</category>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>Defs/ThingDef[defName="Filth_Fleshmass"]</xpath>
+    <value>
+      <li Class="JanitorsCloset.Cleaning.FilthCategoryExtension">
+        <category>Wet</category>
+      </li>
     </value>
   </Operation>
 

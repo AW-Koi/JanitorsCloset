@@ -268,6 +268,10 @@
       <WorkToMake>16000</WorkToMake>
       <Mass>1.0</Mass>
     </statBases>
+    <!-- Counts for pollution and weather buildup; on filth, StatPart_AreaCleanerSpeed cancels it per tile. -->
+    <equippedStatOffsets>
+      <CleaningSpeed>1.0</CleaningSpeed>
+    </equippedStatOffsets>
     <equippedAngleOffset>0</equippedAngleOffset>
     <modExtensions>
       <li Class="JanitorsCloset.Cleaning.CleaningToolExtension">

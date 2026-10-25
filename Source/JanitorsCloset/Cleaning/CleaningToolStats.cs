@@ -8,11 +8,11 @@ namespace JanitorsCloset.Cleaning
     // Shared lookups for the cleaning-tool stat parts.
     public static class CleaningToolStats
     {
-        public static bool TryGetTool(StatRequest req, out Pawn pawn, out ThingDef toolDef, out CleaningToolExtension tool)
+        public static bool TryGetTool(StatRequest req, out Pawn pawn, out Thing toolThing, out CleaningToolExtension tool)
         {
             pawn = req.Thing as Pawn;
-            toolDef = pawn?.equipment?.Primary?.def;
-            tool = toolDef?.GetModExtension<CleaningToolExtension>();
+            toolThing = pawn?.equipment?.Primary;
+            tool = toolThing?.def.GetModExtension<CleaningToolExtension>();
             return tool != null;
         }
 
@@ -21,15 +21,10 @@ namespace JanitorsCloset.Cleaning
             return pawn.jobs?.curDriver;
         }
 
-        public static float EquippedCleaningSpeedOffset(ThingDef toolDef)
+        /// <summary>The tool's equipped cleaning-speed offset after quality, as vanilla applies it.</summary>
+        public static float EquippedCleaningSpeedOffset(Thing tool)
         {
-            List<StatModifier> offsets = toolDef.equippedStatOffsets;
-            if (offsets == null) return 0f;
-            for (int i = 0; i < offsets.Count; i++)
-            {
-                if (offsets[i].stat == StatDefOf.CleaningSpeed) return offsets[i].value;
-            }
-            return 0f;
+            return StatWorker.StatOffsetFromGear(tool, StatDefOf.CleaningSpeed);
         }
 
         public static bool LogEnabled => JanitorsCloset.Settings?.LogStats == true;
