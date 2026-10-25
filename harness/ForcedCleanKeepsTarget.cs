@@ -9,9 +9,20 @@ public sealed class ForcedCleanKeepsTarget : HarnessScenario
     public override async Task Run()
     {
         Clock.Speed = TimeSpeed.Paused;
-        var room = Build.Room(World.Center, width: 8, height: 7, floor: TerrainDefOf.WoodPlankFloor, roof: true);
-        var janitor = Spawn.Colonist("Sweeper", inside: room);
-        janitor.Equip(JanitorDefOf.Janitor_PushBroom, stuff: ThingDefOf.WoodLog);
+        var room = Build.Room()
+            .Size(8, 7)
+            .WithFloor(TerrainDefOf.WoodPlankFloor)
+            .WithDoor(Rot4.South)
+            .Roofed()
+            .Build();
+        var janitor = Spawn.Colonist()
+            .WithName("Sweeper")
+            .Inside(room)
+            .Spawn();
+        Spawn.Thing(JanitorDefOf.Janitor_PushBroom)
+            .MadeOf(ThingDefOf.WoodLog)
+            .GivenTo(janitor)
+            .Spawn();
         var bloodCell = room.Center + IntVec3.East;
         var blood = Spawn.Filth(ThingDefOf.Filth_Blood, bloodCell);
         Spawn.Filth(ThingDefOf.Filth_Dirt, bloodCell + IntVec3.North);

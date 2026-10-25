@@ -10,9 +10,21 @@ public sealed class SpotlessMoment : HarnessScenario
     public override async Task Run()
     {
         Clock.Speed = TimeSpeed.Paused;
-        var room = Build.Room(World.Center, width: 8, height: 7, floor: TerrainDefOf.WoodPlankFloor, roof: true);
-        var janitor = Spawn.Colonist("Janitor", inside: room, work: [WorkTypeDefOf.Cleaning]);
-        janitor.Equip(JanitorDefOf.Janitor_Mop, stuff: ThingDefOf.WoodLog);
+        var room = Build.Room()
+            .Size(8, 7)
+            .WithFloor(TerrainDefOf.WoodPlankFloor)
+            .WithDoor(Rot4.South)
+            .Roofed()
+            .Build();
+        var janitor = Spawn.Colonist()
+            .WithName("Janitor")
+            .Inside(room)
+            .Doing(WorkTypeDefOf.Cleaning)
+            .Spawn();
+        Spawn.Thing(JanitorDefOf.Janitor_Mop)
+            .MadeOf(ThingDefOf.WoodLog)
+            .GivenTo(janitor)
+            .Spawn();
         Colonists.RemoveAllExcept(janitor);
         room.Scatter(ThingDefOf.Filth_Blood, 6, seed: 3);
         Camera.Follow(janitor, zoom: 11f);

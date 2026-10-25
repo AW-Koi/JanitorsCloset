@@ -10,9 +10,20 @@ public sealed class SprayerOffscreen : HarnessScenario
     public override async Task Run()
     {
         Clock.Speed = TimeSpeed.Paused;
-        var room = Build.Room(World.Center, width: 10, height: 8, floor: TerrainDefOf.WoodPlankFloor, roof: true);
-        var sprayer = Spawn.Colonist("Sprayer", inside: room, work: [WorkTypeDefOf.Cleaning]);
-        sprayer.Equip(JanitorDefOf.Janitor_HazmatSprayer);
+        var room = Build.Room()
+            .Size(10, 8)
+            .WithFloor(TerrainDefOf.WoodPlankFloor)
+            .WithDoor(Rot4.South)
+            .Roofed()
+            .Build();
+        var sprayer = Spawn.Colonist()
+            .WithName("Sprayer")
+            .Inside(room)
+            .Doing(WorkTypeDefOf.Cleaning)
+            .Spawn();
+        Spawn.Thing(JanitorDefOf.Janitor_HazmatSprayer)
+            .GivenTo(sprayer)
+            .Spawn();
         Colonists.RemoveAllExcept(sprayer);
         room.Scatter(ThingDefOf.Filth_Dirt, 16, seed: 5);
 

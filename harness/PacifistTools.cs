@@ -9,12 +9,28 @@ public sealed class PacifistTools : HarnessScenario
     public override async Task Run()
     {
         Clock.Speed = TimeSpeed.Paused;
-        var room = Build.Room(World.Center, width: 8, height: 7, floor: TerrainDefOf.WoodPlankFloor, roof: true);
-        var pacifist = Spawn.Colonist("Pacifist", inside: room, work: [WorkTypeDefOf.Cleaning], incapableOf: WorkTags.Violent);
+        var room = Build.Room()
+            .Size(8, 7)
+            .WithFloor(TerrainDefOf.WoodPlankFloor)
+            .WithDoor(Rot4.South)
+            .Roofed()
+            .Build();
+        var pacifist = Spawn.Colonist()
+            .WithName("Pacifist")
+            .Inside(room)
+            .Doing(WorkTypeDefOf.Cleaning)
+            .IncapableOf(WorkTags.Violent)
+            .Spawn();
         var mopCell = room.Center + IntVec3.East;
         var clubCell = room.Center + IntVec3.West * 2;
-        var mop = Spawn.Thing(JanitorDefOf.Janitor_Mop, mopCell, stuff: ThingDefOf.WoodLog);
-        var club = Spawn.Thing(ScenarioDefOf.MeleeWeapon_Club, clubCell, stuff: ThingDefOf.WoodLog);
+        var mop = Spawn.Thing(JanitorDefOf.Janitor_Mop)
+            .MadeOf(ThingDefOf.WoodLog)
+            .At(mopCell)
+            .Spawn();
+        var club = Spawn.Thing(ScenarioDefOf.MeleeWeapon_Club)
+            .MadeOf(ThingDefOf.WoodLog)
+            .At(clubCell)
+            .Spawn();
 
         Require(pacifist.WorkTagIsDisabled(WorkTags.Violent));
         Check(OffersToEquip(pacifist, mop));
