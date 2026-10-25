@@ -18,7 +18,7 @@
     <value>
       <parts>
         <li Class="JanitorsCloset.Cleaning.StatPart_CleaningToolMatch"/>
-        <li Class="JanitorsCloset.Cleaning.StatPart_AreaCleanerSilentSpeed"/>
+        <li Class="JanitorsCloset.Cleaning.StatPart_AreaCleanerSpeed"/>
       </parts>
     </value>
   </Operation>

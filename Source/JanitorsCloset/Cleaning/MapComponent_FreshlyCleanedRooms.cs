@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JanitorsCloset.Defs;
 using RimWorld;
@@ -5,44 +6,48 @@ using Verse;
 
 namespace JanitorsCloset.Cleaning
 {
-    // Tracks rooms whose last non-marker filth was removed. While a room remains in
-    // that state, colonists inside it receive (and keep refreshing) the
-    // Janitor_FreshlyCleanedRoom memory. The stamp dies only when filth reappears in
-    // the room — no fixed timer.
-    //
-    // Performance shape:
-    //   * No per-tick filth scanning. Stamping is event-driven: Patch_StampFreshRoomOnClean
-    //     calls OnFilthCleanedInRoom only when a Filth instance is actually destroyed by
-    //     a cleaning JobDriver, and the room-emptiness check iterates the room's own
-    //     region filth lists (Region.ListerThings is pre-grouped, so this is just a few
-    //     ints in the common case).
-    //   * Stamp expiry is event-driven too: Patch_TrackedFilthIntoCleanRoom drops the
-    //     stamp the moment filth spawns inside it.
-    //   * The periodic refresher runs once every RefreshIntervalTicks. It iterates
-    //     FreeColonistsSpawned only, and verifies cleanliness only for rooms that
-    //     actually have a colonist in them. Skipped entirely when no rooms are stamped.
-    //
-    // Room.ID is reused as rooms split/merge from wall edits; we accept that resets the
-    // bonus on remodel rather than tracking representative cells. Stamps on orphaned
-    // room IDs cost a few bytes apiece and never grant a mood (no colonist will ever
-    // resolve to them), so we leave them alone.
+    /// <summary>Rooms a janitor cleaned to zero filth; colonists inside keep a small mood bonus until filth returns.</summary>
+    /// <remarks>Event-driven: cleaning _stamps a room, a filth spawn expires it, and a 500-tick pass refreshes moods.</remarks>
     public class MapComponent_FreshlyCleanedRooms : MapComponent
     {
-        // Scan cadence for the periodic refresher. 500 ticks ≈ 8 in-game seconds at normal
-        // speed — fast enough that "walks into a clean room and gets the mood" feels
-        // immediate, slow enough that the cost is negligible.
         private const int RefreshIntervalTicks = 500;
 
-        private Dictionary<int, int> roomCleanedTick = new Dictionary<int, int>();
+        private readonly FreshRoomStamps _stamps = new FreshRoomStamps();
+        private readonly ShimmerQueue _shimmer = new ShimmerQueue();
+        private readonly SpotlessCooldown _spotlessCooldown = new SpotlessCooldown();
+        private readonly List<IntVec3> _dueShimmers = new List<IntVec3>();
+        private readonly Func<IntVec3, int?> _roomIdAt;
 
-        public MapComponent_FreshlyCleanedRooms(Map map) : base(map) { }
+        private List<IntVec3> _savedAnchors;
+        private List<int> _savedTicks;
+
+        public MapComponent_FreshlyCleanedRooms(Map map) : base(map)
+        {
+            _roomIdAt = RoomIdAt;
+        }
+
+        public override void FinalizeInit()
+        {
+            _stamps.Restore(_savedAnchors, _savedTicks, _roomIdAt);
+            _savedAnchors = null;
+            _savedTicks = null;
+        }
 
         public override void MapComponentTick()
         {
-            // Stagger across maps so multi-map saves don't all scan on the same tick.
-            if ((Find.TickManager.TicksGame + map.uniqueID) % RefreshIntervalTicks != 0) return;
-            if (roomCleanedTick.Count == 0) return;
+            int now = Find.TickManager.TicksGame;
+            if (_shimmer.Count > 0)
+            {
+                _shimmer.TakeDue(now, _dueShimmers);
+                SpotlessMoment.Twinkle(map, _dueShimmers);
+                _dueShimmers.Clear();
+            }
 
+            // Stagger across maps so multi-map saves don't all scan on the same tick.
+            if ((now + map.uniqueID) % RefreshIntervalTicks != 0) return;
+            if (_stamps.Count == 0) return;
+
+            _stamps.Prune(_roomIdAt);
             var colonists = map.mapPawns.FreeColonistsSpawned;
             for (int i = 0; i < colonists.Count; i++)
             {
@@ -50,19 +55,21 @@ namespace JanitorsCloset.Cleaning
             }
         }
 
-        // Called from Patch_StampFreshRoomOnClean when a Filth is destroyed by a cleaning
-        // JobDriver. We re-check room cleanliness here rather than maintaining a running
-        // count — running counts drift across save/load and wall edits, and the one-shot
-        // region scan on cleaning completion is cheap.
-        public void OnFilthCleanedInRoom(Room room)
+        public void OnFilthCleanedInRoom(Room room, IntVec3 anchor, Pawn janitor)
         {
             if (room == null || room.PsychologicallyOutdoors) return;
-            if (RoomStillHasFilth(room)) return;
+            if (_stamps.IsStamped(room.ID) || RoomStillHasFilth(room)) return;
 
-            roomCleanedTick[room.ID] = Find.TickManager.TicksGame;
+            int now = Find.TickManager.TicksGame;
+            _stamps.Stamp(room.ID, anchor, now);
 
-            // Award immediately to anyone already in the room — the periodic refresher
-            // wouldn't reach them for up to RefreshIntervalTicks otherwise.
+            if (janitor != null)
+            {
+                SpotlessMoment.GrantPride(janitor);
+                if (_spotlessCooldown.TryStart(janitor.thingIDNumber, now)) SpotlessMoment.Play(janitor, room, _shimmer, now);
+            }
+
+            // Award now to anyone already inside, rather than waiting for the next refresh.
             var colonists = map.mapPawns.FreeColonistsSpawned;
             for (int i = 0; i < colonists.Count; i++)
             {
@@ -73,43 +80,36 @@ namespace JanitorsCloset.Cleaning
 
         public bool IsRoomStamped(Room room)
         {
-            return room != null && roomCleanedTick.ContainsKey(room.ID);
+            return room != null && _stamps.IsStamped(room.ID);
         }
 
         public void ExpireStamp(Room room)
         {
-            if (room == null) return;
-            roomCleanedTick.Remove(room.ID);
+            if (room != null) _stamps.Expire(room.ID);
+        }
+
+        private int? RoomIdAt(IntVec3 cell)
+        {
+            if (!cell.InBounds(map)) return null;
+            var room = cell.GetRoom(map);
+            if (room == null || room.PsychologicallyOutdoors) return null;
+            return room.ID;
         }
 
         private void TryAward(Pawn pawn)
         {
             if (pawn?.needs?.mood == null) return;
-            // Pawns currently carrying a janitor tool don't get the moodlet — being
-            // pleased by your own cleaning would be self-congratulatory.
+            // Janitors get their own pride thought instead of praising their own work.
             if (pawn.equipment?.Primary?.def.GetModExtension<CleaningToolExtension>() != null) return;
             var room = pawn.GetRoom();
-            if (room == null) return;
-            if (!roomCleanedTick.ContainsKey(room.ID)) return;
-            // Re-verify the room is still filth-free before refreshing — corpses, animal
-            // mess, or blood trails between cleanings should expire the stamp early.
-            // This is one region-filth scan per stamped, occupied room per 500-tick scan.
+            if (room == null || !_stamps.IsStamped(room.ID)) return;
             if (RoomStillHasFilth(room))
             {
-                roomCleanedTick.Remove(room.ID);
+                _stamps.Expire(room.ID);
                 return;
             }
-            GrantMemory(pawn);
-        }
-
-        private static void GrantMemory(Pawn pawn)
-        {
-            var memories = pawn?.needs?.mood?.thoughts?.memories;
-            if (memories == null) return;
             if (JanitorDefOf.Janitor_FreshlyCleanedRoom == null) return;
-            // stackLimit=1 on the ThoughtDef means this refreshes the existing memory's
-            // age rather than stacking a new instance.
-            memories.TryGainMemoryFast(JanitorDefOf.Janitor_FreshlyCleanedRoom);
+            pawn.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_FreshlyCleanedRoom);
         }
 
         private static bool RoomStillHasFilth(Room room)
@@ -121,11 +121,8 @@ namespace JanitorsCloset.Cleaning
                 for (int j = 0; j < things.Count; j++)
                 {
                     var f = things[j] as Filth;
-                    if (f == null) continue;
-                    if (MarkerFilth.IsMarker(f.def)) continue;
-                    // Region thing lists can include things in adjacent rooms when the
-                    // region spans a doorway; confirm the cell actually belongs to this
-                    // room before counting it.
+                    if (f == null || MarkerFilth.IsMarker(f.def)) continue;
+                    // A region spanning a doorway can list filth from the next room.
                     if (f.GetRoom() != room) continue;
                     return true;
                 }
@@ -136,10 +133,17 @@ namespace JanitorsCloset.Cleaning
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Collections.Look(ref roomCleanedTick, "roomCleanedTick", LookMode.Value, LookMode.Value);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && roomCleanedTick == null)
+            if (Scribe.mode == LoadSaveMode.Saving)
             {
-                roomCleanedTick = new Dictionary<int, int>();
+                _savedAnchors = _stamps.Anchors();
+                _savedTicks = _stamps.Ticks();
+            }
+            Scribe_Collections.Look(ref _savedAnchors, "freshRoomAnchors", LookMode.Value);
+            Scribe_Collections.Look(ref _savedTicks, "freshRoomTicks", LookMode.Value);
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                _savedAnchors = null;
+                _savedTicks = null;
             }
         }
     }

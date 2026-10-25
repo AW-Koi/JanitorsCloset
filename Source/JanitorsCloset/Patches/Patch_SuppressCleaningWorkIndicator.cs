@@ -28,7 +28,7 @@ namespace JanitorsCloset.Patches
         {
             if (__result == null || __instance == null) return;
 
-            var driver = Patch_TrackCurrentJobDriver.Current;
+            var driver = ActiveCleaningDriver.Current;
             var primary = driver?.pawn?.equipment?.Primary;
             if (primary == null) return;
             var ext = primary.def.GetModExtension<CleaningToolExtension>();

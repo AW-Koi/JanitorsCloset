@@ -42,7 +42,7 @@ namespace JanitorsCloset.Patches
 
             // Filth can be removed by rain/age/fire too — only spawn marks for cleaning work
             // performed by a mop-equipped cleaner.
-            var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
+            var driver = ActiveCleaningDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
             if (driver.pawn?.equipment?.Primary?.def != JanitorDefOf.Janitor_Mop) return;
 

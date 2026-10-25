@@ -19,9 +19,9 @@ namespace JanitorsCloset.Patches
     [HarmonyPatch(typeof(Filth), nameof(Filth.SpawnSetup))]
     public static class Patch_TrackedFilthIntoCleanRoom
     {
-        public static void Postfix(Filth __instance)
+        public static void Postfix(Filth __instance, bool respawningAfterLoad)
         {
-            if (__instance == null || __instance.Map == null) return;
+            if (respawningAfterLoad || __instance == null || __instance.Map == null) return;
 
             if (MarkerFilth.IsMarker(__instance.def)) return;
 
@@ -49,7 +49,8 @@ namespace JanitorsCloset.Patches
             for (int i = 0; i < things.Count; i++)
             {
                 var pawn = things[i] as Pawn;
-                if (pawn == null) continue;
+                // A downed or bedridden pawn didn't walk the mess in.
+                if (pawn == null || pawn.Downed || pawn.InBed()) continue;
                 if (pawn.needs?.mood == null) continue;
                 pawn.needs.mood.thoughts.memories.TryGainMemoryFast(JanitorDefOf.Janitor_TrackedFilthIntoCleanRoom);
                 if (debug) Log.Message($"[Janitor's Closet]   awarded tracked-filth thought to {pawn.LabelShort}");

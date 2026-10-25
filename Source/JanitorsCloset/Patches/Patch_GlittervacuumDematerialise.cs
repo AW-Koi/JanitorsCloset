@@ -11,7 +11,7 @@ namespace JanitorsCloset.Patches
     // When a Glittervacuum-equipped pawn finishes cleaning a filth tile:
     //   1. Drift a few cyan-tinted thick puffs upward at the cell — the un-coupled matter
     //      floating away. No glow flash, no sparks; the during-cleaning pulse glow
-    //      (Patch_GlittervacuumCleaningGlow) already supplies the energy half.
+    //      (GlittervacuumGlow) already supplies the energy half.
     //   2. Dematerialise any *other* filth still on the same cell, plus all filth on
     //      the 8 adjacent cells. Flavor: the field uncouples a 3x3 patch of reality at
     //      once, not just the one piece of dirt the toil was tracking. A single
@@ -20,13 +20,13 @@ namespace JanitorsCloset.Patches
     //      this is a coverage-for-per-tile-speed rebalance, not a flat buff.
     //
     // Layer accounting for the targeted filth is handled separately by
-    // Patch_GlittervacuumLayerCollapse, which collapses thickness to 1 at toil init
+    // GlittervacuumLayerCollapse, which collapses thickness to 1 at toil init
     // so vanilla's totalCleaningWorkRequired is computed for a single layer — keeps
     // the progress bar in sync regardless of how many layers vanilla rolled onto
     // whichever filth the toil happened to target.
     //
     // Mirrors Patch_SpawnMopMark in hook and gating (Filth.ThinFilth postfix +
-    // Patch_TrackCurrentJobDriver.Current check).
+    // ActiveCleaningDriver.Current check).
     [HarmonyPatch(typeof(Filth), nameof(Filth.ThinFilth))]
     public static class Patch_GlittervacuumDematerialise
     {
@@ -53,7 +53,7 @@ namespace JanitorsCloset.Patches
             if (__state.Map == null) return;
             if (__state.OriginalDef == JanitorDefOf.Janitor_MopMark) return;
 
-            var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
+            var driver = ActiveCleaningDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
             var weaponDef = driver.pawn?.equipment?.Primary?.def;
             if (weaponDef == null) return;

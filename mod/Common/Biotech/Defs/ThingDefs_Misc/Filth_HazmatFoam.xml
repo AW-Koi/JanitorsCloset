@@ -17,7 +17,7 @@
       * Decays in hours, not days — long enough to read at distance while the work
           happens, short enough that the colony isn't permanently foam-marked.
 
-    Lives under 1.6/Biotech/ alongside the Hazmat Sprayer ThingDef — the foam only exists
+    Lives under Common/Biotech/ alongside the Hazmat Sprayer ThingDef — the foam only exists
     because the sprayer spawns it, so without Biotech (i.e. without the sprayer) the def
     would be dead weight.
   -->

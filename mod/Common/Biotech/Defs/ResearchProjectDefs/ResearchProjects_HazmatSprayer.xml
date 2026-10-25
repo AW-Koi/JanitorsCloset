@@ -4,7 +4,7 @@
   <!--
     Toxic Cleanup — Biotech-only mid-industrial research. The Hazmat Sprayer is
     the only thing it gates, and the sprayer itself only exists with Biotech, so
-    this def lives under 1.6/Biotech/ alongside it.
+    this def lives under Common/Biotech/ alongside it.
 
     If Vanilla Armour Expanded is installed, Patches/Patch_HazmatSprayer_VAE.xml
     re-routes the sprayer onto VAE's VAE_HazardProtection research and removes
@@ -20,7 +20,7 @@
     <prerequisites>
       <li>Sanitation</li>
     </prerequisites>
-    <researchViewX>5.50</researchViewX>
+    <researchViewX>5.20</researchViewX>
     <researchViewY>2.20</researchViewY>
     <tab>Main</tab>
   </ResearchProjectDef>

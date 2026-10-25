@@ -12,7 +12,7 @@ namespace JanitorsCloset.Defs
         public static ThingDef Janitor_MopMark;
         public static ThingDef Janitor_Glittervacuum;
 
-        // Hazmat Sprayer ThingDef and its marker filth — defined under 1.6/Biotech/ and
+        // Hazmat Sprayer ThingDef and its marker filth — defined under Common/Biotech/ and
         // only loaded when Biotech is active. [MayRequire] tells DefOfHelper to leave the
         // field null rather than log a missing-def warning when the DLC isn't present.
         // Every consumer of these fields null-checks before use.
@@ -34,6 +34,12 @@ namespace JanitorsCloset.Defs
 
         // Memory thought granted to colonists in a room whose last filth was just cleaned.
         public static ThoughtDef Janitor_FreshlyCleanedRoom;
+
+        // The janitor's spotless-room moment: pride thought, glint, floor shimmer and chime.
+        public static ThoughtDef Janitor_SpotlessWork;
+        public static FleckDef Janitor_SpotlessGlint;
+        public static FleckDef Janitor_SpotlessShimmer;
+        public static SoundDef Janitor_SpotlessChime;
 
         // Memory thoughts for bystanders/perpetrators of janitor side effects.
         public static ThoughtDef Janitor_SplashedByMop;

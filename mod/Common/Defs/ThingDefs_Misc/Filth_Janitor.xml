@@ -20,7 +20,7 @@
         change purely additive on the C# side.
   -->
   <!-- Janitor_HazmatFoam (the sprayer's marker filth) lives in
-       1.6/Biotech/Defs/ThingDefs_Misc/Filth_HazmatFoam.xml — Biotech-gated alongside the
+       Common/Biotech/Defs/ThingDefs_Misc/Filth_HazmatFoam.xml — Biotech-gated alongside the
        sprayer that spawns it. -->
 
   <ThingDef ParentName="BaseFilth">

@@ -23,7 +23,7 @@ namespace JanitorsCloset.Patches
     // off after the local blood to find more blood elsewhere instead of grinding
     // through queued trash. When nothing in the queue matches, we leave it alone:
     // the pawn is already doing fallback work, stripping it would just stall them.
-    // Companion to Patch_CleanFilthCategoryBias, which handles the initial pick.
+    // Companion to Patch_CleanFilthGetPriority, which handles the initial pick.
     [HarmonyPatch(typeof(WorkGiver_CleanFilth), nameof(WorkGiver_CleanFilth.JobOnThing))]
     [UsedImplicitly]
     public static class Patch_CleanFilthQueueCategoryOrder
@@ -32,9 +32,10 @@ namespace JanitorsCloset.Patches
         // loop; reusing the list avoids one allocation per pick.
         [System.ThreadStatic] private static List<LocalTargetInfo> _scratch;
 
-        public static void Postfix(Pawn pawn, Job __result)
+        public static void Postfix(Pawn pawn, bool forced, Job __result)
         {
-            if (__result == null || pawn == null) return;
+            // A player's forced order keeps the filth they clicked.
+            if (forced || __result == null || pawn == null) return;
             var queue = __result.targetQueueA;
             if (queue == null || queue.Count < 2) return;
 
@@ -91,6 +92,7 @@ namespace JanitorsCloset.Patches
             for (int i = 0; i < original.Count; i++)
             {
                 var d = original[i].Thing?.def;
+                if (d == null) continue;
                 counts.TryGetValue(d, out var c);
                 counts[d] = c + 1;
             }

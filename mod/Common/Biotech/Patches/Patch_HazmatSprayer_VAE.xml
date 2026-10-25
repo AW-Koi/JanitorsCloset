@@ -11,7 +11,7 @@
     on the mod's display name — robust against the mod being renamed or
     repackaged, and avoids hard-coding a string the user can't influence.
 
-    This file lives under 1.6/Biotech/ so it only loads when Biotech is also
+    This file lives under Common/Biotech/ so it only loads when Biotech is also
     active. Without Biotech the sprayer doesn't exist and there is nothing
     to patch.
   -->

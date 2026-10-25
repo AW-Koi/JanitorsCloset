@@ -5,7 +5,7 @@
        Decontamination foam through a backpack-fed wand. Doesn't help with everyday filth —
        its bonus only counts toward the "clear pollution" job. A wasteland tool.
 
-       Lives under 1.6/Biotech/ and is only loaded when the Biotech DLC is active (gated
+       Lives under Common/Biotech/ and is only loaded when the Biotech DLC is active (gated
        via LoadFolders.xml IfModActive="Ludeon.RimWorld.Biotech"). Without Biotech there
        is no pollution to clean, so the def would have nothing to do. -->
   <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">

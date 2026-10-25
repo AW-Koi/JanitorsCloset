@@ -239,7 +239,7 @@
     </tools>
   </ThingDef>
 
-  <!-- The Hazmat Sprayer lives in 1.6/Biotech/Defs/ThingDefs_Misc/Weapons_HazmatSprayer.xml —
+  <!-- The Hazmat Sprayer lives in Common/Biotech/Defs/ThingDefs_Misc/Weapons_HazmatSprayer.xml —
        loaded only when the Biotech DLC is active. It's a pollution-clearing specialist, so
        without Biotech the tool has nothing to clean. -->
 

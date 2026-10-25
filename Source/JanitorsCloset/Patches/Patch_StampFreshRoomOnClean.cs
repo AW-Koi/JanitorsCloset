@@ -13,7 +13,7 @@ namespace JanitorsCloset.Patches
     // hit zero thickness (Destroyed). Cell + Map are captured in the prefix because
     // Filth.Map goes null on Destroy.
     //
-    // Gated on Patch_TrackCurrentJobDriver.Current so we ignore natural decay paths
+    // Gated on ActiveCleaningDriver.Current so we ignore natural decay paths
     // (rain, fire, age) — only deliberate cleaning work counts as "the room got cleaned".
     [HarmonyPatch(typeof(Filth), nameof(Filth.ThinFilth))]
     public static class Patch_StampFreshRoomOnClean
@@ -46,7 +46,7 @@ namespace JanitorsCloset.Patches
 
             // Only count this as "cleaning" if a cleaning JobDriver was actually running.
             // Filth also disappears from rain/fire/age — those shouldn't grant moodlets.
-            var driver = Patch_TrackCurrentJobDriver.Current as JobDriver_CleanFilth;
+            var driver = ActiveCleaningDriver.Current as JobDriver_CleanFilth;
             if (driver == null) return;
 
             // Restrict the room-fresh moodlet to janitor work — the cleaner must be wielding
@@ -60,7 +60,7 @@ namespace JanitorsCloset.Patches
             if (room == null) return;
 
             var comp = __state.Map.GetComponent<MapComponent_FreshlyCleanedRooms>();
-            comp?.OnFilthCleanedInRoom(room);
+            comp?.OnFilthCleanedInRoom(room, __state.Cell, driver.pawn);
         }
     }
 }

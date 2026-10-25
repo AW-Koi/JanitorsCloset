@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <!--
-    Janitor_GlittervacuumPulse — the slow cyan "field is working" glow that sits under
-    the Glittervacuum's wand head while a pawn is cleaning. Spawned by
-    Patch_GlittervacuumCleaningGlow on a slow cadence so the fade-in/fade-out curves
-    blend into a continuous breathing pulse instead of a strobing flash.
-
-    Reuses vanilla `Things/Mote/LightningGlow` texture so we don't ship art — the
-    MoteGlow shader plus the cyan tint reads as a glitterworld field projector, not a
-    lightning flash. Tune the fade times to change the breathing speed.
-  -->
+  <!-- Breathing glow under the glittervacuum head, respawned by GlittervacuumGlow. -->
   <FleckDef>
     <defName>Janitor_GlittervacuumPulse</defName>
     <fleckSystemClass>Verse.FleckSystemStatic</fleckSystemClass>
@@ -26,10 +17,35 @@
     <fadeOutTime>0.4</fadeOutTime>
   </FleckDef>
 
-  <!-- Janitor_HazmatChemSpray (the sprayer's wand-tip puff fleck) lives in
-       1.6/Biotech/Defs/FleckDefs/FleckDefs_HazmatSprayer.xml — Biotech-gated alongside
-       the sprayer. The durable "tile was sprayed" marker is a FilthDef (Janitor_HazmatFoam,
-       under 1.6/Biotech/Defs/ThingDefs_Misc/Filth_HazmatFoam.xml); see Patch_SpawnHazmatFoam
-       for the spawn rules. -->
+  <!-- Spotless moment: a glint over the janitor, then faint twinkles across the room floor. -->
+  <FleckDef>
+    <defName>Janitor_SpotlessGlint</defName>
+    <fleckSystemClass>Verse.FleckSystemStatic</fleckSystemClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <graphicData>
+      <texPath>Things/Mote/Janitor_Glint</texPath>
+      <shaderType>MoteGlow</shaderType>
+      <graphicClass>Graphic_Fleck</graphicClass>
+      <color>(1.0, 0.97, 0.88, 0.85)</color>
+    </graphicData>
+    <fadeInTime>0.1</fadeInTime>
+    <solidTime>0.3</solidTime>
+    <fadeOutTime>0.55</fadeOutTime>
+  </FleckDef>
+
+  <FleckDef>
+    <defName>Janitor_SpotlessShimmer</defName>
+    <fleckSystemClass>Verse.FleckSystemStatic</fleckSystemClass>
+    <altitudeLayer>MoteLow</altitudeLayer>
+    <graphicData>
+      <texPath>Things/Mote/Janitor_Glint</texPath>
+      <shaderType>MoteGlow</shaderType>
+      <graphicClass>Graphic_Fleck</graphicClass>
+      <color>(0.85, 0.95, 1.0, 0.45)</color>
+    </graphicData>
+    <fadeInTime>0.2</fadeInTime>
+    <solidTime>0.05</solidTime>
+    <fadeOutTime>0.45</fadeOutTime>
+  </FleckDef>
 
 </Defs>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ArchoHome Condition="'$(ArchoHome)' == ''">..\..\ArchotechHarness</ArchoHome>
+    <RootNamespace>JanitorsCloset.Scenarios</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(ArchoHome)\build\ArchotechScenarios.props" />
+
+  <ItemGroup>
+    <Reference Include="JanitorsCloset" HintPath="..\mod\1.7\Assemblies\JanitorsCloset.dll" Private="false" />
+  </ItemGroup>
+</Project>

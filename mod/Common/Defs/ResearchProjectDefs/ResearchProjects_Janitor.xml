@@ -11,8 +11,8 @@
     <description>The humble art of keeping a dwelling fit to live in. Bundles of straw bound to sticks, dustpans hewn from bark, and the realisation that grit on the floor eventually finds the inside of a wound.</description>
     <baseCost>200</baseCost>
     <techLevel>Neolithic</techLevel>
-    <researchViewX>0.50</researchViewX>
-    <researchViewY>1.20</researchViewY>
+    <researchViewX>1.80</researchViewX>
+    <researchViewY>1.30</researchViewY>
     <tab>Main</tab>
   </ResearchProjectDef>
 
@@ -53,7 +53,7 @@
       <li>Fabrication</li>
     </prerequisites>
     <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-    <researchViewX>9.00</researchViewX>
+    <researchViewX>9.80</researchViewX>
     <researchViewY>1.20</researchViewY>
     <tab>Main</tab>
   </ResearchProjectDef>

@@ -43,7 +43,7 @@ namespace JanitorsCloset.Patches
             if (!__0.defName.StartsWith("Interact_CleanFilth")) return;
 
             // Tracked driver covers filth, pollution, and weather-buildup jobs.
-            var driver = Patch_TrackCurrentJobDriver.Current;
+            var driver = ActiveCleaningDriver.Current;
             Pawn pawn = null;
             bool isWeatherBuildupJob = false;
             if (driver is JobDriver_CleanFilth filthDriver) pawn = filthDriver.pawn;

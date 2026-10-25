@@ -24,7 +24,8 @@
         <defName>Janitor_AnnoyedByDeconFoam</defName>
         <thoughtClass>Thought_MemorySocial</thoughtClass>
         <durationDays>0.3</durationDays>
-        <stackLimit>1</stackLimit>
+        <stackLimit>10</stackLimit>
+        <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
         <stages>
             <li>
                 <label>sprayed me with decontaminant</label>

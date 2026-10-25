@@ -38,10 +38,14 @@ namespace JanitorsCloset.Cleaning
 
         private static CleaningCategory? ResolveUncached(Pawn pawn)
         {
-            var ext = pawn.equipment?.Primary?.def?.GetModExtension<CleaningToolExtension>();
-            if (ext == null) return null;
-            bool hasDry = ext.Matches(CleaningCategory.Dry);
-            bool hasWet = ext.Matches(CleaningCategory.Wet);
+            return PreferredCategory(pawn.equipment?.Primary?.def?.GetModExtension<CleaningToolExtension>());
+        }
+
+        public static CleaningCategory? PreferredCategory(CleaningToolExtension tool)
+        {
+            if (tool == null) return null;
+            bool hasDry = tool.Matches(CleaningCategory.Dry);
+            bool hasWet = tool.Matches(CleaningCategory.Wet);
             if (hasDry == hasWet) return null;
             return hasDry ? CleaningCategory.Dry : CleaningCategory.Wet;
         }

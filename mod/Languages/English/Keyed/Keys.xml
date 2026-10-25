@@ -12,8 +12,11 @@
     <JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>The cleaning speed bonus from this tool also applies while clearing accumulated snow or windblown sand from the ground.</JanitorsCloset.CleaningTool.SpecialtyExplanationWeatherBuildup>
     <JanitorsCloset.CleaningTool.ToxicBonus>HAZMAT cleaning tool</JanitorsCloset.CleaningTool.ToxicBonus>
     <JanitorsCloset.CleaningTool.WeatherBuildupBonus>Clearing weather buildup</JanitorsCloset.CleaningTool.WeatherBuildupBonus>
+    <JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>Tool bonus applies only to: {0}</JanitorsCloset.CleaningTool.BonusAppliesOnlyTo>
+    <JanitorsCloset.CleaningTool.AreaCleanerPerTile>Area dematerialisation, per tile</JanitorsCloset.CleaningTool.AreaCleanerPerTile>
+    <JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>Area dematerialisation, per tile while cleaning</JanitorsCloset.CleaningTool.AreaCleanerPerTileWhenCleaning>
     <JanitorsCloset.CleaningTool.SpecialtyStackClear>Area dematerialisation (3x3)</JanitorsCloset.CleaningTool.SpecialtyStackClear>
-    <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises every layer of filth on the target tile and its eight neighbours in a single pass, not just the topmost piece on the target tile. The per-tile cleaning speed is unchanged; the trick is that nine tiles are cleared at once.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
+    <JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>This tool dematerialises every layer of filth on the target tile and its eight neighbours in a single pass, not just the topmost piece on the target tile. Each tile cleans at half speed; the trick is that nine tiles are cleared at once.</JanitorsCloset.CleaningTool.SpecialtyExplanationStackClear>
     <JanitorsCloset.CleaningAssignment.Label.Any>Clean anywhere</JanitorsCloset.CleaningAssignment.Label.Any>
     <JanitorsCloset.CleaningAssignment.Label.Indoors>Clean indoors</JanitorsCloset.CleaningAssignment.Label.Indoors>
     <JanitorsCloset.CleaningAssignment.Label.Outdoors>Clean outdoors</JanitorsCloset.CleaningAssignment.Label.Outdoors>
