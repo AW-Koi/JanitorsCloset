@@ -12,7 +12,7 @@
             <li>
                 <label>freshly cleaned room</label>
                 <description>That room was spotless. I'm glad we have a janitor around.</description>
-                <baseMoodEffect>3</baseMoodEffect>
+                <baseMoodEffect>1</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>

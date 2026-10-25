@@ -67,7 +67,7 @@ namespace JanitorsCloset.Cleaning
             for (int i = 0; i < colonists.Count; i++)
             {
                 var p = colonists[i];
-                if (p?.GetRoom() == room) GrantMemory(p);
+                if (p?.GetRoom() == room) TryAward(p);
             }
         }
 
@@ -85,6 +85,9 @@ namespace JanitorsCloset.Cleaning
         private void TryAward(Pawn pawn)
         {
             if (pawn?.needs?.mood == null) return;
+            // Pawns currently carrying a janitor tool don't get the moodlet — being
+            // pleased by your own cleaning would be self-congratulatory.
+            if (pawn.equipment?.Primary?.def.GetModExtension<CleaningToolExtension>() != null) return;
             var room = pawn.GetRoom();
             if (room == null) return;
             if (!roomCleanedTick.ContainsKey(room.ID)) return;
