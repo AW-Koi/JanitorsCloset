@@ -8,6 +8,11 @@
   </PropertyGroup>
   <Import Project="$(ArchoHome)\build\ArchotechScenarios.props" Condition="Exists('$(ArchoHome)\build\ArchotechScenarios.props')" />
 
+  <!-- The mod under test, built before every run. -->
+  <ItemGroup>
+    <ArchoMod Include="../mod" Build="dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json" BuildIn=".." />
+  </ItemGroup>
+
   <ItemGroup>
     <Reference Include="JanitorsCloset" HintPath="..\mod\1.7\Assemblies\JanitorsCloset.dll" Private="false" />
   </ItemGroup>

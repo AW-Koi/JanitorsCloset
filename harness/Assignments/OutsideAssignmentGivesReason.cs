@@ -1,10 +1,9 @@
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Assignments;
 
 /// <summary>Ordering an outdoors-only janitor to clean indoor filth fails with a reason the float menu can show.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class OutsideAssignmentGivesReason : HarnessScenario
 {
     public override async Task Run()

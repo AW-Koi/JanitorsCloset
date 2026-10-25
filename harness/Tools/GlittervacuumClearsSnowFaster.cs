@@ -1,10 +1,9 @@
 using UnityEngine;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Tools;
 
 /// <summary>A glittervacuum speeds up clearing snow, like the brooms do.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class GlittervacuumClearsSnowFaster : HarnessScenario
 {
     private const float GlittervacuumBonus = 1f;

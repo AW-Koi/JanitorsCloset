@@ -1,7 +1,6 @@
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Cleaning;
 
 /// <summary>Blood's info card says it is wet filth, so players know which tool suits it.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class FilthInfoCardShowsCategory : HarnessScenario
 {
     public override Task Run()

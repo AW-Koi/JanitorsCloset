@@ -1,10 +1,9 @@
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Assignments;
 
 /// <summary>A mop lying on the floor tells the player its cleaning assignment when inspected.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class ToolInspectShowsAssignment : HarnessScenario
 {
     public override Task Run()

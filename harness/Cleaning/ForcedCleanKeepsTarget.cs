@@ -1,13 +1,13 @@
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Cleaning;
 
 /// <summary>A forced "Prioritize cleaning" on blood keeps the blood queued, even when the broom prefers nearby dirt.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class ForcedCleanKeepsTarget : HarnessScenario
 {
     public override async Task Run()
     {
+        // A janitor with a push broom, which prefers dry filth.
         Clock.Speed = TimeSpeed.Paused;
         var room = Build.Room()
             .Size(8, 7)
@@ -23,15 +23,18 @@ public sealed class ForcedCleanKeepsTarget : HarnessScenario
             .MadeOf(ThingDefOf.WoodLog)
             .GivenTo(janitor)
             .Spawn();
+
+        // Blood flanked by dirt, so the broom has nearer dry work to prefer.
         var bloodCell = room.Center + IntVec3.East;
         var blood = Spawn.Filth(ThingDefOf.Filth_Blood, bloodCell);
         Spawn.Filth(ThingDefOf.Filth_Dirt, bloodCell + IntVec3.North);
         Spawn.Filth(ThingDefOf.Filth_Dirt, bloodCell + IntVec3.South);
-        // Vanilla only queues filth that has sat for 600 ticks.
+        // Age the filth past vanilla's 600-tick wait before it counts as work.
         Clock.Speed = TimeSpeed.Superfast;
         await Ticks(700);
         Clock.Speed = TimeSpeed.Paused;
 
+        // A forced order on the blood keeps the blood in the job's queue.
         var cleaning = (WorkGiver_Scanner)ScenarioDefOf.CleanFilth.Worker;
         var job = cleaning.JobOnThing(janitor, blood, forced: true);
 

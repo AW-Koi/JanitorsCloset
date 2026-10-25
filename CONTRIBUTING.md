@@ -21,7 +21,7 @@ Open the repo folder in your editor, so it loads `JanitorsCloset.sln` with the m
 ## Showing a change works
 
 - **Logic** that runs without the game gets a unit test in `Source/JanitorsCloset.Tests`. Write the failing test first.
-- **Gameplay** gets a scenario in `harness/` that sets up the situation, lets the game run and checks the outcome. Run them with `<archotech harness>/archo test harness --workers auto`. For a bug fix, show that the scenario fails without the fix.
+- **Gameplay** gets a scenario in `harness/` that sets up the situation, lets the game run and checks the outcome. Put it in the folder for its feature, such as `harness/Cleaning/`, and start each block with a one-line comment saying what it sets up or checks. `Scenarios.csproj` declares the mod once, so scenarios need no `[Mod]` attribute. Run them with `<archotech harness>/archo test harness --workers auto`. For a bug fix, show that the scenario fails without the fix.
 - **Warnings**: clear every ReSharper InspectCode warning in the files you touch. `dotnet build` doesn't report them:
 
   ```

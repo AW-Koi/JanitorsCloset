@@ -1,10 +1,9 @@
 using UnityEngine;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Tools;
 
 /// <summary>A tool's cleaning bonus scales with its quality, on vanilla's tool-quality curve.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class QualityScalesCleaningBonus : HarnessScenario
 {
     private const float PushBroomBonus = 0.6f;

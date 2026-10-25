@@ -1,7 +1,6 @@
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Settings;
 
 /// <summary>The mod's settings page, which holds only diagnostics, is listed only in development mode.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class SettingsOnlyInDevMode : HarnessScenario
 {
     public override Task Run()
@@ -9,7 +8,7 @@ public sealed class SettingsOnlyInDevMode : HarnessScenario
         var mod = LoadedModManager.GetMod<JanitorsCloset>();
         var devModeBefore = Prefs.DevMode;
 
-        // Out of development mode the settings page has no category, so the options list skips it.
+        // Out of development mode the settings page isn't listed.
         Prefs.DevMode = false;
         Check(mod.SettingsCategory().NullOrEmpty());
 

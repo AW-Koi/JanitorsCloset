@@ -1,9 +1,8 @@
 using JanitorsCloset.Cleaning;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Cleaning;
 
 /// <summary>Fleshmass debris counts as wet filth for the mop, despite its dry cleaning sound.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 [Dlc("anomaly")]
 public sealed class FleshmassIsWet : HarnessScenario
 {

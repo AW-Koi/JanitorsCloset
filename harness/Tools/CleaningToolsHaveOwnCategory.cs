@@ -1,9 +1,8 @@
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Tools;
 
 /// <summary>Cleaning tools sit in their own stockpile category under weapons, apart from melee weapons.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class CleaningToolsHaveOwnCategory : HarnessScenario
 {
     public override Task Run()

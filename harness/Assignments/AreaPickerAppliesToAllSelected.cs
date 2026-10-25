@@ -1,10 +1,9 @@
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Assignments;
 
 /// <summary>With two janitors selected, picking a cleaning area from their shared gizmo restricts both tools.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class AreaPickerAppliesToAllSelected : HarnessScenario
 {
     public override Task Run()

@@ -1,10 +1,9 @@
 using JanitorsCloset.Cleaning;
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Assignments;
 
 /// <summary>A visitor carrying a mop shows no cleaning-assignment gizmos; a colonist with one does.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class ToolGizmosOnlyForColonists : HarnessScenario
 {
     public override Task Run()

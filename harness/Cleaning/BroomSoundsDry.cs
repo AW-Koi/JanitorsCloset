@@ -1,13 +1,13 @@
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Cleaning;
 
 /// <summary>A push broom sweeping blood plays the dry sweeping sound, not vanilla's wet one.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class BroomSoundsDry : HarnessScenario
 {
     public override async Task Run()
     {
+        // A lone janitor with a push broom and one thick pool of blood.
         Clock.Speed = TimeSpeed.Paused;
         var room = Build.Room()
             .Size(7, 7)
@@ -29,6 +29,7 @@ public sealed class BroomSoundsDry : HarnessScenario
         Spawn.Filth(ThingDefOf.Filth_Blood, room.Center, thickness: 5);
         Camera.Follow(janitor, zoom: 11f);
 
+        // While sweeping the blood, the dry sound plays and the wet one doesn't.
         Clock.Speed = TimeSpeed.Normal;
         await Until(() => janitor.CurrentJob() == JobDefOf.Clean && Playing(JanitorDefOf.Interact_CleanFilth_Dirt), timeoutSeconds: 60);
         Check(!Playing(JanitorDefOf.Interact_CleanFilth_Fluid));

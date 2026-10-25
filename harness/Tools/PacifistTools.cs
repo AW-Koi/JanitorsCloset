@@ -1,13 +1,13 @@
 using JanitorsCloset.Defs;
 
-namespace JanitorsCloset.Scenarios;
+namespace JanitorsCloset.Scenarios.Tools;
 
 /// <summary>A colonist incapable of violence can equip a mop from the right-click menu but still can't equip a club.</summary>
-[Mod("../mod", Build = "dotnet build Source/JanitorsCloset/JanitorsCloset.csproj --source https://api.nuget.org/v3/index.json", BuildIn = "..")]
 public sealed class PacifistTools : HarnessScenario
 {
     public override async Task Run()
     {
+        // A colonist incapable of violence in a closed room.
         Clock.Speed = TimeSpeed.Paused;
         var room = Build.Room()
             .Size(8, 7)
@@ -21,6 +21,8 @@ public sealed class PacifistTools : HarnessScenario
             .Doing(WorkTypeDefOf.Cleaning)
             .IncapableOf(WorkTags.Violent)
             .Spawn();
+
+        // A mop and a club on the floor beside them.
         var mopCell = room.Center + IntVec3.East;
         var clubCell = room.Center + IntVec3.West * 2;
         var mop = Spawn.Thing(JanitorDefOf.Janitor_Mop)
@@ -32,10 +34,14 @@ public sealed class PacifistTools : HarnessScenario
             .At(clubCell)
             .Spawn();
 
+
+        // Right-clicking offers to equip the mop but not the club.
         Require(pacifist.WorkTagIsDisabled(WorkTags.Violent));
         Check(OffersToEquip(pacifist, mop));
         Check(!OffersToEquip(pacifist, club));
 
+
+        // A screenshot of the room for the report.
         Camera.Frame(room);
         await Shot("room");
     }
