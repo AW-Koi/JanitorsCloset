@@ -1,10 +1,10 @@
 # Build output
-Source/**/bin/
-Source/**/obj/
+**/bin/
+**/obj/
 
 # Built DLLs (regenerated on build)
-mod/1.6/Assemblies/*.dll
-mod/1.6/Assemblies/*.pdb
+mod/*/Assemblies/*.dll
+mod/*/Assemblies/*.pdb
 
 # IDE / Rider / Visual Studio
 *.user

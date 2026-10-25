@@ -17,7 +17,7 @@ Janitor's Closet is a RimWorld mod that turns the colony janitor from a chore in
 
 ## Compatibility
 
-- **RimWorld 1.6** only (current target).
+- **RimWorld 1.7** only.
 - Harmony is a hard dependency (declared in `About.xml`).
 
 ## Repo layout
@@ -31,7 +31,8 @@ JanitorsCloset/                    <- repo root (.git, Source, README, .sln)
     ├── About/
     ├── Languages/
     ├── Textures/
-    ├── 1.6/
+    ├── Common/                    <- defs and patches shared by every game version
+    ├── 1.7/                       <- 1.7 DLL only
     └── LoadFolders.xml
 ```
 
@@ -39,7 +40,7 @@ This keeps `.git/` and `Source/` (`.ai`/`.psd` design files) out of the Workshop
 
 ## Building
 
-The C# project is at `Source/JanitorsCloset/JanitorsCloset.csproj`. It outputs the DLL into `mod/1.6/Assemblies/`. References point to `Assembly-CSharp.dll` and Unity assemblies under your local RimWorld install — adjust the `HintPath` values in the csproj if your install isn't at the default Steam path.
+The C# project is at `Source/JanitorsCloset/JanitorsCloset.csproj`. It targets .NET 10 and outputs the DLL into `mod/1.7/Assemblies/`. It references `Assembly-CSharp.dll`, `UnityStubs.dll` and `Waylith.dll` in your RimWorld install root. Set `RimWorldDir` in the csproj if your install isn't at the default Steam path.
 
 ```
 dotnet build "Source/JanitorsCloset/JanitorsCloset.csproj"
