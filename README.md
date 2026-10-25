@@ -70,3 +70,7 @@ Gameplay is tested end to end with [Archotech Harness](https://github.com/AW-Koi
 - Gear should give meaningful, specialised speed bonuses.
 - Janitors should act on their own: spot big messes, put out wet-floor signs.
 - A janitor's closet should give them a home base to resupply from.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Janitor's Closet is released under the [MIT licence](LICENSE).

@@ -1,0 +1,52 @@
+# Contributing to Janitor's Closet
+
+Thanks for helping. This guide covers setting up, the conventions the code follows, and how to show a change works.
+
+## Setting up
+
+1. Install RimWorld 1.7, the .NET 10 SDK and the [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077) mod.
+2. Clone this repo. The build finds RimWorld through Steam; for other installs, set `RIMWORLD_DIR`.
+3. Clone [Archotech Harness](https://github.com/AW-Koi/archotech-harness) next to this repo, or set `ARCHO_HOME` to it, for the in-game scenarios.
+4. Build and test:
+
+   ```
+   dotnet build Source/JanitorsCloset
+   dotnet test Source/JanitorsCloset.Tests
+   ```
+
+5. Link `mod/` into RimWorld's `Mods` folder to play with your build, as the [README](README.md#running-it-in-rimworld) describes.
+
+Open the repo folder in your editor, so it loads `JanitorsCloset.sln` with the mod, the tests and the scenarios.
+
+## Showing a change works
+
+- **Logic** that runs without the game gets a unit test in `Source/JanitorsCloset.Tests`. Write the failing test first.
+- **Gameplay** gets a scenario in `harness/` that sets up the situation, lets the game run and checks the outcome. Run them with `<archotech harness>/archo test harness --workers auto`. For a bug fix, show that the scenario fails without the fix.
+- **Warnings**: clear every ReSharper InspectCode warning in the files you touch. `dotnet build` doesn't report them:
+
+  ```
+  jb inspectcode JanitorsCloset.sln --no-build --severity=WARNING --output=inspect.sarif
+  ```
+
+## Code conventions
+
+- One top-level type per file, named after the type.
+- Reference defs through `DefOf` classes (`ThingDefOf.Filth_Blood`, `JanitorDefOf.Janitor_Mop`), never by defName string. Add a field to a `[DefOf]` class when one is missing.
+- Keep per-tick work off pawns that aren't cleaning, and allocate nothing per tick.
+- A comment labels a block in one short line. Design reasoning belongs in the commit message.
+- Player-facing text lives in `mod/Languages/English/Keyed/` or in def fields, never in C# strings.
+- Don't hard-code paths or anything specific to your machine.
+
+## Defs and content
+
+- Defs and patches go in `mod/Common/`. Biotech-only content goes in `mod/Common/Biotech/`, which loads only with Biotech.
+- Thought labels are lowercase, and memory descriptions are in the past tense, as in vanilla.
+- Art and sound sources go next to the code in `Source/JanitorsCloset/Art` and `Source/JanitorsCloset/Sound`. Shipped textures and sounds go under `mod/`.
+
+## Writing
+
+Write prose in British English, in the active voice. That covers commit messages, comments and docs. Commit subjects are short imperatives, such as "Keep the clicked filth in a forced cleaning order", with the reasoning in the body.
+
+## Licence
+
+By contributing, you agree your contribution is released under the [MIT licence](LICENSE).
