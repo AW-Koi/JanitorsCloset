@@ -4,7 +4,7 @@ Status as of 25 October 2026. Janitor's Closet `main` is at `06f7246`. Archotech
 
 ## Where things stand
 
-Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Every gameplay change has an in-game scenario. The 23 scenarios run in parallel in about a minute, and each new one failed before its change.
+Janitor's Closet runs on RimWorld 1.7, and Tiers 1 and 2 from [the plan](reviews/plan.md) are done. Pure logic has unit tests (49), and glue to vanilla code has in-game scenarios (17), which run in parallel in about a minute. Each new test failed before its change. Scenarios that only checked def data or RimWorld's own behaviour were cut, since the harness now fails a run on load errors.
 
 Tier 3 is next, and each feature needs a design pass first; see [design notes](reviews/design-notes.md).
 
@@ -34,7 +34,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 - The glittervacuum gains +100% for pollution and weather buildup. Filth still cleans at half speed per tile.
 - Machine bits count as dry filth, and Anomaly's fleshmass debris as wet.
 - A cleaning frenzy inspiration doubles cleaning speed for four days.
-- Four backstories: janitor's kid, custodian, sanitation worker and ship's swab.
+- Four backstories: janitor's kid, custodian, sanitation worker and latrine keeper. Vanilla's starship janitor covers the spaceship cleaner; see [backstories](backstories.md).
 - A straw broom can be made from wood alone.
 - "Hazmat" is lowercase in labels and stat lines.
 - With Progression: Education and Biotech, the sprayer needs low-tech proficiency. A one-off run with PE and VE Framework from the workshop confirmed it.
@@ -52,7 +52,7 @@ Tier 3 is next, and each feature needs a design pass first; see [design notes](r
 
 ## Scenarios
 
-Scenarios live in feature folders under `harness/`: `Assignments`, `Cleaning`, `Crafting`, `FreshRooms`, `Inspirations`, `Performance`, `Settings` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
+Scenarios live in feature folders under `harness/`: `Assignments`, `Cleaning`, `FreshRooms`, `Performance` and `Tools`. `Scenarios.csproj` declares the mod once, and each block of a scenario starts with a one-line comment. Run them with `<archotech harness>/archo test harness --workers auto`.
 
 ## Archotech Harness
 
@@ -68,7 +68,6 @@ Both repos protect `main`: nobody can force-push, delete it or merge non-linear 
 ## Not yet verified in game
 
 - The glittervacuum's pollution bonus. Its snow bonus is verified, and both use the same stat part.
-- Backstories have no scenario. They load without errors.
 
 ## Next: Tier 3
 

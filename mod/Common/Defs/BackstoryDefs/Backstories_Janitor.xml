@@ -60,17 +60,19 @@
   </BackstoryDef>
 
   <BackstoryDef>
-    <defName>Janitor_ShipsSwab</defName>
-    <title>ship's swab</title>
-    <titleShort>swab</titleShort>
-    <description>[PAWN_nameDef] scrubbed the decks of a long-haul freighter, where a single loose crumb could jam an air scrubber and kill the crew.\n\n[PAWN_pronoun] picked up a little engineering from the crew, and a lot of bad songs.</description>
+    <defName>Janitor_LatrineKeeper</defName>
+    <title>latrine keeper</title>
+    <titleShort>keeper</titleShort>
+    <description>[PAWN_nameDef]'s tribe gave [PAWN_objective] the job nobody wanted: digging the latrine trenches, hauling the night soil to the fields, and sweeping the longhouse floor before the elders woke.
+
+[PAWN_pronoun] knows which plants grow best on what [PAWN_pronoun] carried, and nobody argues with someone holding the dung shovel.</description>
     <slot>Adulthood</slot>
     <spawnCategories>
-      <li>Offworld</li>
+      <li>Tribal</li>
     </spawnCategories>
     <skillGains>
-      <Construction>2</Construction>
-      <Intellectual>1</Intellectual>
+      <Plants>2</Plants>
+      <Melee>1</Melee>
     </skillGains>
     <requiredWorkTags>
       <li>Cleaning</li>
